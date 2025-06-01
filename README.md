@@ -1,6 +1,6 @@
-# AtomDirectory
+# MicroDirectory
 
-**AtomDirectory** is a modular and extensible file and directory management system. It provides a clean, customizable architecture for organizing, accessing, and managing file structures—ideal for projects that require flexible file handling.
+**MicroDirectory** is a modular and extensible file and directory management system. It provides a clean, customizable architecture for organizing, accessing, and managing file structures—ideal for projects that require flexible file handling.
 
 ## 🚀 Features
 
