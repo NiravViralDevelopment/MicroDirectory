@@ -14,7 +14,7 @@ return [
     | other UI elements where an application name needs to be displayed.
     |
     */
-
+    //perfect
     'name' => env('APP_NAME', 'Laravel'),
 
     /*
@@ -123,13 +123,13 @@ return [
     | Supported drivers: "file", "cache"
     |
     */
-    
+
 
     'maintenance' => [
         'driver' => env('APP_MAINTENANCE_DRIVER', 'file'),
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
-    
+
 
 ];
