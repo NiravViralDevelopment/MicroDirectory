@@ -8,13 +8,19 @@ use Illuminate\Database\Eloquent\Model;
 class VideoGallery extends Model
 {
     use HasFactory;
+    protected $table = 'video_galleries';  // Optional if table name follows Laravel convention
 
     protected $fillable = [
+        'user_id',
         'link',
-        'is_active'
+        'is_active',
     ];
 
-    protected $casts = [
-        'is_active' => 'boolean'
-    ];
-} 
+
+
+     public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+}

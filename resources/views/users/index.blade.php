@@ -255,25 +255,33 @@
                             @endif
                             </td>
                             <td>
-                                <div class="ThreeBtns">
-                                    <a href="{{ route('user-images.create', ['user_id' => $user->id]) }}" class="btn btn-sm btn-info me-1" data-bs-toggle="tooltip" title="Add Image">
-                                        <i class="bi bi-image"></i>
-                                    </a>
-                                    <a href="{{ route('video-galleries.create', ['user_id' => $user->id]) }}" class="btn btn-sm btn-warning me-1" data-bs-toggle="tooltip" title="Add Video">
-                                        <i class="bi bi-camera-video"></i>
-                                    </a>
-                                    <a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-primary me-1" data-bs-toggle="tooltip" title="Edit">
-                                        <i class="bi bi-pencil"></i>
-                                    </a>
-                                    <form action="{{ route('users.destroy', $user->id) }}" method="POST" class="d-inline">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-danger" data-bs-toggle="tooltip" title="Delete" onclick="return confirm('Are you sure you want to delete this user?')">
-                                            <i class="bi bi-trash"></i>
-                                        </button>
-                                    </form>
-                                </div>
-                            </td>
+                            <div class="ThreeBtns">
+                                <a href="{{ route('user-images.create', ['user_id' => $user->id]) }}" class="btn btn-sm btn-info me-1" data-bs-toggle="tooltip" title="Add Image">
+                                    <i class="bi bi-image"></i>
+                                </a>
+
+                                <a href="{{ route('manage-documents.create', ['user_id' => $user->id]) }}" class="btn btn-sm btn-info me-1" data-bs-toggle="tooltip" title="Add Document">
+                                    <i class="bi bi-file-earmark-text"></i>
+                                </a>
+
+                                <a href="{{ route('video-galleries.create', ['user_id' => $user->id]) }}" class="btn btn-sm btn-warning me-1" data-bs-toggle="tooltip" title="Add Video">
+                                    <i class="bi bi-camera-video"></i>
+                                </a>
+
+                                <a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-primary me-1" data-bs-toggle="tooltip" title="Edit">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
+
+                                <form action="{{ route('users.destroy', $user->id) }}" method="POST" class="d-inline">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-sm btn-danger" data-bs-toggle="tooltip" title="Delete" onclick="return confirm('Are you sure you want to delete this user?')">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+
                         </tr>
                     @endforeach
                 </tbody>

@@ -20,6 +20,8 @@ use App\Http\Controllers\VideoGalleryController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use App\Http\Controllers\ManageDocumentController;
+
 
 Route::get('/', [FrontController::class, 'frontHome'])->name('front.home');
 Route::get('directory-list/{slug}', [FrontController::class, 'directoryList'])->name('directory.list');
@@ -52,13 +54,13 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('cms', CmsController::class);
     Route::resource('roles', RoleController::class);
     Route::get('role-status/{id}', [RoleController::class, 'statusChange'])->name('role.status');
-    
+
     Route::resource('experiences', ExperienceController::class);
     Route::get('experiences-status/{id}', [ExperienceController::class, 'experienceChange'])->name('experiences.status');
-    
+
     Route::resource('languages', LanguageController::class);
     Route::get('language-status/{id}', [LanguageController::class, 'languageChange'])->name('language.status');
-    
+
     Route::resource('users', UserController::class);
     Route::resource('products', ProductController::class);
     Route::get('product-status/{id}', [ProductController::class, 'productChange'])->name('product.status');
@@ -94,23 +96,18 @@ Route::group(['middleware' => ['auth']], function() {
 
     // User Image Routes
 
-        Route::get('user-images', [UserImageController::class, 'index'])->name('user-images.index');
-        Route::get('user-images/create', [UserImageController::class, 'create'])->name('user-images.create');
-        Route::post('user-images', [UserImageController::class, 'store'])->name('user-images.store');
-        Route::get('user-images/{userImage}', [UserImageController::class, 'show'])->name('user-images.show');
-        Route::get('user-images/{userImage}/edit', [UserImageController::class, 'edit'])->name('user-images.edit');
-        Route::put('user-images/{userImage}', [UserImageController::class, 'update'])->name('user-images.update');
-        Route::delete('user-images/{userImage}', [UserImageController::class, 'destroy'])->name('user-images.destroy');
+       Route::get('user-images', [UserImageController::class, 'index'])->name('user-images.index');
+Route::get('user-images/create', [UserImageController::class, 'create'])->name('user-images.create');
+Route::post('user-images', [UserImageController::class, 'store'])->name('user-images.store');
+Route::get('user-images/{userImage}/edit', [UserImageController::class, 'edit'])->name('user-images.edit');
+Route::put('user-images/{userImage}', [UserImageController::class, 'update'])->name('user-images.update');
+Route::delete('user-images/{userImage}', [UserImageController::class, 'destroy'])->name('user-images.destroy');
 
 
-    // Video Gallery Routes
-    Route::get('video-galleries', [VideoGalleryController::class, 'index'])->name('video-galleries.index');
-    Route::get('video-galleries/create', [VideoGalleryController::class, 'create'])->name('video-galleries.create');
-    Route::post('video-galleries', [VideoGalleryController::class, 'store'])->name('video-galleries.store');
-    Route::get('video-galleries/{videoGallery}', [VideoGalleryController::class, 'show'])->name('video-galleries.show');
-    Route::get('video-galleries/{videoGallery}/edit', [VideoGalleryController::class, 'edit'])->name('video-galleries.edit');
-    Route::put('video-galleries/{videoGallery}', [VideoGalleryController::class, 'update'])->name('video-galleries.update');
-    Route::delete('video-galleries/{videoGallery}', [VideoGalleryController::class, 'destroy'])->name('video-galleries.destroy');
+        Route::resource('video-galleries', VideoGalleryController::class);
+        Route::resource('manage-documents', ManageDocumentController::class);
+
+
 });
 
 // Signature PDF Routes
@@ -124,9 +121,9 @@ Route::get('get-by-country', [StateController::class, 'getByCountry'])
 
 Route::middleware(['auth', 'web'])->group(function () {
     // ... other routes ...
-    
+
     // States CRUD routes
     Route::resource('states', StateController::class);
-    
+
     // ... other routes ...
 });

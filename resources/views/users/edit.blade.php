@@ -405,8 +405,8 @@
 
 <!-- Styles -->
 <style>
-    .error { 
-        color: red; 
+    .error {
+        color: red;
         display: block;
         margin-top: 5px;
         font-size: 0.875rem;
