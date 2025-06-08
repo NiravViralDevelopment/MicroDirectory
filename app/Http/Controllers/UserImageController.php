@@ -9,20 +9,25 @@ use Illuminate\Support\Facades\Storage;
 
 class UserImageController extends Controller
 {
+    
     /**
      * Display a listing of the resource.
      */
     public function index(Request $request)
     {
-        $query = UserImage::with('user');
-        
-        if ($request->has('user_id')) {
-            $query->where('user_id', $request->user_id);
+        try {
+            $query = UserImage::with('user');
+            
+            if ($request->has('user_id')) {
+                $query->where('user_id', $request->user_id);
+            }
+            
+            $images = $query->latest()->get();
+            
+            return view('user-images.index', compact('images'));
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Error accessing user images: ' . $e->getMessage());
         }
-        
-        $images = $query->latest()->get();
-            dd("yed");
-        return view('user-images.index', compact('images'));
     }
 
     /**
@@ -30,8 +35,12 @@ class UserImageController extends Controller
      */
     public function create(Request $request)
     {
-        $selectedUserId = $request->query('user_id');
-        return view('user-images.create', compact('selectedUserId'));
+        try {
+            $selectedUserId = $request->query('user_id');
+            return view('user-images.create', compact('selectedUserId'));
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Error creating user image: ' . $e->getMessage());
+        }
     }
 
     /**
@@ -39,30 +48,34 @@ class UserImageController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'user_id' => 'required|exists:users,id',
-            'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
-            'status' => 'boolean'
-        ]);
-
-        if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $imageName = time() . '.' . $image->getClientOriginalExtension();
-            
-            // Store in storage/app/public/user-images
-            $image->storeAs('public/user-images', $imageName);
-
-            UserImage::create([
-                'user_id' => $request->user_id,
-                'image' => 'user-images/' . $imageName,
-                'status' => $request->status ?? false
+        try {
+            $request->validate([
+                'user_id' => 'required|exists:users,id',
+                'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+                'status' => 'boolean'
             ]);
 
-            return redirect()->route('user-images.index')
-                ->with('success', 'User image uploaded successfully.');
-        }
+            if ($request->hasFile('image')) {
+                $image = $request->file('image');
+                $imageName = time() . '.' . $image->getClientOriginalExtension();
+                
+                // Store in storage/app/public/user-images
+                $image->storeAs('public/user-images', $imageName);
 
-        return back()->with('error', 'Failed to upload image.');
+                UserImage::create([
+                    'user_id' => $request->user_id,
+                    'image' => 'user-images/' . $imageName,
+                    'status' => $request->status ?? false
+                ]);
+
+                return redirect()->route('user-images.index', ['user_id' => $request->user_id])
+                    ->with('success', 'User image uploaded successfully.');
+            }
+
+            return back()->with('error', 'Failed to upload image.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Error storing user image: ' . $e->getMessage());
+        }
     }
 
     /**
@@ -70,7 +83,11 @@ class UserImageController extends Controller
      */
     public function show(UserImage $userImage)
     {
-        return view('user-images.show', compact('userImage'));
+        try {
+            return view('user-images.show', compact('userImage'));
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Error showing user image: ' . $e->getMessage());
+        }
     }
 
     /**
@@ -78,8 +95,11 @@ class UserImageController extends Controller
      */
     public function edit(UserImage $userImage)
     {
-        $users = User::all();
-        return view('user-images.edit', compact('userImage', 'users'));
+        try {
+            return view('user-images.edit', compact('userImage'));
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Error editing user image: ' . $e->getMessage());
+        }
     }
 
     /**
@@ -87,38 +107,42 @@ class UserImageController extends Controller
      */
     public function update(Request $request, UserImage $userImage)
     {
-        $request->validate([
-            'user_id' => 'required|exists:users,id',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-            'status' => 'boolean'
-        ]);
+        try {
+            $request->validate([
+                'user_id' => 'required|exists:users,id',
+                'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+                'status' => 'boolean'
+            ]);
 
-        if ($request->hasFile('image')) {
-            // Delete old image
-            if ($userImage->image) {
-                Storage::delete('public/' . $userImage->image);
+            if ($request->hasFile('image')) {
+                // Delete old image
+                if ($userImage->image) {
+                    Storage::delete('public/' . $userImage->image);
+                }
+
+                $image = $request->file('image');
+                $imageName = time() . '.' . $image->getClientOriginalExtension();
+                
+                // Store in storage/app/public/user-images
+                $image->storeAs('public/user-images', $imageName);
+
+                $userImage->update([
+                    'user_id' => $request->user_id,
+                    'image' => 'user-images/' . $imageName,
+                    'status' => $request->status ?? false
+                ]);
+            } else {
+                $userImage->update([
+                    'user_id' => $request->user_id,
+                    'status' => $request->status ?? false
+                ]);
             }
 
-            $image = $request->file('image');
-            $imageName = time() . '.' . $image->getClientOriginalExtension();
-            
-            // Store in storage/app/public/user-images
-            $image->storeAs('public/user-images', $imageName);
-
-            $userImage->update([
-                'user_id' => $request->user_id,
-                'image' => 'user-images/' . $imageName,
-                'status' => $request->status ?? false
-            ]);
-        } else {
-            $userImage->update([
-                'user_id' => $request->user_id,
-                'status' => $request->status ?? false
-            ]);
+            return redirect()->route('user-images.index', ['user_id' => $request->user_id])
+                ->with('success', 'User image updated successfully.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Error updating user image: ' . $e->getMessage());
         }
-
-        return redirect()->route('user-images.index')
-            ->with('success', 'User image updated successfully.');
     }
 
     /**
@@ -126,13 +150,17 @@ class UserImageController extends Controller
      */
     public function destroy(UserImage $userImage)
     {
-        if ($userImage->image) {
-            Storage::delete('public/' . $userImage->image);
-        }
-        
-        $userImage->delete();
+        try {
+            if ($userImage->image) {
+                Storage::delete('public/' . $userImage->image);
+            }
+            
+            $userImage->delete();
 
-        return redirect()->route('user-images.index')
-            ->with('success', 'User image deleted successfully.');
+            return redirect()->route('user-images.index', ['user_id' => $userImage->user_id])
+                ->with('success', 'User image deleted successfully.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Error deleting user image: ' . $e->getMessage());
+        }
     }
 } 

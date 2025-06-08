@@ -16,6 +16,7 @@ use App\Http\Controllers\CmsController;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserImageController;
+use App\Http\Controllers\VideoGalleryController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -92,8 +93,24 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('pdf-selected-ids', [ManageOrderController::class, 'pdfDwnload'])->name('pdf-selected-ids');
 
     // User Image Routes
-    Route::resource('user-images', UserImageController::class);
-    Route::get('user-images/user/{user_id}', [UserImageController::class, 'index'])->name('user-images.user');
+
+        Route::get('user-images', [UserImageController::class, 'index'])->name('user-images.index');
+        Route::get('user-images/create', [UserImageController::class, 'create'])->name('user-images.create');
+        Route::post('user-images', [UserImageController::class, 'store'])->name('user-images.store');
+        Route::get('user-images/{userImage}', [UserImageController::class, 'show'])->name('user-images.show');
+        Route::get('user-images/{userImage}/edit', [UserImageController::class, 'edit'])->name('user-images.edit');
+        Route::put('user-images/{userImage}', [UserImageController::class, 'update'])->name('user-images.update');
+        Route::delete('user-images/{userImage}', [UserImageController::class, 'destroy'])->name('user-images.destroy');
+
+
+    // Video Gallery Routes
+    Route::get('video-galleries', [VideoGalleryController::class, 'index'])->name('video-galleries.index');
+    Route::get('video-galleries/create', [VideoGalleryController::class, 'create'])->name('video-galleries.create');
+    Route::post('video-galleries', [VideoGalleryController::class, 'store'])->name('video-galleries.store');
+    Route::get('video-galleries/{videoGallery}', [VideoGalleryController::class, 'show'])->name('video-galleries.show');
+    Route::get('video-galleries/{videoGallery}/edit', [VideoGalleryController::class, 'edit'])->name('video-galleries.edit');
+    Route::put('video-galleries/{videoGallery}', [VideoGalleryController::class, 'update'])->name('video-galleries.update');
+    Route::delete('video-galleries/{videoGallery}', [VideoGalleryController::class, 'destroy'])->name('video-galleries.destroy');
 });
 
 // Signature PDF Routes

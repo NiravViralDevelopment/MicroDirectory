@@ -11,18 +11,12 @@ class UserImage extends Model
 
     protected $fillable = [
         'user_id',
-        'image_path',
-        'image_name',
-        'image_type',
-        'image_size',
-        'is_profile',
-        'is_active'
+        'image',
+        'status'
     ];
 
     protected $casts = [
-        'is_profile' => 'boolean',
-        'is_active' => 'boolean',
-        'image_size' => 'integer'
+        'status' => 'boolean'
     ];
 
     /**

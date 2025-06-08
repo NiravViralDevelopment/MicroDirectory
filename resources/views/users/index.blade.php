@@ -256,21 +256,21 @@
                             </td>
                             <td>
                                 <div class="ThreeBtns">
-                                    <a href="{{ url('user-images?user_id=' . $user->id) }}" title="View User Images">
-                                      <i class="btn btn-outline-info btn-sm bi bi-images"></i>
+                                    <a href="{{ route('user-images.create', ['user_id' => $user->id]) }}" class="btn btn-sm btn-info me-1" data-bs-toggle="tooltip" title="Add Image">
+                                        <i class="bi bi-image"></i>
                                     </a>
-                                    <a href="{{ route('users.show', $user->id) }}">
-                                      <i class="btn btn-outline-success btn-sm bi bi-eye-fill"></i>
+                                    <a href="{{ route('video-galleries.create', ['user_id' => $user->id]) }}" class="btn btn-sm btn-warning me-1" data-bs-toggle="tooltip" title="Add Video">
+                                        <i class="bi bi-camera-video"></i>
                                     </a>
-                                    <a href="{{ route('users.edit', $user->id) }}">
-                                      <i class="bi bi-pencil-square btn btn-outline-primary btn-sm"></i>
+                                    <a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-primary me-1" data-bs-toggle="tooltip" title="Edit">
+                                        <i class="bi bi-pencil"></i>
                                     </a>
                                     <form action="{{ route('users.destroy', $user->id) }}" method="POST" class="d-inline">
-                                      @csrf
-                                      @method('DELETE')
-                                      <button type="submit" class="btn btn-outline-danger btn-sm" onclick="return confirm('Are you sure you want to delete this user?')">
-                                        <i class="bi bi-trash"></i>
-                                      </button>
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-sm btn-danger" data-bs-toggle="tooltip" title="Delete" onclick="return confirm('Are you sure you want to delete this user?')">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
                                     </form>
                                 </div>
                             </td>
