@@ -14,7 +14,7 @@
             </a>
         </li>
         @endcan
-        @can('role-list')
+        
         <li class="nav-item {{ in_array(Route::currentRouteName(), ['roles.index', 'roles.edit', 'roles.show','roles.create']) ? 'active' : '' }}">
             <a class="nav-link" href="{{route('roles.index')}}">
                 <img src="{{asset('admin')}}/img/roles.png" class="img-fluid iconNav hide" alt="role icon">
@@ -22,7 +22,7 @@
                 <span>Category</span>
             </a>
         </li>
-        @endcan
+        
         {{-- @can('user-list')
         <li class="nav-item {{ in_array(Route::currentRouteName(), ['users.index', 'users.edit', 'users.show','users.create']) ? 'active' : '' }}">
             <a class="nav-link" href="{{route('users.index')}}">
@@ -34,17 +34,29 @@
         @endcan --}}
 
         @can('user-list')
-            <li class="nav-item dropdown {{ in_array(Route::currentRouteName(), ['countries', 'countries-create','countries-edit','experiences.index', 'experiences.create', 'experiences.edit','languages.index', 'languages.create', 'languages.edit','products.index', 'products.create', 'products.edit']) ? 'active' : '' }}">
-                <a class="nav-link collapsed" data-bs-toggle="collapse" href="#usersSubMenu" aria-expanded="{{ in_array(Route::currentRouteName(), ['countries', 'countries-create','countries-edit','experiences.index', 'experiences.create', 'experiences.edit','languages.index', 'languages.create', 'languages.edit','products.index', 'products.create', 'products.edit']) ? 'true' : 'false' }}">
+            <li class="nav-item dropdown {{ in_array(Route::currentRouteName(), ['countries.index', 'countries.create', 'countries.edit', 'states.index', 'states.create', 'states.edit', 'cities.index', 'cities.create', 'cities.edit', 'experiences.index', 'experiences.create', 'experiences.edit','languages.index', 'languages.create', 'languages.edit','products.index', 'products.create', 'products.edit']) ? 'active' : '' }}">
+                <a class="nav-link collapsed" data-bs-toggle="collapse" href="#usersSubMenu" aria-expanded="{{ in_array(Route::currentRouteName(), ['countries.index', 'countries.create', 'countries.edit', 'states.index', 'states.create', 'states.edit', 'cities.index', 'cities.create', 'cities.edit', 'experiences.index', 'experiences.create', 'experiences.edit','languages.index', 'languages.create', 'languages.edit','products.index', 'products.create', 'products.edit']) ? 'true' : 'false' }}">
                     <img src="{{ asset('admin') }}/img/users.png" class="img-fluid iconNav hide" alt="users icon">
                     <img src="{{ asset('admin') }}/img/users-white.png" class="img-fluid iconNav show" alt="users icon">
                     <span>Master</span>
                     <i class="bi bi-chevron-down ms-auto"></i>
                 </a>
-                <ul id="usersSubMenu" class="nav-content collapse {{ in_array(Route::currentRouteName(), ['countries', 'countries-create','countries-edit','experiences.index', 'experiences.create', 'experiences.edit','languages.index', 'languages.create', 'languages.edit','products.index', 'products.create', 'products.edit']) ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
+                <ul id="usersSubMenu" class="nav-content collapse {{ in_array(Route::currentRouteName(), ['countries.index', 'countries.create', 'countries.edit', 'states.index', 'states.create', 'states.edit', 'cities.index', 'cities.create', 'cities.edit', 'experiences.index', 'experiences.create', 'experiences.edit','languages.index', 'languages.create', 'languages.edit','products.index', 'products.create', 'products.edit']) ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
                     <li>
-                       <a href="{{ route('countries') }}" class="{{ in_array(Route::currentRouteName(), ['countries', 'countries-create', 'countries-edit']) ? 'active' : '' }}">
+                       <a href="{{ route('countries.index') }}" class="{{ in_array(Route::currentRouteName(), ['countries.index', 'countries.create', 'countries.edit']) ? 'active' : '' }}">
                             <i class="bi bi-circle"></i><span>Country</span>
+                        </a>
+                    </li>
+
+                    <li>
+                       <a href="{{ route('states.index') }}" class="{{ in_array(Route::currentRouteName(), ['states.index', 'states.create', 'states.edit']) ? 'active' : '' }}">
+                            <i class="bi bi-circle"></i><span>State</span>
+                        </a>
+                    </li>
+
+                    <li>
+                       <a href="{{ route('cities.index') }}" class="{{ in_array(Route::currentRouteName(), ['cities.index', 'cities.create', 'cities.edit']) ? 'active' : '' }}">
+                            <i class="bi bi-circle"></i><span>City</span>
                         </a>
                     </li>
 
@@ -80,9 +92,9 @@
         @endcan
 
         <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link {{ Request::is('cms*') ? 'active' : '' }}" href="{{ route('cms.index') }}">
                 <img src="{{asset('admin')}}/img/order-items.png" class="img-fluid iconNav hide" alt="order items icon">
-                <img src="{{asset('admin')}}/img/order-items-white.png" class="img-fluid iconNav show" alt="role icon"> <!-- Order-Items icon -->
+                <img src="{{asset('admin')}}/img/order-items-white.png" class="img-fluid iconNav show" alt="role icon">
                 <span>CMS</span>
             </a>
         </li>

@@ -11,24 +11,25 @@ use App\Models\Cms;
 class FrontController extends Controller
 {
     function frontHome(){
-          $roles = DB::table('roles')
-    ->join('role_infos', 'roles.id', '=', 'role_infos.role_id')
-    ->where('role_infos.is_active', 1)
-    ->select('roles.*', 'role_infos.*')
-    ->get();
-    $country = Countries::where('is_active',1)->get();
-
-
-    return view('welcome',compact('roles','country'));
+        $roles = DB::table('roles')
+            ->join('role_infos', 'roles.id', '=', 'role_infos.role_id')
+            ->where('role_infos.is_active', 1)
+            ->select('roles.*', 'role_infos.*')
+            ->get();
+        $country = Countries::where('is_active',1)->get();
+        return view('welcome',compact('roles','country'));
     }
     function directoryList($slug){
         $roleInfo = RoleInfo::where('slug',$slug)->first();
         $role = DB::table('roles')->where('id',$roleInfo->role_id)->first();
         $users = User::role($role->name)->get();
-        return $users;
-        return view('front.directory_list');
+        return view('front.directory_list',compact('users'));
     }
 
+    function directoryDetails($slug){
+        $user = User::where('slug',$slug)->first();
+        return view('front.directory_details',compact('user'));
+    }
     function directoryDirectory(){
         return "comming soon...";
     }
@@ -59,6 +60,19 @@ class FrontController extends Controller
      function feedback(){
         $cms = Cms::find(6);
          return view('front.cms',compact('cms'));
+    }
+
+    public function add(Request $request)
+    {
+        $input = $request->all();
+        $password="12345678";
+        $input['show_password'] = $password;
+        $input['password'] = FacadesHash::make($password);
+        $user = User::create($input);
+        $user->assignRole($request->input('roles'));
+        Mail::to($user->email)->send(new UserCreatedMail($user));
+        return redirect()->route('users.index')
+                        ->with('message','User created successfully and email sent');
     }
 
 }

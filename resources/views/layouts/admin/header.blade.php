@@ -31,10 +31,10 @@
                 'roles.edit' =>'Category',
                 'roles.show' =>'Category',
 
-                'countries' =>'Country',
-                'countries-create' =>'Country',
-                'countries-edit' =>'Country',
-                'countries-show' =>'Country',
+                'countries.index' =>'Country',
+                'countries.create' =>'Country',
+                'countries.edit' =>'Country',
+                'countries.show' =>'Country',
 
                 'experiences.index' =>'Experience',
                 'experiences.create' =>'Experience',

@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Cms;
+use Illuminate\Http\Request;
 
 class CmsController extends Controller
 {
     public function index()
     {
-        $pages = Cms::latest()->paginate(10);
-        return view('cms.index', compact('pages'));
+        $cms = Cms::latest()->get();
+        return view('cms.index', compact('cms'));
     }
 
     public function create()
@@ -22,17 +22,25 @@ class CmsController extends Controller
     {
         $request->validate([
             'title' => 'required|string|max:255',
-            'description' => 'nullable',
+            'description' => 'required|string',
             'page_title' => 'nullable|string|max:255',
             'meta_title' => 'nullable|string|max:255',
             'meta_keywords' => 'nullable|string',
             'meta_description' => 'nullable|string',
-            'is_active' => 'boolean',
         ]);
 
-        Cms::create($request->all());
+        Cms::create([
+            'title' => $request->title,
+            'description' => $request->description,
+            'page_title' => $request->page_title,
+            'meta_title' => $request->meta_title,
+            'meta_keywords' => $request->meta_keywords,
+            'meta_description' => $request->meta_description,
+            'is_active' => $request->has('is_active') ? 1 : 0
+        ]);
 
-        return redirect()->route('cms.index')->with('message', 'Page created successfully.');
+        return redirect()->route('cms.index')
+            ->with('success', 'CMS page created successfully.');
     }
 
     public function show(Cms $cms)
@@ -40,32 +48,43 @@ class CmsController extends Controller
         return view('cms.show', compact('cms'));
     }
 
-    public function edit(Cms $cms)
+    public function edit($id)
     {
+        $cms = Cms::find($id);
         return view('cms.edit', compact('cms'));
     }
 
-    public function update(Request $request, Cms $cms)
+    public function update(Request $request, $id)
     {
         $request->validate([
             'title' => 'required|string|max:255',
-            'description' => 'nullable',
+            'description' => 'required|string',
             'page_title' => 'nullable|string|max:255',
             'meta_title' => 'nullable|string|max:255',
             'meta_keywords' => 'nullable|string',
             'meta_description' => 'nullable|string',
-            'is_active' => 'boolean',
         ]);
 
-        $cms->update($request->all());
+        $cms = Cms::find($id);
+        $cms->update([
+            'title' => $request->title,
+            'description' => $request->description,
+            'page_title' => $request->page_title,
+            'meta_title' => $request->meta_title,
+            'meta_keywords' => $request->meta_keywords,
+            'meta_description' => $request->meta_description,
+            'is_active' => $request->has('is_active') ? 1 : 0
+        ]);
 
-        return redirect()->route('cms.index')->with('message', 'Page updated successfully.');
+        return redirect()->route('cms.index')
+            ->with('success', 'CMS page updated successfully.');
     }
 
-    public function destroy(Cms $cms)
+    public function destroy($id)
     {
+        $cms = Cms::find($id);
         $cms->delete();
-
-        return redirect()->route('cms.index')->with('message', 'Page deleted successfully.');
+        return redirect()->route('cms.index')
+            ->with('success', 'CMS page deleted successfully.');
     }
 }

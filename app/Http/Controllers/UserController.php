@@ -46,8 +46,9 @@ class UserController extends Controller
         return view('users.create',compact('roles','experiences','languages','others'));
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request)
     {
+
 
 
         $this->validate($request, [
@@ -57,10 +58,22 @@ class UserController extends Controller
             'roles' => 'required'
         ]);
 
+         $uploaded = '';
+        if ($request->hasFile('image'))
+        {
+            $image = $request->file('image');
+            $uploaded = time() . '.' . $image->getClientOriginalExtension();
+            $destinationPath = public_path('/all_image');
+            $image->move($destinationPath, $uploaded);
+        }
+
+
+
         $input = $request->all();
         $input['show_password'] = $request->password;
         $input['password'] = FacadesHash::make($input['password']);
-        return $input;
+        $input['image'] = $uploaded;
+
         $user = User::create($input);
         $user->assignRole($request->input('roles'));
         Mail::to($user->email)->send(new UserCreatedMail($user));
@@ -91,8 +104,11 @@ class UserController extends Controller
         $user = User::find($id);
         $roles = Role::pluck('name','name')->all();
         $userRole = $user->roles->pluck('name','name')->all();
+        $experiences = Experience::where('is_active',1)->get();
+        $languages = Language::where('is_active',1)->get();
+        $others = Product::where('is_active',1)->get();
 
-        return view('users.edit',compact('user','roles','userRole'));
+        return view('users.edit', compact('user', 'roles', 'userRole', 'experiences', 'languages', 'others'));
     }
 
     /**
@@ -108,7 +124,7 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required|email|unique:users,email,'.$id,
             'password' => 'same:confirm-password',
-            'roles' => 'required'
+            // 'roles' => 'required'
         ]);
 
         $input = $request->all();

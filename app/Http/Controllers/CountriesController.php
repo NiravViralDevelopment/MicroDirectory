@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Countries;
+use App\Models\Country;
 use App\Models\ManageOrder;
 use App\Models\OrderItem;
 use Illuminate\Http\Request;
@@ -11,57 +11,50 @@ class CountriesController extends Controller
 {
     public function index()
     {
-        $data = Countries::orderBy('id','desc')->get();
-        return view('countries.index', compact('data'));
+        $countries = Country::orderBy('id', 'desc')->get();
+        return view('countries.index', compact('countries'));
     }
 
-    public function Create()
+    public function create()
     {
         return view('countries.create');
     }
 
-    public function Store(request $request)
+    public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required',
+            'name' => 'required|min:2',
+            'code' => 'nullable|min:2|max:3',
+            'phone_code' => 'nullable|digits',
         ]);
-        $testimonial = new Countries();
-        $testimonial->country_name = $request->title;
-        $testimonial->is_active = $request->is_active;
-        $testimonial->save();
-        return redirect()->route('countries')->with('message', 'Data Created Successfully.');
+
+        Country::create($request->all());
+        return redirect()->route('countries')->with('message', 'Country created successfully.');
     }
 
-    public function Edit($id)
+    public function edit($id)
     {
-        $data = Countries::find($id);
-        return view('countries.edit', compact('data'));
+        $country = Country::findOrFail($id);
+        return view('countries.edit', compact('country'));
     }
 
-    function statusUpdate($id){
-        $role_info = Countries::find($id);
-            if($role_info->is_active == 1){
-                $status = 0;
-            }else{
-                $status = 1;
-            }
-            // return $status;
-            $role_info->is_active = $status;
-            $role_info->save();
-            return redirect()->back()->with('message','Status Changed.');
-    }
-
-
-
-    public function Update(request $request, $id)
+    public function update(Request $request, $id)
     {
-        $testimonial = Countries::find($id);
         $request->validate([
-            'title' => 'required',
+            'name' => 'required|min:2',
+            'code' => 'nullable|min:2|max:3',
+            'phone_code' => 'nullable|digits',
         ]);
-        $testimonial->country_name = $request->title;
-        $testimonial->is_active = $request->is_active;
-        $testimonial->save();
-        return redirect()->route('countries')->with('message', 'Data Updated Successfully.');
+
+        $country = Country::findOrFail($id);
+        $country->update($request->all());
+        return redirect()->route('countries')->with('message', 'Country updated successfully.');
+    }
+
+    public function destroy($id)
+    {
+        $country = Country::findOrFail($id);
+        $country->delete();
+        return redirect()->route('countries')->with('message', 'Country deleted successfully.');
     }
 }

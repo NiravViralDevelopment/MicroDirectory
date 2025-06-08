@@ -53,8 +53,8 @@
     position: absolute;
     top: 0;
     left: 15px;
-    width: 20px; /* Smaller width */
-    height: 20px; /* Smaller height */
+    width: 20px;
+    height: 20px;
     border-radius: 50%;
   }
 
@@ -83,219 +83,206 @@
     margin-right: 8px;
   }
 
-    /* Custom styling for the search box */
-    .dataTables_filter {
-        text-align: left !important; /* Align search box to the left */
-    }
+  /* Custom styling for the search box */
+  .dataTables_filter {
+    text-align: left !important;
+  }
 
-    /* Styling the input box inside the search filter */
-    .dataTables_filter input {
-        background-color: red;  /* Red background color */
-        color: black;           /* Text color */
-        border: none;
-        padding: 5px;
-        border-radius: 4px;
-        padding-left: 30px;     /* Space for the magnifier icon */
-        background-image: url('https://cdn-icons-png.flaticon.com/512/622/622669.png'); /* Magnifier icon */
-        background-size: 20px;
-        background-position: 5px center;
-        background-repeat: no-repeat;
-        float: left;
-    }
+  .dataTables_filter input {
+    background-color: red;
+    color: black;
+    border: none;
+    padding: 5px;
+    border-radius: 4px;
+    padding-left: 30px;
+    background-image: url('https://cdn-icons-png.flaticon.com/512/622/622669.png');
+    background-size: 20px;
+    background-position: 5px center;
+    background-repeat: no-repeat;
+    float: left;
+  }
 
-    /* Optional: Hover effect */
-    .dataTables_filter input:focus {
-        outline: none;
-        background-color: darkred;
-    }
+  .dataTables_filter input:focus {
+    outline: none;
+    background-color: darkred;
+  }
 </style>
 <style>
-    /* Align the export button to the right */
-    .dt-buttons {
-        float: right;  /* Align the buttons to the right */
-    }
+  /* Align the export button to the right */
+  .dt-buttons {
+    float: right;
+  }
 
-    /* Custom styles for the export button */
-    .btn-export {
-        background-color: #007bff;  /* Bootstrap primary blue color */
-        color: white;
-        border-radius: 4px;
-        padding: 5px 10px;
-        border: none;
-        font-size: 14px;
-        float: right;
-    }
+  /* Custom styles for the export button */
+  .btn-export {
+    background-color: #007bff;
+    color: white;
+    border-radius: 4px;
+    padding: 5px 10px;
+    border: none;
+    font-size: 14px;
+    float: right;
+  }
 
-    .btn-export i {
-        margin-right: 5px;  /* Space between icon and text */
-    }
+  .btn-export i {
+    margin-right: 5px;
+  }
 
-    /* Change button color on hover */
-    .btn-export:hover {
-        background-color: #0056b3;  /* Darker blue */
-        color: white;
-    }
+  .btn-export:hover {
+    background-color: #0056b3;
+    color: white;
+  }
 
-    /* Ensure the search box aligns to the left */
-    .dataTables_filter {
-        text-align: left !important;
-    }
-    #datatable_filter{
-        float: left;
-    }
-    #datatable_wrapper > div.dt-buttons{
-        float: right;
-    }
-
-    /* Custom styling for the search input box */
-
+  .dataTables_filter {
+    text-align: left !important;
+  }
+  #datatable_filter{
+    float: left;
+  }
+  #datatable_wrapper > div.dt-buttons{
+    float: right;
+  }
 </style>
 <style>
-    /* Custom styling for the sort button */
-    .btn-sort {
-        background-color: #28a745;  /* Bootstrap success green color */
-        color: white;
-        border-radius: 4px;
-        padding: 5px 10px;
-        border: none;
-        font-size: 14px;
-        margin-left: 5px;  /* Add space between export and sort buttons */
-    }
+  /* Custom styling for the sort button */
+  .btn-sort {
+    background-color: #28a745;
+    color: white;
+    border-radius: 4px;
+    padding: 5px 10px;
+    border: none;
+    font-size: 14px;
+    margin-left: 5px;
+  }
 
-    .btn-sort i {
-        margin-right: 5px;  /* Space between icon and text */
-    }
+  .btn-sort i {
+    margin-right: 5px;
+  }
 
-    /* Change button color on hover */
-    .btn-sort:hover {
-        background-color: #218838;  /* Darker green */
-        color: white;
-    }
+  .btn-sort:hover {
+    background-color: #218838;
+    color: white;
+  }
 
-    /* Existing styles for the export button */
-    .btn-export {
-        background-color: #007bff;
-        color: white;
-        border-radius: 4px;
-        padding: 5px 10px;
-        border: none;
-        font-size: 14px;
-    }
+  .btn-export {
+    background-color: #007bff;
+    color: white;
+    border-radius: 4px;
+    padding: 5px 10px;
+    border: none;
+    font-size: 14px;
+  }
 
-    .btn-export i {
-        margin-right: 5px;
-    }
+  .btn-export i {
+    margin-right: 5px;
+  }
 
-    .btn-export:hover {
-        background-color: #0056b3;
-        color: white;
-    }
+  .btn-export:hover {
+    background-color: #0056b3;
+    color: white;
+  }
 
-    /* Align buttons to the right */
-    .dt-buttons {
-        float: right;
-    }
+  .dt-buttons {
+    float: right;
+  }
 
-    /* Custom styling for the search input box */
-    .dataTables_filter input {
-        background-color: red;
-        color: white;
-        border: none;
-        padding: 5px;
-        border-radius: 4px;
-        padding-left: 30px;
-        background-image: url('https://cdn-icons-png.flaticon.com/512/622/622669.png');
-        background-size: 20px;
-        background-position: 5px center;
-        background-repeat: no-repeat;
-    }
+  .dataTables_filter input {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 5px;
+    border-radius: 4px;
+    padding-left: 30px;
+    background-image: url('https://cdn-icons-png.flaticon.com/512/622/622669.png');
+    background-size: 20px;
+    background-position: 5px center;
+    background-repeat: no-repeat;
+  }
 
-    .dataTables_filter {
-        text-align: left !important;
-    }
+  .dataTables_filter {
+    text-align: left !important;
+  }
 </style>
+
 <section class="section">
-      <div class="row">
-        <div class="col-lg-12">
-
-          <div class="card">
-            <div class="card-body">
-                <div class="table-responsive">
-                  <table id="datatable" class="table">
-                <thead class="mobileHide">
-                <tr>
-                    <th>Id</th>
-                    <th>Page Name</th>
-                    <th>Active</th>
-                    <th>Action</th>
-                </tr>
-                </thead>
-                <tbody>
-                    @foreach ($pages as $key=>$item)
-                    <tr class="flexTbl">
-                        <td><span class="mobileShow">Id :</span> {{ $key + 1 }}</td>
-                        <td><span class="mobileShow">Experience :</span> {{ $item->title }}</td>
-                        <td>
-                            @if ($item && $item->is_active)
-                            <a href="{{route('experiences.status',$item->id)}}" onclick="return confirm('Are you sure?')"><span class="badge bg-success">Active</span></a>
-                            @else
-                            <a href="{{route('experiences.status',$item->id)}}" onclick="return confirm('Are you sure?')"><span class="badge bg-danger">Inactive</span></a>
-                            @endif
-                        </td>
-                        <td>
-                            <div class="ThreeBtns">
-                            <a href="{{ route('experiences.edit',$item->id) }}" class="bi bi-pencil-square btn btn-outline-primary btn-sm"></a>
-                            </div>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-              </table>
-              </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-body">
+          @if(session('success'))
+            <div class="alert alert-success">
+              {{ session('success') }}
             </div>
+          @endif
+          
+          <div class="table-responsive">
+            <table id="datatable" class="table">
+              <thead class="mobileHide">
+                <tr>
+                  <th>Id</th>
+                  <th>Title</th>
+                  <th>Page Title</th>
+                  <th>Meta Title</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                @foreach($cms as $key => $page)
+                  <tr class="flexTbl">
+                    <td><span class="mobileShow">Id :</span> {{ $key + 1 }}</td>
+                    <td><span class="mobileShow">Title :</span> {{ $page->title }}</td>
+                    <td><span class="mobileShow">Page Title :</span> {{ $page->page_title }}</td>
+                    <td><span class="mobileShow">Meta Title :</span> {{ $page->meta_title }}</td>
+                    <td>
+                      <span class="mobileShow">Status :</span>
+                      @if($page->is_active)
+                        <span class="badge badge-success">Active</span>
+                      @else
+                        <span class="badge badge-danger">Inactive</span>
+                      @endif
+                    </td>
+                    <td>
+                      <div class="ThreeBtns">
+                        <a href="{{ route('cms.edit', $page->id) }}" class="bi bi-pencil-square btn btn-outline-primary btn-sm"></a>
+                        <form action="{{ route('cms.destroy', $page->id) }}" method="POST" class="d-inline">
+                          @csrf
+                          @method('DELETE')
+                          <button type="submit" class="bi bi-trash btn btn-outline-danger btn-sm" onclick="return confirm('Are you sure you want to delete this page?')"></button>
+                        </form>
+                      </div>
+                    </td>
+                  </tr>
+                @endforeach
+              </tbody>
+            </table>
           </div>
-
         </div>
       </div>
-    </section>
+    </div>
+  </div>
+</section>
 
-    <script>
-      $(document).ready(function() {
-    var table = $('#datatable').DataTable({
-        dom: 'Bfrtip',
-        pageLength: 10,
-        buttons: [
-            // {
-            //     extend: 'excelHtml5',
-            //     text: '<img src="{{asset('admin')}}/img/export.png" class="iconbt img-fluid" alt="export icon"> Export',  // Adding upload icon and "Export" text
-            //     className: 'btn-export',  // Custom class for styling the button
-            //     exportOptions: {
-            //         // Ensure all rows are exported (not just visible ones)
-            //         columns: ':visible',
-            //         format: {
-            //             body: function (data, row, column, node) {
-            //                 // Use jQuery to remove span elements with 'mobileShow' class
-            //                 var strippedData = $('<div>').html(data).find('.mobileShow').remove().end().text();
-            //                 return strippedData.trim(); // Trim extra spaces
-            //             }
-            //         },
-            //         columns: ':not(:last-child)'
-            //     }
-            // },
-            {
-                text: '<img src="{{asset('admin')}}/img/plus-icon.png" class="iconbt img-fluid" alt="plus icon"> Add New',  // Adding a plus icon with "Add Order" text
-                className: 'btn-add-order greenBtn',  // Custom class for the button
-                action: function(e, dt, node, config) {
-                    window.location.href = "{{ route('cms.create') }}";  // Redirect to the order creation route
-                }
-            }
-        ],
-        language: {
-            search: " ",  // Hide default 'Search' label
-            searchPlaceholder: "Search"  // Placeholder for the search box
+<script>
+$(document).ready(function() {
+  var table = $('#datatable').DataTable({
+    dom: 'Bfrtip',
+    pageLength: 10,
+    buttons: [
+      {
+        text: '<img src="{{asset('admin')}}/img/plus-icon.png" class="iconbt img-fluid" alt="plus icon"> Add New',
+        className: 'btn-add-order greenBtn',
+        action: function(e, dt, node, config) {
+          window.location.href = "{{ route('cms.create') }}";
         }
-    });
+      }
+    ],
+    language: {
+      search: " ",
+      searchPlaceholder: "Search"
+    }
+  });
 });
-  </script>
+</script>
 @endsection
 

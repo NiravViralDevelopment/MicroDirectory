@@ -1,0 +1,18 @@
+Options +Indexes +FollowSymLinks
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /uploads/
+    
+    # Allow direct access to all files
+    RewriteCond %{REQUEST_FILENAME} -f
+    RewriteRule ^ - [L]
+</IfModule>
+
+# Allow access to all files in this directory
+<Files *>
+    Order Allow,Deny
+    Allow from all
+</Files>
+
+# Enable directory listing
+Options +Indexes 

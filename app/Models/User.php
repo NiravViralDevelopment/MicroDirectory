@@ -23,6 +23,29 @@ class User extends Authenticatable
         'email',
         'show_password',
         'password',
+        'facebook',
+        'website',
+        'whatsup',
+        'country_id',
+        'state_id',
+        'city_id',
+        'age',
+        'gender',
+        'image',
+        'experience',
+        'language',
+        'other',
+        'page_title',
+        'meta_title',
+        'description',
+        'short_description',
+        'meta_description',
+        'meta_keyword',
+        'is_active',
+        'is_featured',
+        'is_locked',
+        'is_block',
+        'slug',
     ];
 
     /**
@@ -46,5 +69,21 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    /**
+     * Get the images for the user.
+     */
+    public function images()
+    {
+        return $this->hasMany(UserImage::class);
+    }
+
+    /**
+     * Get the user's profile image.
+     */
+    public function profileImage()
+    {
+        return $this->hasOne(UserImage::class)->where('is_profile', true);
     }
 }

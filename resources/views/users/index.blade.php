@@ -256,15 +256,23 @@
                             </td>
                             <td>
                                 <div class="ThreeBtns">
-                                    <a  href="{{ route('users.show',$user->id) }}"><i class="btn btn-outline-success btn-sm bi bi-eye-fill"></i> </a>
-                                    <a  href="{{ route('users.edit',$user->id) }}"><i class="bi bi-pencil-square btn btn-outline-primary btn-sm"></i> </a>
+                                    <a href="{{ url('user-images?user_id=' . $user->id) }}" title="View User Images">
+                                      <i class="btn btn-outline-info btn-sm bi bi-images"></i>
+                                    </a>
+                                    <a href="{{ route('users.show', $user->id) }}">
+                                      <i class="btn btn-outline-success btn-sm bi bi-eye-fill"></i>
+                                    </a>
+                                    <a href="{{ route('users.edit', $user->id) }}">
+                                      <i class="bi bi-pencil-square btn btn-outline-primary btn-sm"></i>
+                                    </a>
+                                    <form action="{{ route('users.destroy', $user->id) }}" method="POST" class="d-inline">
+                                      @csrf
+                                      @method('DELETE')
+                                      <button type="submit" class="btn btn-outline-danger btn-sm" onclick="return confirm('Are you sure you want to delete this user?')">
+                                        <i class="bi bi-trash"></i>
+                                      </button>
+                                    </form>
                                 </div>
-                                <!-- <form method="POST" action="{{ route('users.destroy', $user->id) }}" style="display:inline">
-                                    @csrf
-                                    @method('DELETE')
-
-                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i> Delete</button>
-                                </form> -->
                             </td>
                         </tr>
                     @endforeach
@@ -318,5 +326,18 @@
     });
 });
   </script>
+
+<style>
+  .ThreeBtns {
+    display: flex;
+    gap: 5px;
+  }
+  .btn-sm {
+    padding: 0.25rem 0.5rem;
+  }
+  .bi {
+    font-size: 0.875rem;
+  }
+</style>
 @endsection
 
