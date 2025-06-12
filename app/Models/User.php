@@ -80,6 +80,11 @@ class User extends Authenticatable
         return $this->hasMany(UserImage::class);
     }
 
+     public function video_list()
+    {
+        return $this->hasMany(VideoGallery::class);
+    }
+
     /**
      * Get the user's profile image.
      */

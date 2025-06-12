@@ -227,6 +227,7 @@
                                                 <li>
                                                     <a href="{{$user->facebook}}" target="_blank"> <span class="glyphicon glyphicon-user icon-circle border border-dark-blue with-text"></span>Facebook/Instagram</a>
                                                 </li>
+                                                @if($user->video_list)
                                                 <div class="introvideo">
                                                     <a class="whislistbtn" data-toggle="modal" data-target="#introvideo_modal"> Introduction Video </a>
                                                     <div class="modal fade" id="introvideo_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -239,7 +240,9 @@
                                                                 </center>
                                                             </div>
                                                             <div class="modal-body">
-                                                                <iframe type="text/html" height="380" src="https://www.youtube.com/embed/ifA-12VXGcg?si=xaQ1Pv1Gz_PznsWG" frameborder="0" allowfullscreen="" style="width:100% !important"></iframe>
+                                                                @foreach($user->video_list as $video)
+                                                                <iframe type="text/html" height="380" src="{{$video->link}}" frameborder="0" allowfullscreen="" style="width:100% !important"></iframe>
+                                                                @endforeach
                                                             </div>
                                                             <div class="modal-footer">
                                                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -248,6 +251,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                @endif
                                                 <a href="javascript:void(0);" data-toggle="modal" data-target="#myModal" class="whislistbtn" onclick="hideregisterdiv();">Add to Wish List</a>
                                                 <!-- <a href=""><span class="glyph icon-youtube border border-dark-blue with-text"></span> Youtube</a> -->
                                                 </ul>
@@ -339,91 +343,28 @@
                            Featured Listings<!--Featured Directory-->
                         </h4>
                      </div>
-                     <div class="article-listing paddleftrightnone">
+
+                     @foreach($feacherdUsers as $feacherd)
+                    <div class="article-listing paddleftrightnone">
                         <div class="row f_360">
-                           <div class="col-xs-3 col-sm-3 col-md-5 block-1">
-                              <a href="https://atomdirectory.com/directory_detail/actor/abhishek-arya">
-                              <img src="https://atomdirectory.com/userfiles/directorylist/resizeimage/1699082502.jpg" alt="" class="img-responsive img-circle dib">
-                              </a>
-                           </div>
-                           <div class="col-xs-9 col-sm-9 col-md-7 block-2 feture_name_box">
-                              <p class="bold">Abhishek Arya</p>
-                              <p>
-                                 Actor,
-                              </p>
-                              <p>Mumbai</p>
-                              <div><a href="https://atomdirectory.com/directory_detail/actor/abhishek-arya">Click here to know more</a></div>
-                           </div>
+                            <div class="col-xs-3 col-sm-3 col-md-5 block-1">
+                                <a href="{{route('directory.details',$user->slug)}}">
+                                <img src="{{asset('all_image/'.$feacherd->image)}}" alt="" class="img-responsive img-circle dib">
+                                </a>
+                            </div>
+                            <div class="col-xs-9 col-sm-9 col-md-7 block-2 feture_name_box">
+                                <p class="bold">{{$feacherd->name}}</p>
+                                <p>
+                                      <?php $rolefeacherd = $feacherd->getRoleNames()->first();  ?>
+                                    {{$rolefeacherd}},
+                                </p>
+                                <p>Mumbai</p>
+                                <div><a href="{{route('directory.details',$user->slug)}}">Click here to know more</a></div>
+                            </div>
+                            </div>
                         </div>
-                     </div>
-                     <div class="article-listing paddleftrightnone">
-                        <div class="row f_360">
-                           <div class="col-xs-3 col-sm-3 col-md-5 block-1">
-                              <a href="https://atomdirectory.com/directory_detail/actor/rishi-suresh">
-                              <img src="https://atomdirectory.com/userfiles/directorylist/resizeimage/1699022302.jpeg" alt="" class="img-responsive img-circle dib">
-                              </a>
-                           </div>
-                           <div class="col-xs-9 col-sm-9 col-md-7 block-2 feture_name_box">
-                              <p class="bold">Rishi Suresh</p>
-                              <p>
-                                 Actor,
-                              </p>
-                              <p>Kochi</p>
-                              <div><a href="https://atomdirectory.com/directory_detail/actor/rishi-suresh">Click here to know more</a></div>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="article-listing paddleftrightnone">
-                        <div class="row f_360">
-                           <div class="col-xs-3 col-sm-3 col-md-5 block-1">
-                              <a href="https://atomdirectory.com/directory_detail/freshers/nikhar-pradhan">
-                              <img src="https://atomdirectory.com/userfiles/directorylist/resizeimage/1703228673.jpg" alt="" class="img-responsive img-circle dib">
-                              </a>
-                           </div>
-                           <div class="col-xs-9 col-sm-9 col-md-7 block-2 feture_name_box">
-                              <p class="bold">Nikhar Pradhan</p>
-                              <p>
-                                 Freshers,
-                              </p>
-                              <p>Mumbai</p>
-                              <div><a href="https://atomdirectory.com/directory_detail/freshers/nikhar-pradhan">Click here to know more</a></div>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="article-listing paddleftrightnone">
-                        <div class="row f_360">
-                           <div class="col-xs-3 col-sm-3 col-md-5 block-1">
-                              <a href="https://atomdirectory.com/directory_detail/model/veera">
-                              <img src="https://atomdirectory.com/userfiles/directorylist/resizeimage/1699078296.jpg" alt="" class="img-responsive img-circle dib">
-                              </a>
-                           </div>
-                           <div class="col-xs-9 col-sm-9 col-md-7 block-2 feture_name_box">
-                              <p class="bold">Veera</p>
-                              <p>
-                                 Model,
-                              </p>
-                              <p>Dubai South</p>
-                              <div><a href="https://atomdirectory.com/directory_detail/model/veera">Click here to know more</a></div>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="article-listing paddleftrightnone">
-                        <div class="row f_360">
-                           <div class="col-xs-3 col-sm-3 col-md-5 block-1">
-                              <a href="https://atomdirectory.com/directory_detail/actor/mounis-ratta">
-                              <img src="https://atomdirectory.com/userfiles/directorylist/resizeimage/1699178374.jpg" alt="" class="img-responsive img-circle dib">
-                              </a>
-                           </div>
-                           <div class="col-xs-9 col-sm-9 col-md-7 block-2 feture_name_box">
-                              <p class="bold">Mounis Ratta</p>
-                              <p>
-                                 Actor,
-                              </p>
-                              <p>Mumbai</p>
-                              <div><a href="https://atomdirectory.com/directory_detail/actor/mounis-ratta">Click here to know more</a></div>
-                           </div>
-                        </div>
-                     </div>
+                        @endforeach
+
                   </div>
                </div>
             </div>

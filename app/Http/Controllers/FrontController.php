@@ -23,11 +23,14 @@ class FrontController extends Controller
     function directoryList($slug){
         $roleInfo = RoleInfo::where('slug',$slug)->first();
         $role = DB::table('roles')->where('id',$roleInfo->role_id)->first();
-        $users = User::role($role->name)->get();
-        return view('front.directory_list',compact('users'));
+        $users = User::role($role->name)->with('video_list')->where('is_featured','0')->get();
+        // return $users;
+        $feacherdUsers = User::role($role->name)->where('is_featured','1')->get();
+        return view('front.directory_list',compact('users','feacherdUsers'));
     }
 
     function directoryDetails($slug){
+        dd('comming soon...');
         $user = User::where('slug',$slug)->first();
         return view('front.directory_details',compact('user'));
     }
