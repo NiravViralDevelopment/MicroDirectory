@@ -47,27 +47,27 @@
             </div>
         </div>
 
-         <div class="col-xs-12 col-sm-12 col-md-6">
+         {{-- <div class="col-xs-12 col-sm-12 col-md-6">
             <div class="form-group">
                 <strong class="strng">Meta Title:</strong>
                 <input type="text" name="meta_title" value="{{old('meta_title')}}" placeholder="Enter Meta Title" class="form-control required">
             </div>
-        </div>
+        </div> --}}
 
-         <div class="col-xs-12 col-sm-12 col-md-6">
+         {{-- <div class="col-xs-12 col-sm-12 col-md-6">
             <div class="form-group">
                 <strong class="strng">Meta Keywords:</strong>
                 <input type="text" name="meta_kewords" value="{{old('meta_kewords')}}" placeholder="Enter Meta Keywords" class="form-control required">
             </div>
-        </div>
+        </div> --}}
 
-         <div class="col-xs-12 col-sm-12 col-md-12">
+         {{-- <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong class="strng">Meta Description:</strong>
                 <textarea name="meta_description" class="form-control required" cols="30" placeholder="Enter Meta Description" rows="10">{{old('meta_description')}}</textarea>
 
             </div>
-        </div>
+        </div> --}}
 
         <div class="col-xs-12 col-sm-12 col-md-6">
             <div class="form-group">
@@ -80,7 +80,7 @@
            <input type="hidden" name="is_active" value="0">
 
 
-        <div class="col-xs-12 col-sm-12 col-md-12">
+        {{-- <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group flxfrmGp">
                 <strong class="strng">Permission:</strong>
                 <br/>
@@ -92,7 +92,7 @@
                 @endforeach
                 </div>
             </div>
-        </div>
+        </div> --}}
         <div class="col-xs-12 col-sm-12 col-md-12 mt50">
             <button type="submit" class="btn btn-sm comnBtn"><i class="fa-solid fa-floppy-disk"></i> Submit</button>
         </div>

@@ -214,14 +214,14 @@
               {{ session('success') }}
             </div>
           @endif
-          
+
           <div class="table-responsive">
             <table id="datatable" class="table">
               <thead class="mobileHide">
                 <tr>
                   <th>Id</th>
                   <th>Name</th>
-                  <th>Code</th>
+                  <th>Is Active</th>
                   <th>Action</th>
                 </tr>
               </thead>
@@ -230,7 +230,13 @@
                   <tr class="flexTbl">
                     <td><span class="mobileShow">Id :</span> {{ $key + 1 }}</td>
                     <td><span class="mobileShow">Name :</span> {{ $country->name }}</td>
-                    <td><span class="mobileShow">Code :</span> {{ $country->code }}</td>
+                     <td>
+                          @if ($country && $country->is_active)
+                           <a href="{{route('category.status',$country->id)}}" onclick="return confirm('Are you sure?')"><span class="badge bg-success">Active</span></a>
+                        @else
+                           <a href="{{route('category.status',$country->id)}}" onclick="return confirm('Are you sure?')"><span class="badge bg-danger">Inactive</span></a>
+                        @endif
+                        </td>
                     <td>
                       <div class="ThreeBtns">
                         <a href="{{ route('countries.edit', $country) }}" class="bi bi-pencil-square btn btn-outline-primary btn-sm"></a>

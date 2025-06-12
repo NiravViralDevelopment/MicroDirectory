@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\Service;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use DB;
-class ProductController extends Controller
+class ServiceController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -28,9 +29,8 @@ class ProductController extends Controller
      */
     public function index(): View
     {
-        $products = Product::with('role')->orderBy('id','desc')->get();
-
-        return view('products.index',compact('products'));
+        $products = Service::with('role')->orderBy('id','desc')->get();
+        return view('service.index',compact('products'));
     }
 
     /**
@@ -41,7 +41,7 @@ class ProductController extends Controller
     public function create(): View
     {
         $roles = DB::table('roles')->where('id','!=',1)->get();
-        return view('products.create',compact('roles'));
+        return view('service.create',compact('roles'));
     }
 
     /**
@@ -57,10 +57,10 @@ class ProductController extends Controller
         ]);
 
 
-        Product::create($request->all());
+        Service::create($request->all());
 
-        return redirect()->route('products.index')
-                        ->with('message','Product created successfully.');
+        return redirect()->route('service.index')
+                        ->with('message','Service created successfully.');
     }
 
     /**
@@ -69,9 +69,9 @@ class ProductController extends Controller
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function show(Product $product): View
+    public function show(Service $service): View
     {
-        return view('products.show',compact('product'));
+        return view('products.show',compact('service'));
     }
 
     /**
@@ -80,10 +80,10 @@ class ProductController extends Controller
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function edit(Product $product): View
+    public function edit(Service $Service): View
     {
         $roles = DB::table('roles')->where('id','!=',1)->get();
-        return view('products.edit',compact('product','roles'));
+        return view('service.edit',compact('Service','roles'));
     }
 
     /**
@@ -93,17 +93,17 @@ class ProductController extends Controller
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product): RedirectResponse
+    public function update(Request $request, Service $Service): RedirectResponse
     {
          request()->validate([
             'title' => 'required',
 
         ]);
 
-        $product->update($request->all());
+        $Service->update($request->all());
 
-        return redirect()->route('products.index')
-                        ->with('message','Product updated successfully');
+        return redirect()->route('service.index')
+                        ->with('message','Service updated successfully');
     }
 
     /**
@@ -112,16 +112,16 @@ class ProductController extends Controller
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product): RedirectResponse
+    public function destroy(Service $Service): RedirectResponse
     {
-        $product->delete();
+        $Service->delete();
 
-        return redirect()->route('products.index')
-                        ->with('message','Product deleted successfully');
+        return redirect()->route('service.index')
+                        ->with('message','Service deleted successfully');
     }
 
-    function productChange($id){
-        $role_info = Product::find($id);
+    function serviceChange($id){
+        $role_info = Service::find($id);
             if($role_info->is_active == 1){
                 $status = 0;
             }else{

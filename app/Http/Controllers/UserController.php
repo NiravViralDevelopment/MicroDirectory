@@ -1,12 +1,15 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\State;
+use App\Models\City;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Experience;
+use App\Models\Country;
 use App\Models\Language;
 use App\Models\Product;
+use Illuminate\Support\Str;
 use App\Models\User;
 use Spatie\Permission\Models\Role;
 use DB;
@@ -72,6 +75,7 @@ class UserController extends Controller
         $input = $request->all();
         $input['show_password'] = $request->password;
         $input['password'] = FacadesHash::make($input['password']);
+        $input['slug'] = Str::slug($request->name);
         $input['image'] = $uploaded;
 
         $user = User::create($input);
@@ -101,6 +105,7 @@ class UserController extends Controller
      */
     public function edit($id): View
     {
+        $countries = Country::all();
         $user = User::find($id);
         $roles = Role::pluck('name','name')->all();
         $userRole = $user->roles->pluck('name','name')->all();
@@ -108,7 +113,7 @@ class UserController extends Controller
         $languages = Language::where('is_active',1)->get();
         $others = Product::where('is_active',1)->get();
 
-        return view('users.edit', compact('user', 'roles', 'userRole', 'experiences', 'languages', 'others'));
+        return view('users.edit', compact('user', 'roles', 'userRole', 'experiences', 'languages', 'others','countries'));
     }
 
     /**
@@ -127,18 +132,33 @@ class UserController extends Controller
             // 'roles' => 'required'
         ]);
 
+        $uploaded = '';
+        if ($request->hasFile('image'))
+        {
+            $image = $request->file('image');
+            $uploaded = time() . '.' . $image->getClientOriginalExtension();
+            $destinationPath = public_path('/all_image');
+            $image->move($destinationPath, $uploaded);
+        }else{
+            $uploaded = $request->old_image;
+        }
+
+
         $input = $request->all();
         if(!empty($input['password'])){
             $input['password'] = Hash::make($input['password']);
         }else{
             $input = Arr::except($input,array('password'));
         }
-
+        // Handle multi-selects (convert arrays to CSV)
+        $input['experience'] = isset($input['experience']) ? implode(',', $input['experience']) : '';
+        $input['language'] = isset($input['language']) ? implode(',', $input['language']) : '';
         $user = User::find($id);
+        $input['image'] = $uploaded;
         $user->update($input);
-        DB::table('model_has_roles')->where('model_id',$id)->delete();
+        // DB::table('model_has_roles')->where('model_id',$id)->delete();
 
-        $user->assignRole($request->input('roles'));
+        // $user->assignRole($request->input('roles'));
 
         return redirect()->route('users.index')
                         ->with('message','User updated successfully');
@@ -156,4 +176,17 @@ class UserController extends Controller
         return redirect()->route('users.index')
                         ->with('message','User deleted successfully');
     }
+
+     public function getStates($country_id)
+    {
+        $states = State::where('country_id', $country_id)->get();
+        return response()->json($states);
+    }
+
+    public function getCities($state_id)
+    {
+        $cities = City::where('state_id', $state_id)->get();
+        return response()->json($cities);
+    }
+
 }

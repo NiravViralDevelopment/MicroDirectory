@@ -24,8 +24,6 @@ class CountriesController extends Controller
     {
         $request->validate([
             'name' => 'required|min:2',
-            'code' => 'nullable|min:2|max:3',
-            'phone_code' => 'nullable|digits',
         ]);
 
         Country::create($request->all());
@@ -42,8 +40,6 @@ class CountriesController extends Controller
     {
         $request->validate([
             'name' => 'required|min:2',
-            'code' => 'nullable|min:2|max:3',
-            'phone_code' => 'nullable|digits',
         ]);
 
         $country = Country::findOrFail($id);
@@ -57,4 +53,18 @@ class CountriesController extends Controller
         $country->delete();
         return redirect()->route('countries')->with('message', 'Country deleted successfully.');
     }
+
+     function statusChange($id){
+        $country = Country::where('id',$id)->first();
+        if($country->is_active == 1){
+            $status = 0;
+        }else{
+            $status = 1;
+        }
+        // return $status;
+        $country->is_active = $status;
+        $country->save();
+        return redirect()->back()->with('message','Status Changed.');
+    }
+
 }

@@ -21,6 +21,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'phone',
         'show_password',
         'password',
         'facebook',
@@ -86,4 +87,28 @@ class User extends Authenticatable
     {
         return $this->hasOne(UserImage::class)->where('is_profile', true);
     }
+
+    // In User model
+
+    public function getExperienceAttribute($value)
+    {
+        return explode(',', $value);
+    }
+
+    public function setExperienceAttribute($value)
+    {
+        $this->attributes['experience'] = is_array($value) ? implode(',', $value) : $value;
+    }
+
+    public function getLanguageAttribute($value)
+    {
+        return explode(',', $value);
+    }
+
+    public function setLanguageAttribute($value)
+    {
+        $this->attributes['language'] = is_array($value) ? implode(',', $value) : $value;
+    }
+
+
 }

@@ -14,6 +14,7 @@ class FrontController extends Controller
         $roles = DB::table('roles')
             ->join('role_infos', 'roles.id', '=', 'role_infos.role_id')
             ->where('role_infos.is_active', 1)
+            ->where('roles.id', '!=',1)
             ->select('roles.*', 'role_infos.*')
             ->get();
         $country = Countries::where('is_active',1)->get();

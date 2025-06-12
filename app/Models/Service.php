@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Permission\Models\Role;
 
-class Product extends Model
+class Service extends Model
 {
     use HasFactory;
 
@@ -19,10 +19,8 @@ class Product extends Model
         'title', 'is_active','category_id'
     ];
 
-    public function role()
+     public function role()
     {
         return $this->belongsTo(Role::class,'id');
     }
-
-
 }

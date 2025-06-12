@@ -38,7 +38,7 @@ class CityController extends Controller
                 'country_id' => 'required|exists:countries,id',
                 'state_id' => 'required|exists:states,id',
                 'name' => 'required|string|max:255',
-                'code' => 'required|string|max:10',
+
             ]);
 
             City::create([
@@ -90,7 +90,7 @@ class CityController extends Controller
                 'country_id' => 'required|exists:countries,id',
                 'state_id' => 'required|exists:states,id',
                 'name' => 'required|string|max:255',
-                'code' => 'required|string|max:10',
+
             ]);
 
             $city->update([
@@ -132,5 +132,18 @@ class CityController extends Controller
             ->where('is_active', true)
             ->get();
         return response()->json($states);
+    }
+
+    function statusChange($id){
+        $city = City::where('id',$id)->first();
+        if($city->is_active == 1){
+            $status = 0;
+        }else{
+            $status = 1;
+        }
+        // return $status;
+        $city->is_active = $status;
+        $city->save();
+        return redirect()->back()->with('message','Status Changed.');
     }
 }

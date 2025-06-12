@@ -86,4 +86,18 @@ class CountryController extends Controller
         return redirect()->route('countries.index')
             ->with('success', 'Country deleted successfully.');
     }
+
+    function statusChange($id){
+        $country = Country::where('id',$id)->first();
+        if($country->is_active == 1){
+            $status = 0;
+        }else{
+            $status = 1;
+        }
+        // return $status;
+        $country->is_active = $status;
+        $country->save();
+        return redirect()->back()->with('message','Status Changed.');
+    }
+
 }

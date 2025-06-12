@@ -1,6 +1,12 @@
 @extends('layouts.admin.app')
 
 @section('content')
+<style>
+    select.open-dropdown {
+        height: 150px; /* adjust height as needed */
+        overflow-y: auto;
+    }
+</style>
 <div class="row">
     <div class="col-lg-12">
         <div class="card cardPdd">
@@ -8,7 +14,9 @@
                 <div class="col-lg-12 margin-tb">
                     <div class="flexBdy">
                         <div class="pull-left">
-                            <h5 class="card-title">Edit User</h5>
+                            <?php $role = $user->getRoleNames()->first();  ?>
+                            <h5 class="card-title">Edit {{$role}}</h5>
+
                         </div>
                         <div class="pull-right">
                             <a class="btn btn-sm mb-2 comnBtn whtTxt borderBtn" href="{{ route('users.index') }}">
@@ -40,21 +48,21 @@
                         <div class="col-md-12"><h6 class="section-title">Basic Info</h6></div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <strong class="strng required-label">Directory Name: <span class="text-danger">*</span></strong>
-                                <input type="text" name="name" placeholder="Name" class="form-control required" value="{{ old('name', $user->name) }}" required>
+                                <strong class="strng "> Name: </strong>
+                                <input type="text" name="name" placeholder="Name" class="form-control required" value="{{ old('name', $user->name) }}" readonly>
                                 <span class="error-message text-danger"></span>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <strong class="strng required-label">Mobile No: <span class="text-danger">*</span></strong>
-                                <input type="tel" name="phone" placeholder="Enter Mobile No." class="form-control required" value="{{ old('phone', $user->phone) }}" pattern="[0-9]{10}" title="Please enter a valid 10-digit mobile number" required>
+                                <strong class="strng ">Mobile No:</strong>
+                                <input type="tel" name="phone" placeholder="Enter Mobile No." class="form-control required" value="{{ old('phone', $user->phone) }}" pattern="[0-9]{10}" title="Please enter a valid 10-digit mobile number" readonly>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <strong class="strng required-label">Email: <span class="text-danger">*</span></strong>
-                                <input type="email" name="email" placeholder="Enter Email" class="form-control required" value="{{ old('email', $user->email) }}" required>
+                                <strong class="strng ">Email:</strong>
+                                <input type="email" name="email" placeholder="Enter Email" class="form-control required" value="{{ old('email', $user->email) }}" readonly>
                             </div>
                         </div>
 
@@ -62,76 +70,82 @@
                         <div class="col-md-12"><h6 class="section-title">Social Info</h6></div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <strong class="strng required-label">Facebook: <span class="text-danger">*</span></strong>
-                                <input type="url" name="facebook" placeholder="Enter Facebook" class="form-control required" value="{{ old('facebook', $user->facebook) }}" pattern="https?://.*" title="Please enter a valid URL" required>
+                                <strong class="strng ">Facebook: </strong>
+                                <input type="url" name="facebook" placeholder="Enter Facebook" class="form-control required" value="{{ old('facebook', $user->facebook) }}" pattern="https?://.*" title="Please enter a valid URL" >
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <strong class="strng required-label">Website: <span class="text-danger">*</span></strong>
-                                <input type="url" name="website" placeholder="Enter Website" class="form-control required" value="{{ old('website', $user->website) }}" pattern="https?://.*" title="Please enter a valid URL" required>
+                                <strong class="strng ">Website: </strong>
+                                <input type="url" name="website" placeholder="Enter Website" class="form-control required" value="{{ old('website', $user->website) }}" pattern="https?://.*" title="Please enter a valid URL" >
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <strong class="strng required-label">WhatsApp: <span class="text-danger">*</span></strong>
-                                <input type="tel" name="whatsup" placeholder="Enter WhatsApp No" class="form-control required" value="{{ old('whatsup', $user->whatsup) }}" pattern="[0-9]{10}" title="Please enter a valid 10-digit WhatsApp number" required>
+                                <strong class="strng ">WhatsApp: </strong>
+                                <input type="tel" name="whatsup" placeholder="Enter WhatsApp No" class="form-control required" value="{{ old('whatsup', $user->whatsup) }}" pattern="[0-9]{10}" title="Please enter a valid 10-digit WhatsApp number" >
                             </div>
                         </div>
 
+                         <div class="col-md-4">
+                            <div class="form-group">
+                                <strong class="strng ">Linkedin: </strong>
+                                <input type="url" name="linkedin" placeholder="Enter linkedin" class="form-control " value="{{ old('linkedin', $user->linkedin) }}" pattern="https?://.*" title="Please enter a valid URL" >
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <strong class="strng ">Instagram: </strong>
+                                <input type="url" name="instagram" placeholder="Enter Instagram" class="form-control " value="{{ old('instagram', $user->instagram) }}" pattern="https?://.*" title="Please enter a valid URL" >
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <strong class="strng ">Youtube: </strong>
+                                <input type="url" name="youtube" placeholder="Enter youtube" class="form-control " value="{{ old('youtube', $user->youtube) }}" pattern="[0-9]{10}" >
+                            </div>
+                        </div>
+
+
                         <!-- LOCATION -->
                         <div class="col-md-12"><h6 class="section-title">Location</h6></div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <strong class="strng required-label">Country: <span class="text-danger">*</span></strong>
-                                <select name="country_id" class="form-control required" required>
-                                    <option value="">-- Select Country --</option>
-                                    <option value="india" {{ old('country_id', $user->country_id) == 'india' ? 'selected' : '' }}>India</option>
-                                    <option value="usa" {{ old('country_id', $user->country_id) == 'usa' ? 'selected' : '' }}>United States</option>
-                                    <option value="uk" {{ old('country_id', $user->country_id) == 'uk' ? 'selected' : '' }}>United Kingdom</option>
-                                    <option value="canada" {{ old('country_id', $user->country_id) == 'canada' ? 'selected' : '' }}>Canada</option>
-                                    <option value="australia" {{ old('country_id', $user->country_id) == 'australia' ? 'selected' : '' }}>Australia</option>
-                                </select>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <select name="country_id" id="country" class="form-control" required>
+                                        <option value="">-- Select Country --</option>
+                                        @foreach($countries as $country)
+                                            <option value="{{ $country->id }}" {{ old('country_id', $user->country_id) == $country->id ? 'selected' : '' }}>{{ $country->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
-                        </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <strong class="strng required-label">State: <span class="text-danger">*</span></strong>
-                                <select name="state_id" class="form-control required" required>
+                                <select name="state_id" id="state" class="form-control" required>
                                     <option value="">-- Select State --</option>
-                                    <option value="gujarat" {{ old('state_id', $user->state_id) == 'gujarat' ? 'selected' : '' }}>Gujarat</option>
-                                    <option value="california" {{ old('state_id', $user->state_id) == 'california' ? 'selected' : '' }}>California</option>
-                                    <option value="ontario" {{ old('state_id', $user->state_id) == 'ontario' ? 'selected' : '' }}>Ontario</option>
-                                    <option value="new_south_wales" {{ old('state_id', $user->state_id) == 'new_south_wales' ? 'selected' : '' }}>New South Wales</option>
-                                    <option value="london" {{ old('state_id', $user->state_id) == 'london' ? 'selected' : '' }}>London</option>
                                 </select>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <strong class="strng required-label">City: <span class="text-danger">*</span></strong>
-                                <select name="city_id" class="form-control required" required>
+                                <select name="city_id" id="city" class="form-control" required>
                                     <option value="">-- Select City --</option>
-                                    <option value="ahmedabad" {{ old('city_id', $user->city_id) == 'ahmedabad' ? 'selected' : '' }}>Ahmedabad</option>
-                                    <option value="los_angeles" {{ old('city_id', $user->city_id) == 'los_angeles' ? 'selected' : '' }}>Los Angeles</option>
-                                    <option value="toronto" {{ old('city_id', $user->city_id) == 'toronto' ? 'selected' : '' }}>Toronto</option>
-                                    <option value="sydney" {{ old('city_id', $user->city_id) == 'sydney' ? 'selected' : '' }}>Sydney</option>
-                                    <option value="manchester" {{ old('city_id', $user->city_id) == 'manchester' ? 'selected' : '' }}>Manchester</option>
                                 </select>
                             </div>
                         </div>
+
 
                         <!-- PROFILE INFO -->
                         <div class="col-md-12"><h6 class="section-title">Profile Info</h6></div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <strong class="strng required-label">Age: <span class="text-danger">*</span></strong>
+                                <strong class="strng required-label">Age: </strong>
                                 <input type="number" name="age" placeholder="Enter Age" class="form-control required" value="{{ old('age', $user->age) }}" min="1" max="120" required>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <strong class="strng required-label">Gender: <span class="text-danger">*</span></strong>
+                                <strong class="strng required-label">Gender: </strong>
                                 <select name="gender" class="form-control required" required>
                                     <option value=""> Select Gender </option>
                                     <option value="male" {{ old('gender', $user->gender) == 'male' ? 'selected' : '' }}>Male</option>
@@ -142,39 +156,46 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <strong class="strng required-label">Image: <span class="text-danger">*</span></strong>
-                                <input type="file" name="image" class="form-control required" accept="image/*">
+                                <strong class="strng required-label">Image: </strong>
+                                <input type="file" name="image" class="form-control " accept="image/*">
+                                <input type="hidden" name="old_image" value="{{$user->image}}">
                                 @if($user->image)
-                                    <img src="{{ asset('storage/' . $user->image) }}" alt="Current Image" style="max-width: 100px; margin-top: 10px;">
+                                    <img src="{{ asset('all_image/' . $user->image) }}" alt="Current Image" style="max-width: 100px; margin-top: 10px;">
                                 @endif
                             </div>
                         </div>
 
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <strong class="strng required-label">Experience: <span class="text-danger">*</span></strong>
-                                <select name="experience" class="form-control required" required>
-                                    <option value="">Select Experience</option>
-                                    @foreach($experiences as $experience)
-                                    <option value="{{$experience->id}}" {{ old('experience', $user->experience) == $experience->id ? 'selected' : '' }}>{{$experience->title}}</option>
-                                    @endforeach
-                                </select>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <strong class="strng required-label">Speciality: </strong>
+                                    <select name="experience[]" class="form-control open-dropdown" multiple required>
+                                        @foreach($experiences as $experience)
+                                            <option value="{{ $experience->id }}"
+                                                {{ (collect(old('experience', $user->experience ?? []))->contains($experience->id)) ? 'selected' : '' }}>
+                                                {{ $experience->title }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <strong class="strng required-label">Language: <span class="text-danger">*</span></strong>
-                                <select name="language" class="form-control required" required>
-                                    <option value="">Select Language</option>
-                                    @foreach($languages as $language)
-                                    <option value="{{$language->id}}" {{ old('language', $user->language) == $language->id ? 'selected' : '' }}>{{$language->title}}</option>
-                                    @endforeach
-                                </select>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <strong class="strng required-label">Language: </strong>
+                                    <select name="language[]" class="form-control open-dropdown" multiple required>
+                                        @foreach($languages as $language)
+                                            <option value="{{ $language->id }}"
+                                                {{ (collect(old('language', $user->language ?? []))->contains($language->id)) ? 'selected' : '' }}>
+                                                {{ $language->title }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
-                        </div>
+
                         <div class="col-md-4">
                             <div class="form-group">
-                                <strong class="strng required-label">Others: <span class="text-danger">*</span></strong>
+                                <strong class="strng required-label">Product: </strong>
                                 <select name="other" class="form-control required" required>
                                     <option value="">Select Other</option>
                                     @foreach($others as $other)
@@ -188,33 +209,33 @@
                         <div class="col-md-12"><h6 class="section-title">Meta Info</h6></div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <strong class="strng required-label">Page Title: <span class="text-danger">*</span></strong>
+                                <strong class="strng required-label">Page Title: </strong>
                                 <input type="text" name="page_title" class="form-control required" value="{{ old('page_title', $user->page_title) }}" required>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <strong class="strng required-label">Meta Title: <span class="text-danger">*</span></strong>
+                                <strong class="strng required-label">Meta Title: </strong>
                                 <input type="text" name="meta_title" class="form-control required" value="{{ old('meta_title', $user->meta_title) }}" required>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <strong class="strng required-label">Meta Keywords: <span class="text-danger">*</span></strong>
+                                <strong class="strng required-label">Meta Keywords: </strong>
                                 <input type="text" name="meta_keyword" class="form-control required" value="{{ old('meta_keyword', $user->meta_keyword) }}" required>
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <strong class="strng required-label">Description: <span class="text-danger">*</span></strong>
+                                <strong class="strng required-label">Description: </strong>
                                 <textarea name="description" class="form-control required" rows="3" required>{{ old('description', $user->description) }}</textarea>
                             </div>
                             <div class="form-group">
-                                <strong class="strng required-label">Short Description: <span class="text-danger">*</span></strong>
+                                <strong class="strng required-label">Short Description: </strong>
                                 <textarea name="short_description" class="form-control required" rows="3" required>{{ old('short_description', $user->short_description) }}</textarea>
                             </div>
                             <div class="form-group">
-                                <strong class="strng required-label">Meta Description: <span class="text-danger">*</span></strong>
+                                <strong class="strng required-label">Meta Description: </strong>
                                 <textarea name="meta_description" class="form-control required" rows="3" required>{{ old('meta_description', $user->meta_description) }}</textarea>
                             </div>
                         </div>
@@ -235,16 +256,16 @@
                         </div>
 
                         <!-- CATEGORY -->
-                        <div class="col-md-12">
+                        {{-- <div class="col-md-12">
                             <div class="form-group">
-                                <strong class="strng required-label">Category (Roles): <span class="text-danger">*</span></strong>
+                                <strong class="strng required-label">Category (Roles): </strong>
                                 <select name="roles[]" class="form-control hg100" multiple required>
                                     @foreach ($roles as $value => $label)
                                     <option value="{{ $value }}" {{ in_array($value, old('roles', $user->roles->pluck('id')->toArray())) ? 'selected' : '' }}>{{ $label }}</option>
                                     @endforeach
                                 </select>
                             </div>
-                        </div>
+                        </div> --}}
 
                         <!-- STATUS TOGGLES -->
                         <div class="col-md-12"><h6 class="section-title">Status Options</h6></div>
@@ -270,9 +291,73 @@
     </div>
 </div>
 
+
+
+
+
+
+
 <!-- jQuery + Validation -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+
+
+<script>
+    let selectedState = "{{ old('state_id', $user->state_id) }}";
+    let selectedCity  = "{{ old('city_id', $user->city_id) }}";
+
+    function loadStates(countryID, callback) {
+        let stateUrl = `{{ route('location.states', ':id') }}`.replace(':id', countryID);
+        $.get(stateUrl, function(states) {
+            let options = '<option value="">-- Select State --</option>';
+            states.forEach(function(state) {
+                let selected = state.id == selectedState ? 'selected' : '';
+                options += `<option value="${state.id}" ${selected}>${state.name}</option>`;
+            });
+            $('#state').html(options);
+            if (callback) callback();
+        });
+    }
+
+    function loadCities(stateID) {
+        let cityUrl = `{{ route('location.cities', ':id') }}`.replace(':id', stateID);
+        $.get(cityUrl, function(cities) {
+            let options = '<option value="">-- Select City --</option>';
+            cities.forEach(function(city) {
+                let selected = city.id == selectedCity ? 'selected' : '';
+                options += `<option value="${city.id}" ${selected}>${city.name}</option>`;
+            });
+            $('#city').html(options);
+        });
+    }
+
+    $(document).ready(function () {
+        // Load states and cities if editing user
+        let currentCountry = $('#country').val();
+        if (currentCountry) {
+            loadStates(currentCountry, function () {
+                if (selectedState) {
+                    loadCities(selectedState);
+                }
+            });
+        }
+
+        // Dynamic on change
+        $('#country').on('change', function () {
+            selectedState = '';
+            selectedCity = '';
+            $('#city').html('<option value="">-- Select City --</option>');
+            loadStates($(this).val());
+        });
+
+        $('#state').on('change', function () {
+            selectedCity = '';
+            loadCities($(this).val());
+        });
+    });
+</script>
+
+
 <script>
     $(document).ready(function() {
         $("#userform").validate({

@@ -60,7 +60,7 @@
                   </div>
                 </div>
 
-                <div class="row mb-3">
+                {{-- <div class="row mb-3">
                   <label for="code" class="col-sm-1 col-form-label strng flexCntr">Code <span class="text-danger">*</span></label>
                   <div class="col-sm-5">
                     <input type="text" name="code" value="{{ old('code') }}" class="form-control required" id="code">
@@ -68,7 +68,7 @@
                       <div class="text-danger">{{ $message }}</div>
                     @enderror
                   </div>
-                </div>
+                </div> --}}
 
                 <input type="hidden" name="is_active" value="1">
 
@@ -91,16 +91,16 @@
         $('#country_id').on('change', function() {
           var countryId = $(this).val();
           var stateSelect = $('#state_id');
-          
+
           // Clear current state selection
           stateSelect.empty().append('<option value="">Select State</option>');
-          
+
           if (countryId) {
             console.log('Fetching states for country:', countryId);
-            
+
             // Show loading state
             stateSelect.prop('disabled', true);
-            
+
             $.ajax({
               url: '/attom_directory/public/get-by-country',
               type: 'GET',
@@ -116,7 +116,7 @@
               },
               success: function(response) {
                 console.log('Raw response:', response);
-                
+
                 if (response && response.states) {
                   var states = response.states;
                   if (states.length > 0) {
@@ -145,7 +145,7 @@
                   statusCode: xhr.status,
                   readyState: xhr.readyState
                 });
-                
+
                 var errorMessage = 'Error loading states';
                 try {
                   if (xhr.responseText) {
@@ -157,7 +157,7 @@
                 } catch (e) {
                   console.error('Error parsing response:', e);
                 }
-                
+
                 stateSelect.append('<option value="">' + errorMessage + '</option>');
               },
               complete: function() {
@@ -217,4 +217,4 @@
         color: red;
       }
     </style>
-@endsection 
+@endsection

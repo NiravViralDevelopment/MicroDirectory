@@ -66,7 +66,7 @@
                   </div>
                 </div>
 
-                <div class="row mb-3">
+                {{-- <div class="row mb-3">
                   <label for="code" class="col-sm-1 col-form-label strng flexCntr">Code <span class="text-danger">*</span></label>
                   <div class="col-sm-5">
                     <input type="text" name="code" value="{{ old('code', $city->code) }}" class="form-control required" id="code">
@@ -74,7 +74,7 @@
                       <div class="text-danger">{{ $message }}</div>
                     @enderror
                   </div>
-                </div>
+                </div> --}}
 
                 <input type="hidden" name="is_active" value="{{ $city->is_active }}">
 
@@ -98,16 +98,16 @@
         $('#country_id').on('change', function() {
             var countryId = $(this).val();
             var stateSelect = $('#state_id');
-            
+
             // Clear current state selection
             stateSelect.empty().append('<option value="">Select State</option>');
-            
+
             if (countryId) {
                 console.log('Fetching states for country:', countryId);
-                
+
                 // Show loading state
                 stateSelect.prop('disabled', true);
-                
+
                 $.ajax({
                     url: '{{ route("states.get-by-country") }}',
                     type: 'GET',
@@ -115,7 +115,7 @@
                     dataType: 'json',
                     success: function(response) {
                         console.log('States response:', response);
-                        
+
                         if (response && response.states) {
                             var states = response.states;
                             if (states.length > 0) {
@@ -127,7 +127,7 @@
                                             .text(state.name)
                                     );
                                 });
-                                
+
                                 // If we have a selected state, try to select it
                                 var selectedStateId = '{{ old("state_id", $city->state_id) }}';
                                 if (selectedStateId) {
@@ -213,4 +213,4 @@
         color: red;
       }
     </style>
-@endsection 
+@endsection

@@ -22,11 +22,24 @@
               <form action="{{ route('experiences.store') }}" method="POST" enctype="multipart/form-data" id="item"> @csrf
 
                 <div class="row mb-3">
-                  <label for="inputEmail3" class="col-sm-1 col-form-label strng flexCntr"> Experience <span class="text-danger">*</span></label>
+                  <label for="inputEmail3" class="col-sm-1 col-form-label strng flexCntr"> Speciality <span class="text-danger">*</span></label>
                   <div class="col-sm-5">
                     <input type="text" name="title" value="{{old('title')}}" class="form-control required" id="inputText">
                    </div>
                 </div>
+
+                 <div class="row mb-3">
+                  <label for="inputEmail3" class="col-sm-1 col-form-label strng flexCntr"> Category <span class="text-danger">*</span></label>
+                  <div class="col-sm-5">
+                   <select name="category_id" id="" class="form-control required" >
+                    <option value="">Select</option>
+                    @foreach($roles as $role)
+                        <option value="{{$role->id}}">{{$role->name}}</option>
+                    @endforeach
+                   </select>
+                   </div>
+                </div>
+
                  <input type="hidden" name="is_active" value="0">
                 <div class="row mb-3">
                     <label for="is_active" class="col-sm-1 col-form-label strng flexCntr"> Active </label>

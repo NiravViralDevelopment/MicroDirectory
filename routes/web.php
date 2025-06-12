@@ -16,11 +16,19 @@ use App\Http\Controllers\CmsController;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserImageController;
+
 use App\Http\Controllers\VideoGalleryController;
+use App\Http\Controllers\ServiceController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\ManageDocumentController;
+
+
+use App\Http\Controllers\LocationController;
+
+Route::get('/get-states/{country}', [LocationController::class, 'getStates'])->name('location.states');
+Route::get('/get-cities/{state}', [LocationController::class, 'getCities'])->name('location.cities');
 
 
 Route::get('/', [FrontController::class, 'frontHome'])->name('front.home');
@@ -42,12 +50,15 @@ Route::group(['middleware' => ['auth']], function() {
 
     // Country Routes
     Route::resource('countries', CountryController::class);
+    Route::get('category-status/{id}', [CountryController::class, 'statusChange'])->name('category.status');
 
     // State Routes
     Route::resource('states', StateController::class);
+    Route::get('states-status/{id}', [StateController::class, 'statusChange'])->name('states.status');
 
     // City Routes
     Route::resource('cities', CityController::class);
+    Route::get('city-status/{id}', [CityController::class, 'statusChange'])->name('city.status');
     Route::get('get-states/{country_id}', [CityController::class, 'getStates'])->name('get.states');
 
     // Other Routes
@@ -62,8 +73,13 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('language-status/{id}', [LanguageController::class, 'languageChange'])->name('language.status');
 
     Route::resource('users', UserController::class);
+
     Route::resource('products', ProductController::class);
     Route::get('product-status/{id}', [ProductController::class, 'productChange'])->name('product.status');
+
+     Route::resource('service', ServiceController::class);
+    Route::get('service-status/{id}', [ServiceController::class, 'serviceChange'])->name('service.status');
+
 
     // Order Routes
     Route::get('order-item', [OrderItemController::class, 'index'])->name('order-item');

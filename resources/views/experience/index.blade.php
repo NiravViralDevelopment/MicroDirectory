@@ -225,7 +225,7 @@
                 <thead class="mobileHide">
                 <tr>
                     <th>Id</th>
-                    <th>Experience</th>
+                    <th>Speciality</th>
                     <th>Active</th>
                     <th>Action</th>
                 </tr>
@@ -245,7 +245,12 @@
                         <td>
                             <div class="ThreeBtns">
                             <a href="{{ route('experiences.edit',$item->id) }}" class="bi bi-pencil-square btn btn-outline-primary btn-sm"></a>
-                            </div>
+                            <form action="{{ route('experiences.destroy', $item->id) }}" method="POST" class="d-inline">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="bi bi-trash btn btn-outline-danger btn-sm" onclick="return confirm('Are you sure you want to delete this country?')"></button>
+                            </form>
+                        </div>
                         </td>
                     </tr>
                     @endforeach

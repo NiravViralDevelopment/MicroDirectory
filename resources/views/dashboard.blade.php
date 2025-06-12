@@ -16,7 +16,7 @@
                                                 <i class="bi bi-people-fill fs-4"></i>
                                             </div>
                                             <div class="ms-3">
-                                                <h6 class="mb-0 text-dark">Total Directory</h6>
+                                                <h6 class="mb-0 text-dark">Member Directory</h6>
                                                 <small class="text-muted">Registered Directory</small>
                                             </div>
                                         </div>
@@ -41,8 +41,8 @@
                                                 <i class="bi bi-person-badge fs-4"></i>
                                             </div>
                                             <div class="ms-3">
-                                                <h6 class="mb-0 text-dark">Roles</h6>
-                                                <small class="text-muted">User Roles</small>
+                                                <h6 class="mb-0 text-dark">Category</h6>
+                                                <small class="text-muted">User Category</small>
                                             </div>
                                         </div>
                                         <div class="d-flex justify-content-between align-items-center">
@@ -56,11 +56,11 @@
                             </a>
                         </div>
 
-                        
 
-                       
 
-                        
+
+
+
 
                         <!-- Experiences Card -->
                         <div class="col-xxl-3 col-md-4 col-sm-6">
@@ -72,8 +72,8 @@
                                                 <i class="bi bi-briefcase fs-4"></i>
                                             </div>
                                             <div class="ms-3">
-                                                <h6 class="mb-0 text-dark">Experiences</h6>
-                                                <small class="text-muted">Total Experiences</small>
+                                                <h6 class="mb-0 text-dark">Speciality</h6>
+                                                <small class="text-muted">Total Speciality</small>
                                             </div>
                                         </div>
                                         <div class="d-flex justify-content-between align-items-center">
@@ -240,7 +240,7 @@
                 this.style.transform = 'translateY(-5px)';
                 this.style.transition = 'transform 0.3s ease';
             });
-            
+
             card.addEventListener('mouseout', function() {
                 this.style.transform = 'translateY(0)';
             });
@@ -252,7 +252,7 @@
         .info-card {
             transition: all 0.3s ease;
         }
-        
+
         .info-card:hover {
             box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
         }

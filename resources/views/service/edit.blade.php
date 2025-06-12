@@ -13,7 +13,7 @@
             </div>
 
             <div class="pull-right">
-                <a class="btn btn-sm mb-2 comnBtn whtTxt borderBtn" href="{{ route('experiences.index') }}"> Back</a>
+                <a class="btn btn-sm mb-2 comnBtn whtTxt borderBtn" href="{{ route('service.index') }}"> Back</a>
             </div>
             </div>
         </div>
@@ -24,25 +24,25 @@
 
 
               <!-- Horizontal Form -->
-              <form action="{{ route('experiences.update',$experience->id) }}" method="POST" enctype="multipart/form-data"> @csrf
-        @method('put')
+              <form action="{{ route('service.update',$Service->id) }}" method="POST" enctype="multipart/form-data"> @csrf
+@method('put')
                 <div class="row mb-3">
-                  <label for="inputEmail3" class="col-sm-1 col-form-label strng flexCntr"> Speciality <span class="text-danger">*</span></label>
+                  <label for="inputEmail3" class="col-sm-1 col-form-label strng flexCntr"> Service<span class="text-danger">*</span></label>
                   <div class="col-sm-5">
-                    <input type="text" name="title" value="{{ $experience->title }}" class="form-control" id="inputText">
+                    <input type="text" name="title" value="{{ $Service->title }}" class="form-control" id="inputText">
                         @error('title')
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
                   </div>
                 </div>
 
-                <div class="row mb-3">
+                 <div class="row mb-3">
                   <label for="inputEmail3" class="col-sm-1 col-form-label strng flexCntr"> Category <span class="text-danger">*</span></label>
                   <div class="col-sm-5">
                    <select name="category_id" id="" class="form-control required" >
                     <option value="">Select</option>
                     @foreach($roles as $role)
-                        <option value="{{$role->id}}" @if($experience->category_id == $role->id) selected @endif>{{$role->name}}</option>
+                        <option value="{{$role->id}}" @if($Service->category_id == $role->id) selected @endif>{{$role->name}}</option>
                     @endforeach
                    </select>
                    </div>
@@ -53,7 +53,7 @@
                     <div class="col-sm-5 d-flex align-items-center">
                                 <input type="hidden" name="is_active" value="0">
 
-                        <input type="checkbox" name="is_active" id="is_active" value="1" {{ $experience->is_active == 1 ? 'checked' : '' }}>
+                        <input type="checkbox" name="is_active" id="is_active" value="1" {{ $Service->is_active == 1 ? 'checked' : '' }}>
                     </div>
                 </div>
 

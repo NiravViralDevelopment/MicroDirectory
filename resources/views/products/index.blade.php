@@ -226,6 +226,7 @@
                 <tr>
                     <th>Id</th>
                     <th>Product</th>
+                    <th>Category</th>
                     <th>Active</th>
                     <th>Action</th>
                 </tr>
@@ -235,6 +236,7 @@
                     <tr class="flexTbl">
                         <td><span class="mobileShow">Id :</span> {{ $key + 1 }}</td>
                         <td><span class="mobileShow">Product :</span> {{ $item->title }}</td>
+                        <td><span class="mobileShow">Product :</span> {{ $item->role->name }}</td>
 
                          <td>
                             @if ($item && $item->is_active)
@@ -247,7 +249,12 @@
                         <td>
                             <div class="ThreeBtns">
                             <a href="{{ route('products.edit',$item->id) }}" class="bi bi-pencil-square btn btn-outline-primary btn-sm"></a>
-                            </div>
+                             <form action="{{ route('products.destroy', $item->id) }}" method="POST" class="d-inline">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="bi bi-trash btn btn-outline-danger btn-sm" onclick="return confirm('Are you sure you want to delete this country?')"></button>
+                            </form>
+                        </div>
                         </td>
                     </tr>
                     @endforeach

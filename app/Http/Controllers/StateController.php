@@ -36,7 +36,7 @@ class StateController extends Controller
         $request->validate([
             'country_id' => 'required|exists:countries,id',
             'name' => 'required|string|max:255',
-            'code' => 'nullable|string|max:3',
+
             'is_active' => 'boolean'
         ]);
 
@@ -71,7 +71,7 @@ class StateController extends Controller
         $request->validate([
             'country_id' => 'required|exists:countries,id',
             'name' => 'required|string|max:255',
-            'code' => 'nullable|string|max:3',
+
             'is_active' => 'boolean'
         ]);
 
@@ -104,26 +104,26 @@ class StateController extends Controller
 
             $countryId = $request->country_id;
             Log::info('Fetching states for country_id: ' . $countryId);
-            
+
             // First check if the country exists
             $countryExists = DB::table('countries')->where('id', $countryId)->exists();
             if (!$countryExists) {
                 Log::warning('Country not found with ID: ' . $countryId);
                 return response()->json(['error' => 'Country not found'], 404);
             }
-            
+
             $states = State::where('country_id', $countryId)
                           ->where('is_active', 1)
                           ->orderBy('name')
                           ->get(['id', 'name']);
-            
+
             Log::info('States fetched:', ['count' => $states->count(), 'states' => $states->toArray()]);
-            
+
             // Return the states data
             return response()->json([
                 'states' => $states->toArray()
             ]);
-            
+
         } catch (\Exception $e) {
             Log::error('Error in getByCountry: ' . $e->getMessage(), [
                 'file' => $e->getFile(),
@@ -133,4 +133,19 @@ class StateController extends Controller
             return response()->json(['error' => 'Failed to fetch states: ' . $e->getMessage()], 500);
         }
     }
+
+     function statusChange($id){
+        $state = State::where('id',$id)->first();
+        if($state->is_active == 1){
+            $status = 0;
+        }else{
+            $status = 1;
+        }
+        // return $status;
+        $state->is_active = $status;
+        $state->save();
+        return redirect()->back()->with('message','Status Changed.');
+    }
+
+
 }

@@ -214,7 +214,7 @@
               {{ session('success') }}
             </div>
           @endif
-          
+
           <div class="table-responsive">
             <table id="datatable" class="table">
               <thead class="mobileHide">
@@ -222,7 +222,7 @@
                   <th>Id</th>
                   <th>Country</th>
                   <th>Name</th>
-                  <th>Code</th>
+                  <th>Is Active</th>
                   <th>Action</th>
                 </tr>
               </thead>
@@ -232,7 +232,14 @@
                     <td><span class="mobileShow">Id :</span> {{ $key + 1 }}</td>
                     <td><span class="mobileShow">Country :</span> {{ $state->country->name }}</td>
                     <td><span class="mobileShow">Name :</span> {{ $state->name }}</td>
-                    <td><span class="mobileShow">Code :</span> {{ $state->code }}</td>
+                      <td>
+                          @if ($state && $state->is_active)
+                           <a href="{{route('states.status',$state->id)}}" onclick="return confirm('Are you sure?')"><span class="badge bg-success">Active</span></a>
+                        @else
+                           <a href="{{route('states.status',$state->id)}}" onclick="return confirm('Are you sure?')"><span class="badge bg-danger">Inactive</span></a>
+                        @endif
+                        </td>
+
                     <td>
                       <div class="ThreeBtns">
                         <a href="{{ route('states.edit', $state) }}" class="bi bi-pencil-square btn btn-outline-primary btn-sm"></a>
@@ -275,4 +282,4 @@ $(document).ready(function() {
   });
 });
 </script>
-@endsection 
+@endsection

@@ -48,7 +48,7 @@
                   </div>
                 </div>
 
-                <div class="row mb-3">
+                {{-- <div class="row mb-3">
                   <label for="code" class="col-sm-1 col-form-label strng flexCntr">Code <span class="text-danger">*</span></label>
                   <div class="col-sm-5">
                     <input type="text" name="code" value="{{ old('code') }}" class="form-control required" id="code">
@@ -56,7 +56,7 @@
                       <div class="text-danger">{{ $message }}</div>
                     @enderror
                   </div>
-                </div>
+                </div> --}}
 
                 <input type="hidden" name="is_active" value="1">
 
@@ -85,4 +85,4 @@
         color: red;
       }
     </style>
-@endsection 
+@endsection

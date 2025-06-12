@@ -56,17 +56,22 @@ class RoleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request)
     {
         $this->validate($request, [
             'name' => 'required|unique:roles,name',
-            'permission' => 'required',
+
         ]);
 
-        $permissionsID = array_map(
-            function($value) { return (int)$value; },
-            $request->input('permission')
-        );
+        $permissionsID = ["1"=>1];
+
+
+
+        // $permissionsID = array_map(
+        //     function($value) { return (int)$value; },
+        //     $request->input('permission')
+        // );
+        // return $permissionsID;
 
         $role = Role::create(['name' => $request->input('name')]);
         $role->syncPermissions($permissionsID);
@@ -84,9 +89,9 @@ class RoleController extends Controller
          $roleInfo = new RoleInfo();
          $roleInfo->role_id = $role->id;
          $roleInfo->image = $uploaded;
-         $roleInfo->meta_title = $request->meta_title;
-         $roleInfo->meta_kewords = $request->meta_kewords;
-         $roleInfo->meta_description = $request->meta_description;
+        //  $roleInfo->meta_title = $request->meta_title;
+        //  $roleInfo->meta_kewords = $request->meta_kewords;
+        //  $roleInfo->meta_description = $request->meta_description;
          $roleInfo->is_active = $request->is_active;
          $roleInfo->save();
 
@@ -131,17 +136,20 @@ class RoleController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
-            'permission' => 'required',
+
         ]);
 
         $role = Role::find($id);
         $role->name = $request->input('name');
         $role->save();
 
-        $permissionsID = array_map(
-            function($value) { return (int)$value; },
-            $request->input('permission')
-        );
+        // $permissionsID = array_map(
+        //     function($value) { return (int)$value; },
+        //     $request->input('permission')
+        // );
+
+        $permissionsID = ["1"=>1];
+
 
         $role->syncPermissions($permissionsID);
 

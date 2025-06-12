@@ -214,81 +214,54 @@
         text-align: left !important;
     }
 </style>
-
 <section class="section">
       <div class="row">
         <div class="col-lg-12">
 
           <div class="card">
             <div class="card-body">
-               <!--  <div class="row">
-                    <div class="col-11">
-                    <h5 class="card-title">User Management</h5>
-                    </div>
-                    <div class="col-1">
-                    {{-- <a href="{{ route('users.create')}}" class="btn btn-outline-primary btn-sm mt-3">Add</a> --}}
-                    </div>
-                </div> -->
-            <!-- Table with stripped rows -->
-              <div class="table-responsive">
+                <div class="table-responsive">
                   <table id="datatable" class="table">
                 <thead class="mobileHide">
                 <tr>
-                    <th>No</th>
-                    <th>Name</th>
-                    <th>Email</th>
+                    <th>Id</th>
+                    <th>Product</th>
                     <th>Category</th>
-                    <th width="280px">Action</th>
+
+                    <th>Active</th>
+                    <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
-                @foreach ($data as $key => $user)
-                        <tr class="flexTbl">
-                            <td><span class="mobileShow">No. :</span> {{ ++$i }}</td>
-                            <td><span class="mobileShow">Name :</span> {{ $user->name }}</td>
-                            <td><span class="mobileShow">Email :</span> {{ $user->email }}</td>
-                            <td><span class="mobileShow">Roles :</span>
-                            @if(!empty($user->getRoleNames()))
-                                @foreach($user->getRoleNames() as $v)
-                                <label class="text-primary">{{ $v }}</label>
-                                @endforeach
+                    @foreach ($products as $key=>$item)
+                    <tr class="flexTbl">
+                        <td><span class="mobileShow">Id :</span> {{ $key + 1 }}</td>
+                        <td><span class="mobileShow">Service :</span> {{ $item->title }}</td>
+                        <td><span class="mobileShow">Category :</span> {{ $item->role->name }}</td>
+
+                         <td>
+                            @if ($item && $item->is_active)
+                            <a href="{{route('service.status',$item->id)}}" onclick="return confirm('Are you sure?')"><span class="badge bg-success">Active</span></a>
+                            @else
+                            <a href="{{route('service.status',$item->id)}}" onclick="return confirm('Are you sure?')"><span class="badge bg-danger">Inactive</span></a>
                             @endif
-                            </td>
-                            <td>
-                            <div class="ThreeBtns">
-                                <a href="{{ route('user-images.create', ['user_id' => $user->id]) }}" class="btn btn-sm btn-info me-1" data-bs-toggle="tooltip" title="Add Image">
-                                    <i class="bi bi-image"></i>
-                                </a>
-
-                                <a href="{{ route('manage-documents.create', ['user_id' => $user->id]) }}" class="btn btn-sm btn-info me-1" data-bs-toggle="tooltip" title="Add Document">
-                                    <i class="bi bi-file-earmark-text"></i>
-                                </a>
-
-                                <a href="{{ route('video-galleries.create', ['user_id' => $user->id]) }}" class="btn btn-sm btn-warning me-1" data-bs-toggle="tooltip" title="Add Video">
-                                    <i class="bi bi-camera-video"></i>
-                                </a>
-
-                                <a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-primary me-1" data-bs-toggle="tooltip" title="Edit">
-                                    <i class="bi bi-pencil"></i>
-                                </a>
-
-                                <form action="{{ route('users.destroy', $user->id) }}" method="POST" class="d-inline">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-danger" data-bs-toggle="tooltip" title="Delete" onclick="return confirm('Are you sure you want to delete this user?')">
-                                        <i class="bi bi-trash"></i>
-                                    </button>
-                                </form>
-                            </div>
                         </td>
 
-                        </tr>
+                        <td>
+                            <div class="ThreeBtns">
+                            <a href="{{ route('service.edit',$item->id) }}" class="bi bi-pencil-square btn btn-outline-primary btn-sm"></a>
+                             <form action="{{ route('service.destroy', $item->id) }}" method="POST" class="d-inline">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="bi bi-trash btn btn-outline-danger btn-sm" onclick="return confirm('Are you sure you want to delete this country?')"></button>
+                            </form>
+                        </div>
+                        </td>
+                    </tr>
                     @endforeach
                 </tbody>
               </table>
               </div>
-              <!-- End Table with stripped rows -->
-
             </div>
           </div>
 
@@ -297,33 +270,33 @@
     </section>
 
     <script>
-     $(document).ready(function() {
+      $(document).ready(function() {
     var table = $('#datatable').DataTable({
         dom: 'Bfrtip',
         pageLength: 10,
         buttons: [
-            {
-                extend: 'excelHtml5',
-                text: '<img src="{{asset('admin')}}/img/export.png" class="iconbt img-fluid" alt="export icon"> Export',  // Adding upload icon and "Export" text
-                className: 'btn-export',  // Custom class for styling the button
-                exportOptions: {
-                    // Ensure all rows are exported (not just visible ones)
-                    columns: ':visible',
-                    format: {
-                        body: function (data, row, column, node) {
-                            // Use jQuery to remove span elements with 'mobileShow' class
-                            var strippedData = $('<div>').html(data).find('.mobileShow').remove().end().text();
-                            return strippedData.trim(); // Trim extra spaces
-                        }
-                    },
-                    columns: ':not(:last-child)'
-                }
-            },
+            // {
+            //     extend: 'excelHtml5',
+            //     text: '<img src="{{asset('admin')}}/img/export.png" class="iconbt img-fluid" alt="export icon"> Export',  // Adding upload icon and "Export" text
+            //     className: 'btn-export',  // Custom class for styling the button
+            //     exportOptions: {
+            //         // Ensure all rows are exported (not just visible ones)
+            //         columns: ':visible',
+            //         format: {
+            //             body: function (data, row, column, node) {
+            //                 // Use jQuery to remove span elements with 'mobileShow' class
+            //                 var strippedData = $('<div>').html(data).find('.mobileShow').remove().end().text();
+            //                 return strippedData.trim(); // Trim extra spaces
+            //             }
+            //         },
+            //         columns: ':not(:last-child)'
+            //     }
+            // },
             {
                 text: '<img src="{{asset('admin')}}/img/plus-icon.png" class="iconbt img-fluid" alt="plus icon"> Add New',  // Adding a plus icon with "Add Order" text
                 className: 'btn-add-order greenBtn',  // Custom class for the button
                 action: function(e, dt, node, config) {
-                    window.location.href = "{{ route('users.create') }}";  // Redirect to the order creation route
+                    window.location.href = "{{ route('service.create') }}";  // Redirect to the order creation route
                 }
             }
         ],
@@ -334,18 +307,5 @@
     });
 });
   </script>
-
-<style>
-  .ThreeBtns {
-    display: flex;
-    gap: 5px;
-  }
-  .btn-sm {
-    padding: 0.25rem 0.5rem;
-  }
-  .bi {
-    font-size: 0.875rem;
-  }
-</style>
 @endsection
 
