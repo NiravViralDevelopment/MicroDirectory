@@ -14,6 +14,7 @@ use App\Models\User;
 use Spatie\Permission\Models\Role;
 use DB;
 use Hash;
+use Auth;
 use Illuminate\Support\Arr;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -112,7 +113,9 @@ class UserController extends Controller
         $experiences = Experience::where('is_active',1)->get();
         $languages = Language::where('is_active',1)->get();
         $others = Product::where('is_active',1)->get();
-        if($id == 2){
+
+        $userfindId = Auth::id();
+        if($userfindId == 2){
             return view('users.edit', compact('user', 'roles', 'userRole', 'experiences', 'languages', 'others','countries'));
 
         }else{

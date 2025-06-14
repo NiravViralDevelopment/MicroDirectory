@@ -20,7 +20,8 @@
             <input type="file" class="form-control" id="image" name="image" required>
         </div>
 
-        <div class="form-check mb-3">
+         <div class="form-check mb-3">
+            <input type="hidden" name="status" value="0">
             <input class="form-check-input" type="checkbox" name="status" id="status" value="1" checked>
             <label class="form-check-label" for="status">Active</label>
         </div>

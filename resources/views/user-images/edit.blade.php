@@ -27,10 +27,11 @@
             <input type="file" class="form-control" id="image" name="image">
         </div>
 
-        <div class="form-check mb-3">
-            <input class="form-check-input" type="checkbox" name="status" id="status" value="1" {{ $userImage->status ? 'checked' : '' }}>
-            <label class="form-check-label" for="status">Active</label>
-        </div>
+       <div class="form-check mb-3">
+                        <input type="hidden" name="status" value="0">
+                        <input class="form-check-input" type="checkbox" name="status" id="status" value="1" {{ $userImage->status ? 'checked' : '' }}>
+                        <label class="form-check-label" for="status">Active</label>
+                    </div>
 
         <button type="submit" class="btn btn-primary">Update Image</button>
     </form>

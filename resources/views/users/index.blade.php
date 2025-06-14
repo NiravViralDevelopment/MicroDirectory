@@ -237,6 +237,7 @@
                     <th>No</th>
                     <th>Name</th>
                     <th>Email</th>
+                    <th>Status</th>
                     <th>Category</th>
                     <th width="280px">Action</th>
                 </tr>
@@ -247,6 +248,27 @@
                             <td><span class="mobileShow">No. :</span> {{ ++$i }}</td>
                             <td><span class="mobileShow">Name :</span> {{ $user->name }}</td>
                             <td><span class="mobileShow">Email :</span> {{ $user->email }}</td>
+                            <td>
+                                <span class="mobileShow">Status :</span>
+                                @if($user->is_active)
+                                    <span class="badge bg-success">Active</span>
+                                @else
+                                    <span class="badge bg-secondary">Inactive</span>
+                                @endif
+
+                                @if($user->is_featured)
+                                    <span class="badge bg-info">Featured</span>
+                                @endif
+
+                                @if($user->is_locked)
+                                    <span class="badge bg-warning">Locked</span>
+                                @endif
+
+                                @if($user->is_block)
+                                    <span class="badge bg-danger">Blocked</span>
+                                @endif
+                            </td>
+
                             <td><span class="mobileShow">Roles :</span>
                             @if(!empty($user->getRoleNames()))
                                 @foreach($user->getRoleNames() as $v)
