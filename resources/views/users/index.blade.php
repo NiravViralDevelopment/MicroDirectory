@@ -239,6 +239,7 @@
                     <th>Email</th>
                     <th>Status</th>
                     <th>Category</th>
+                    <th>Email</th>
                     <th width="280px">Action</th>
                 </tr>
                 </thead>
@@ -276,6 +277,17 @@
                                 @endforeach
                             @endif
                             </td>
+
+                            <td><span class="mobileShow">Mail Status :</span>
+                                                    @if ($user->mail_status == 0)
+                                                        <a href="{{ route('send.mail', $user->id) }}"
+                                                            onclick="return confirm('Are you sure ?')"><label
+                                                                class="badge bg-danger">Pending</label></a>
+                                                    @else
+                                                        <label class="badge bg-success">Sent</label>
+                                                    @endif
+                                                </td>
+
                             <td>
                             <div class="ThreeBtns">
                                 {{-- <a href="{{ route('user-images.create', ['user_id' => $user->id]) }}" class="btn btn-sm btn-info me-1" data-bs-toggle="tooltip" title="Add Image">
