@@ -39,7 +39,7 @@ $role_info = get_role_info($role->id);
         <div class="col-xs-12 col-sm-12 col-md-6">
             <div class="form-group">
                 <strong class="strng">Name:</strong>
-                <input type="text" name="name" readonly   placeholder="Name" class="form-control" value="{{ $role->name }}">
+                <input type="text" name="name"   placeholder="Name" class="form-control" value="{{ $role->name }}">
             </div>
         </div>
 

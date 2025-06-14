@@ -264,9 +264,9 @@
                         <td>
                            <div class="ThreeBtns">
                             <a  href="{{ route('roles.show',$role->id) }}"><i class="btn btn-outline-success btn-sm bi bi-eye-fill"></i> </a>
-                            @can('role-edit')
+
                                 <a  href="{{ route('roles.edit',$role->id) }}"><i class="bi bi-pencil-square btn btn-outline-primary btn-sm"></i></a>
-                            @endcan
+
 
                             {{-- @can('role-delete')
                             <form method="POST" action="{{ route('roles.destroy', $role->id) }}" style="display:inline">

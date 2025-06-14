@@ -22,7 +22,7 @@
               <form action="{{ route('service.store') }}" method="POST" enctype="multipart/form-data" id="item"> @csrf
 
                 <div class="row mb-3">
-                  <label for="inputEmail3" class="col-sm-1 col-form-label strng flexCntr"> Product <span class="text-danger">*</span></label>
+                  <label for="inputEmail3" class="col-sm-1 col-form-label strng flexCntr"> Service <span class="text-danger">*</span></label>
                   <div class="col-sm-5">
                     <input type="text" name="title" value="{{old('title')}}" class="form-control required" id="inputText">
                    </div>

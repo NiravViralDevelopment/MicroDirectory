@@ -112,7 +112,7 @@ Route::group(['middleware' => ['auth']], function() {
 
     // User Image Routes
 
-       Route::get('user-images', [UserImageController::class, 'index'])->name('user-images.index');
+Route::get('user-images', [UserImageController::class, 'index'])->name('user-images.index');
 Route::get('user-images/create', [UserImageController::class, 'create'])->name('user-images.create');
 Route::post('user-images', [UserImageController::class, 'store'])->name('user-images.store');
 Route::get('user-images/{userImage}/edit', [UserImageController::class, 'edit'])->name('user-images.edit');
@@ -143,3 +143,13 @@ Route::middleware(['auth', 'web'])->group(function () {
 
     // ... other routes ...
 });
+
+
+
+//frontend route
+
+
+
+
+Route::get('register_form', [FrontController::class, 'register_form'])->name('register_form');
+Route::POST('registrtion_store', [FrontController::class, 'registrtionStore'])->name('registrtion_store');

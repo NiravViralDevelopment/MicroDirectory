@@ -102,7 +102,7 @@
             stateSelect.prop('disabled', true);
 
             $.ajax({
-              url: '/attom_directory/public/get-by-country',
+              url: '/public/get-by-country',
               type: 'GET',
               data: { country_id: countryId },
               dataType: 'json',
@@ -112,7 +112,7 @@
               },
               beforeSend: function() {
                 console.log('Sending request for country_id:', countryId);
-                console.log('Request URL:', '/attom_directory/public/get-by-country');
+                console.log('Request URL:', '/public/get-by-country');
               },
               success: function(response) {
                 console.log('Raw response:', response);

@@ -29,24 +29,52 @@ class UserImageController extends Controller
         return view('user-images.create', compact('selectedUserId'));
     }
 
-    public function store(Request $request)
+   public function store(Request $request)
     {
-        $request->validate([
-            'image' => 'required|image|max:2048',  // max 2MB
-            'user_id' => 'required|exists:users,id',
-            'status' => 'sometimes|boolean',
-        ]);
+        try {
+            // Validate the incoming request
+            $validated = $request->validate([
+                'image' => 'required|image|max:2048', // max 2MB
+                'status' => 'sometimes|boolean',
+            ]);
 
-        $imagePath = $request->file('image')->store('user_images', 'public');
+            // Start a database transaction
+            DB::beginTransaction();
 
-        UserImage::create([
-            'user_id' => $request->user_id,
-            'image' => $imagePath,
-            'status' => $request->has('status') ? $request->status : true,
-        ]);
+            // Handle image upload
+            $uploaded = '';
+            if ($request->hasFile('image')) {
+                $image = $request->file('image');
+                $uploaded = time() . '.' . $image->getClientOriginalExtension();
+                $destinationPath = public_path('/all_user_image');
+                $image->move($destinationPath, $uploaded);
+            }
 
-        return redirect()->route('user-images.index', ['user_id' => $request->user_id])
-            ->with('success', 'Image added successfully.');
+            // Create the user image record
+            // Equivalent SQL:
+            // INSERT INTO user_images (user_id, image, status, created_at, updated_at)
+            // VALUES (:user_id, :image, :status, NOW(), NOW())
+            UserImage::create([
+                'user_id' => Auth::id(), // Use authenticated user's ID
+                'image' => $uploaded, // Use the uploaded filename
+                'status' => $request->has('status') ? $request->status : true,
+            ]);
+
+            // Commit the transaction
+            DB::commit();
+
+            // Redirect to the index with user_id filter
+            return redirect()->route('user-images.index', ['user_id' => Auth::id()])
+                ->with('success', 'Image added successfully.');
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            // Validation failed; Laravel handles redirect with errors
+            throw $e;
+        } catch (\Exception $e) {
+            // Roll back transaction on error
+            DB::rollBack();
+            Log::error('Failed to store user image: ' . $e->getMessage(), ['request' => $request->all()]);
+            return redirect()->back()->withErrors(['error' => 'An error occurred while uploading the image.']);
+        }
     }
 
     public function edit(UserImage $userImage)
@@ -61,13 +89,22 @@ class UserImageController extends Controller
             'status' => 'sometimes|boolean',
         ]);
 
-        if ($request->hasFile('image')) {
-            // Delete old image if exists
-            if ($userImage->image && \Storage::disk('public')->exists($userImage->image)) {
-                \Storage::disk('public')->delete($userImage->image);
-            }
-            $imagePath = $request->file('image')->store('user_images', 'public');
-            $userImage->image = $imagePath;
+        // if ($request->hasFile('image')) {
+        //     // Delete old image if exists
+        //     if ($userImage->image && \Storage::disk('public')->exists($userImage->image)) {
+        //         \Storage::disk('public')->delete($userImage->image);
+        //     }
+        //     $imagePath = $request->file('image')->store('user_images', 'public');
+        //     $userImage->image = $imagePath;
+        // }
+
+        $uploaded = '';
+        if ($request->hasFile('image'))
+        {
+            $image = $request->file('image');
+            $uploaded = time() . '.' . $image->getClientOriginalExtension();
+            $destinationPath = public_path('/all_user_image');
+            $image->move($destinationPath, $uploaded);
         }
 
         $userImage->status = $request->has('status') ? $request->status : $userImage->status;

@@ -38,7 +38,7 @@
                   <li><a href="mailto:sales@dbuguae.com"><span class="glyphicon glyphicon-envelope"></span>&nbsp; Email: info@atomdirectory.com</a></li>
                   <li class="green">
                      <!--<a href="{{asset('front/')}}" class="reg">Registration</a> <span>/</span> -->
-                     <a href="#" data-toggle="modal" data-target="#myModal" class="log btn_login" onclick="hideregisterdiv();">Registration <span>/</span> Log in</a>
+                     <a href="{{ route('register_form')}}">Registration <span>/</span> Log in</a>
                   </li>
                </ul>
                <div class="clear"></div>
@@ -88,7 +88,7 @@
                @foreach($roles as $role)
                <div class="rsThumb">
                   <div class="icon-container">
-                     <a href = "{{route('directory.list',$role->slug)}}">
+                     {{-- <a href = "{{route('directory.list',$role->slug)}}"> --}}
                      <img src="{{asset('all_image/'.$role->image)}}">
                      </a>
                      <p class="icon-title">{{$role->name}}</p>
@@ -192,7 +192,7 @@
                         <div class="failure" id="errorregister" style="display:none;">Something went Wrong. Please try again later!</div>
                         <div class="failure" id="errorregister1" style="display:none;">This Email is already exists. You can not duplicate this email!</div>
                         <div class="failure" id="errorregisterphone" style="display:none;">This Phone no is already exists.</div>
-                        <form name="registrtion_form" id="registrtion_form" enctype="multipart/form-data" method="POST">
+                        <form name="registrtion_store" id="registrtion_form" enctype="multipart/form-data" method="POST">
                            <div class="row">
                               <div class="col-md-12">
                                  <div class="form-group">

@@ -26,10 +26,9 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(): View
+    public function index()
     {
         $products = Product::with('role')->orderBy('id','desc')->get();
-
         return view('products.index',compact('products'));
     }
 

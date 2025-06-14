@@ -38,16 +38,10 @@ class UserImage extends Model
     /**
      * Scope a query to only include profile images.
      */
-    public function scopeProfile($query)
-    {
-        return $query->where('is_profile', true);
-    }
+
 
     /**
      * Get the full URL of the image.
      */
-    public function getImageUrlAttribute()
-    {
-        return asset('storage/' . $this->image_path);
-    }
-} 
+
+}

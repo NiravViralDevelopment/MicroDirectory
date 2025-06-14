@@ -9,9 +9,9 @@ class ExperienceController extends Controller
 {
     public function index()
     {
-        $experiences = Experience::all();
+        $experiences = Experience::with('role')->get();
         $roles = DB::table('roles')->where('id','!=',1)->get();
-        // return $roles;
+        // return $experiences;
         return view('experience.index', compact('experiences','roles'));
     }
 

@@ -42,7 +42,9 @@
                    <select name="category_id" id="" class="form-control required" >
                     <option value="">Select</option>
                     @foreach($roles as $role)
-                        <option value="{{$role->id}}" @if($Service->category_id == $role->id) selected @endif>{{$role->name}}</option>
+                        <option value="{{$role->id}}" @if($Service->category_id == $role->id) selected @endif>
+                            {{$role->name}}
+                        </option>
                     @endforeach
                    </select>
                    </div>

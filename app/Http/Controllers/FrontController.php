@@ -8,6 +8,10 @@ use App\Models\RoleInfo;
 use App\Models\Countries;
 use App\Models\User;
 use App\Models\Cms;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
+
+use Spatie\Permission\Models\Role;
 class FrontController extends Controller
 {
     function frontHome(){
@@ -77,6 +81,84 @@ class FrontController extends Controller
         Mail::to($user->email)->send(new UserCreatedMail($user));
         return redirect()->route('users.index')
                         ->with('message','User created successfully and email sent');
+    }
+
+    public function register_form(){
+
+        $rolesDate = Role::orderBy('id','DESC')->get();
+        return view('register_form',compact('rolesDate'));
+    }
+    public function registrtionStore(Request $request)
+    {
+        try {
+            // Validate the incoming request data
+            $validated = $request->validate([
+                'name' => 'required|string|max:200|min:2|regex:/^[a-zA-Z ]+$/',
+                'phone' => 'required|string|max:13|min:10|unique:users,phone',
+                'email' => 'required|email|max:200|min:2|unique:users,email',
+                'whatsapp' => 'required|string|max:12|min:10',
+                'register_as' => 'required|exists:roles,id', // Validate role ID exists
+            ]);
+
+            // Start a database transaction
+            DB::beginTransaction();
+
+            // Generate a random password
+            // $randomPassword = Str::random(12);
+            $randomPassword = '12345678';
+            $hashedPassword = Hash::make($randomPassword);
+
+            // Prepare data for storage
+            $userData = [
+                'name' => $validated['name'],
+                'phone' => $validated['phone'],
+                'email' => $validated['email'],
+                'whatsup' => $validated['whatsapp'], // Map 'whatsapp' to 'whatsup' column
+                'password' => $hashedPassword,
+                'show_password' => $randomPassword, // Note: Insecure; consider removing
+                'is_active' => true,
+                'slug' => Str::slug($validated['name'] . '-' . Str::random(6)),
+            ];
+
+            // Store the user in the database
+            // Equivalent SQL:
+            // INSERT INTO users (name, phone, email, whatsup, password, show_password, is_active, slug, created_at, updated_at)
+            // VALUES (:name, :phone, :email, :whatsup, :password, :show_password, 1, :slug, NOW(), NOW())
+            $user = User::create($userData);
+
+            // Find the role by ID
+            $role = Role::findOrFail($validated['register_as']); // Throws ModelNotFoundException if not found
+            $user->assignRole($role->name);
+
+            // Equivalent SQL for role assignment:
+            // INSERT INTO model_has_roles (role_id, model_id, model_type)
+            // VALUES (:role_id, :user_id, 'App\\Models\\User')
+
+            // Commit the transaction
+            DB::commit();
+            return redirect(url('/'))
+                ->with('success', 'Registration successful! Please check your email for your password.');
+
+            // Redirect with success message
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            // Validation failed; Laravel handles redirect with errors automatically
+            throw $e;
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            // Role not found
+            DB::rollBack();
+            Log::error('Role not found for ID: ' . $request->register_as, ['exception' => $e]);
+            return redirect()->back()->withErrors(['register_as' => 'Invalid role selected.']);
+        } catch (QueryException $e) {
+            // Database error (e.g., duplicate slug)
+            DB::rollBack();
+            Log::error('Database error during user registration: ' . $e->getMessage(), ['request' => $request->all()]);
+            return redirect()->back()->withErrors(['error' => 'An error occurred while registering. Please try again.']);
+        } catch (\Exception $e) {
+            // Catch any other unexpected errors
+            DB::rollBack();
+            Log::error('Unexpected error during user registration: ' . $e->getMessage(), ['request' => $request->all()]);
+            return redirect()->back()->withErrors(['error' => 'An unexpected error occurred. Please contact support.']);
+        }
     }
 
 }

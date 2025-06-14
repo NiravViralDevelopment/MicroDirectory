@@ -226,6 +226,7 @@
                 <tr>
                     <th>Id</th>
                     <th>Speciality</th>
+                    <th>Category</th>
                     <th>Active</th>
                     <th>Action</th>
                 </tr>
@@ -235,6 +236,11 @@
                     <tr class="flexTbl">
                         <td><span class="mobileShow">Id :</span> {{ $key + 1 }}</td>
                         <td><span class="mobileShow">Experience :</span> {{ $item->title }}</td>
+                        <td>
+                                <span class="mobileShow">Category :</span>
+                                {{ optional($item->role)->name }}
+                            </td>
+
                         <td>
                             @if ($item && $item->is_active)
                             <a href="{{route('experiences.status',$item->id)}}" onclick="return confirm('Are you sure?')"><span class="badge bg-success">Active</span></a>

@@ -45,227 +45,227 @@
                     <div class="row">
 
                         <!-- BASIC INFO -->
-                        <div class="col-md-12"><h6 class="section-title">Basic Info</h6></div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <strong class="strng "> Name: </strong>
-                                <input type="text" name="name" placeholder="Name" class="form-control required" value="{{ old('name', $user->name) }}" readonly>
-                                <span class="error-message text-danger"></span>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <strong class="strng ">Mobile No:</strong>
-                                <input type="tel" name="phone" placeholder="Enter Mobile No." class="form-control required" value="{{ old('phone', $user->phone) }}" pattern="[0-9]{10}" title="Please enter a valid 10-digit mobile number" readonly>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <strong class="strng ">Email:</strong>
-                                <input type="email" name="email" placeholder="Enter Email" class="form-control required" value="{{ old('email', $user->email) }}" readonly>
-                            </div>
-                        </div>
+                        <!--<div class="col-md-12"><h6 class="section-title">Basic Info</h6></div>-->
+                        <!--<div class="col-md-4">-->
+                        <!--    <div class="form-group">-->
+                        <!--        <strong class="strng "> Name: </strong>-->
+                        <!--        <input type="text" name="name" placeholder="Name" class="form-control required" value="{{ old('name', $user->name) }}" readonly>-->
+                        <!--        <span class="error-message text-danger"></span>-->
+                        <!--    </div>-->
+                        <!--</div>-->
+                        <!--<div class="col-md-4">-->
+                        <!--    <div class="form-group">-->
+                        <!--        <strong class="strng ">Mobile No:</strong>-->
+                        <!--        <input type="tel" name="phone" placeholder="Enter Mobile No." class="form-control required" value="{{ old('phone', $user->phone) }}" pattern="[0-9]{10}" title="Please enter a valid 10-digit mobile number" readonly>-->
+                        <!--    </div>-->
+                        <!--</div>-->
+                        <!--<div class="col-md-4">-->
+                        <!--    <div class="form-group">-->
+                        <!--        <strong class="strng ">Email:</strong>-->
+                        <!--        <input type="email" name="email" placeholder="Enter Email" class="form-control required" value="{{ old('email', $user->email) }}" readonly>-->
+                        <!--    </div>-->
+                        <!--</div>-->
 
                         <!-- SOCIAL LINKS -->
-                        <div class="col-md-12"><h6 class="section-title">Social Info</h6></div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <strong class="strng ">Facebook: </strong>
-                                <input type="url" name="facebook" placeholder="Enter Facebook" class="form-control required" value="{{ old('facebook', $user->facebook) }}" pattern="https?://.*" title="Please enter a valid URL" >
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <strong class="strng ">Website: </strong>
-                                <input type="url" name="website" placeholder="Enter Website" class="form-control required" value="{{ old('website', $user->website) }}" pattern="https?://.*" title="Please enter a valid URL" >
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <strong class="strng ">WhatsApp: </strong>
-                                <input type="tel" name="whatsup" placeholder="Enter WhatsApp No" class="form-control required" value="{{ old('whatsup', $user->whatsup) }}" pattern="[0-9]{10}" title="Please enter a valid 10-digit WhatsApp number" >
-                            </div>
-                        </div>
+                        <!--<div class="col-md-12"><h6 class="section-title">Social Info</h6></div>-->
+                        <!--<div class="col-md-4">-->
+                        <!--    <div class="form-group">-->
+                        <!--        <strong class="strng ">Facebook: </strong>-->
+                        <!--        <input type="url" name="facebook" placeholder="Enter Facebook" class="form-control required" value="{{ old('facebook', $user->facebook) }}" pattern="https?://.*" title="Please enter a valid URL" >-->
+                        <!--    </div>-->
+                        <!--</div>-->
+                        <!--<div class="col-md-4">-->
+                        <!--    <div class="form-group">-->
+                        <!--        <strong class="strng ">Website: </strong>-->
+                        <!--        <input type="url" name="website" placeholder="Enter Website" class="form-control required" value="{{ old('website', $user->website) }}" pattern="https?://.*" title="Please enter a valid URL" >-->
+                        <!--    </div>-->
+                        <!--</div>-->
+                        <!--<div class="col-md-4">-->
+                        <!--    <div class="form-group">-->
+                        <!--        <strong class="strng ">WhatsApp: </strong>-->
+                        <!--        <input type="tel" name="whatsup" placeholder="Enter WhatsApp No" class="form-control required" value="{{ old('whatsup', $user->whatsup) }}" pattern="[0-9]{10}" title="Please enter a valid 10-digit WhatsApp number" >-->
+                        <!--    </div>-->
+                        <!--</div>-->
 
-                         <div class="col-md-4">
-                            <div class="form-group">
-                                <strong class="strng ">Linkedin: </strong>
-                                <input type="url" name="linkedin" placeholder="Enter linkedin" class="form-control " value="{{ old('linkedin', $user->linkedin) }}" pattern="https?://.*" title="Please enter a valid URL" >
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <strong class="strng ">Instagram: </strong>
-                                <input type="url" name="instagram" placeholder="Enter Instagram" class="form-control " value="{{ old('instagram', $user->instagram) }}" pattern="https?://.*" title="Please enter a valid URL" >
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <strong class="strng ">Youtube: </strong>
-                                <input type="url" name="youtube" placeholder="Enter youtube" class="form-control " value="{{ old('youtube', $user->youtube) }}" pattern="[0-9]{10}" >
-                            </div>
-                        </div>
+                        <!-- <div class="col-md-4">-->
+                        <!--    <div class="form-group">-->
+                        <!--        <strong class="strng ">Linkedin: </strong>-->
+                        <!--        <input type="url" name="linkedin" placeholder="Enter linkedin" class="form-control " value="{{ old('linkedin', $user->linkedin) }}" pattern="https?://.*" title="Please enter a valid URL" >-->
+                        <!--    </div>-->
+                        <!--</div>-->
+                        <!--<div class="col-md-4">-->
+                        <!--    <div class="form-group">-->
+                        <!--        <strong class="strng ">Instagram: </strong>-->
+                        <!--        <input type="url" name="instagram" placeholder="Enter Instagram" class="form-control " value="{{ old('instagram', $user->instagram) }}" pattern="https?://.*" title="Please enter a valid URL" >-->
+                        <!--    </div>-->
+                        <!--</div>-->
+                        <!--<div class="col-md-4">-->
+                        <!--    <div class="form-group">-->
+                        <!--        <strong class="strng ">Youtube: </strong>-->
+                        <!--        <input type="url" name="youtube" placeholder="Enter youtube" class="form-control " value="{{ old('youtube', $user->youtube) }}" pattern="[0-9]{10}" >-->
+                        <!--    </div>-->
+                        <!--</div>-->
 
 
                         <!-- LOCATION -->
-                        <div class="col-md-12"><h6 class="section-title">Location</h6></div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <select name="country_id" id="country" class="form-control" required>
-                                        <option value="">-- Select Country --</option>
-                                        @foreach($countries as $country)
-                                            <option value="{{ $country->id }}" {{ old('country_id', $user->country_id) == $country->id ? 'selected' : '' }}>{{ $country->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <select name="state_id" id="state" class="form-control" required>
-                                    <option value="">-- Select State --</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <select name="city_id" id="city" class="form-control" required>
-                                    <option value="">-- Select City --</option>
-                                </select>
-                            </div>
-                        </div>
+                        <!--<div class="col-md-12"><h6 class="section-title">Location</h6></div>-->
+                        <!--    <div class="col-md-4">-->
+                        <!--        <div class="form-group">-->
+                        <!--            <select name="country_id" id="country" class="form-control" required>-->
+                        <!--                <option value="">-- Select Country --</option>-->
+                        <!--                @foreach($countries as $country)-->
+                        <!--                    <option value="{{ $country->id }}" {{ old('country_id', $user->country_id) == $country->id ? 'selected' : '' }}>{{ $country->name }}</option>-->
+                        <!--                @endforeach-->
+                        <!--            </select>-->
+                        <!--        </div>-->
+                        <!--    </div>-->
+                        <!--<div class="col-md-4">-->
+                        <!--    <div class="form-group">-->
+                        <!--        <select name="state_id" id="state" class="form-control" required>-->
+                        <!--            <option value="">-- Select State --</option>-->
+                        <!--        </select>-->
+                        <!--    </div>-->
+                        <!--</div>-->
+                        <!--<div class="col-md-4">-->
+                        <!--    <div class="form-group">-->
+                        <!--        <select name="city_id" id="city" class="form-control" required>-->
+                        <!--            <option value="">-- Select City --</option>-->
+                        <!--        </select>-->
+                        <!--    </div>-->
+                        <!--</div>-->
 
 
                         <!-- PROFILE INFO -->
-                        <div class="col-md-12"><h6 class="section-title">Profile Info</h6></div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <strong class="strng required-label">Age: </strong>
-                                <input type="number" name="age" placeholder="Enter Age" class="form-control required" value="{{ old('age', $user->age) }}" min="1" max="120" required>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <strong class="strng required-label">Gender: </strong>
-                                <select name="gender" class="form-control required" required>
-                                    <option value=""> Select Gender </option>
-                                    <option value="male" {{ old('gender', $user->gender) == 'male' ? 'selected' : '' }}>Male</option>
-                                    <option value="female" {{ old('gender', $user->gender) == 'female' ? 'selected' : '' }}>Female</option>
-                                    <option value="other" {{ old('gender', $user->gender) == 'other' ? 'selected' : '' }}>Other</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <strong class="strng required-label">Image: </strong>
-                                <input type="file" name="image" class="form-control " accept="image/*">
-                                <input type="hidden" name="old_image" value="{{$user->image}}">
-                                @if($user->image)
-                                    <img src="{{ asset('all_image/' . $user->image) }}" alt="Current Image" style="max-width: 100px; margin-top: 10px;">
-                                @endif
-                            </div>
-                        </div>
+                        <!--<div class="col-md-12"><h6 class="section-title">Profile Info</h6></div>-->
+                        <!--<div class="col-md-4">-->
+                        <!--    <div class="form-group">-->
+                        <!--        <strong class="strng required-label">Age: </strong>-->
+                        <!--        <input type="number" name="age" placeholder="Enter Age" class="form-control required" value="{{ old('age', $user->age) }}" min="1" max="120" required>-->
+                        <!--    </div>-->
+                        <!--</div>-->
+                        <!--<div class="col-md-4">-->
+                        <!--    <div class="form-group">-->
+                        <!--        <strong class="strng required-label">Gender: </strong>-->
+                        <!--        <select name="gender" class="form-control required" required>-->
+                        <!--            <option value=""> Select Gender </option>-->
+                        <!--            <option value="male" {{ old('gender', $user->gender) == 'male' ? 'selected' : '' }}>Male</option>-->
+                        <!--            <option value="female" {{ old('gender', $user->gender) == 'female' ? 'selected' : '' }}>Female</option>-->
+                        <!--            <option value="other" {{ old('gender', $user->gender) == 'other' ? 'selected' : '' }}>Other</option>-->
+                        <!--        </select>-->
+                        <!--    </div>-->
+                        <!--</div>-->
+                        <!--<div class="col-md-4">-->
+                        <!--    <div class="form-group">-->
+                        <!--        <strong class="strng required-label">Image: </strong>-->
+                        <!--        <input type="file" name="image" class="form-control " accept="image/*">-->
+                        <!--        <input type="hidden" name="old_image" value="{{$user->image}}">-->
+                        <!--        @if($user->image)-->
+                        <!--            <img src="{{ asset('all_image/' . $user->image) }}" alt="Current Image" style="max-width: 100px; margin-top: 10px;">-->
+                        <!--        @endif-->
+                        <!--    </div>-->
+                        <!--</div>-->
 
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <strong class="strng required-label">Speciality: </strong>
-                                    <select name="experience[]" class="form-control open-dropdown" multiple required>
-                                        @foreach($experiences as $experience)
-                                            <option value="{{ $experience->id }}"
-                                                {{ (collect(old('experience', $user->experience ?? []))->contains($experience->id)) ? 'selected' : '' }}>
-                                                {{ $experience->title }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
+                        <!--    <div class="col-md-4">-->
+                        <!--        <div class="form-group">-->
+                        <!--            <strong class="strng required-label">Speciality: </strong>-->
+                        <!--            <select name="experience[]" class="form-control open-dropdown" multiple required>-->
+                        <!--                @foreach($experiences as $experience)-->
+                        <!--                    <option value="{{ $experience->id }}"-->
+                        <!--                        {{ (collect(old('experience', $user->experience ?? []))->contains($experience->id)) ? 'selected' : '' }}>-->
+                        <!--                        {{ $experience->title }}-->
+                        <!--                    </option>-->
+                        <!--                @endforeach-->
+                        <!--            </select>-->
+                        <!--        </div>-->
+                        <!--    </div>-->
 
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <strong class="strng required-label">Language: </strong>
-                                    <select name="language[]" class="form-control open-dropdown" multiple required>
-                                        @foreach($languages as $language)
-                                            <option value="{{ $language->id }}"
-                                                {{ (collect(old('language', $user->language ?? []))->contains($language->id)) ? 'selected' : '' }}>
-                                                {{ $language->title }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
+                        <!--    <div class="col-md-4">-->
+                        <!--        <div class="form-group">-->
+                        <!--            <strong class="strng required-label">Language: </strong>-->
+                        <!--            <select name="language[]" class="form-control open-dropdown" multiple required>-->
+                        <!--                @foreach($languages as $language)-->
+                        <!--                    <option value="{{ $language->id }}"-->
+                        <!--                        {{ (collect(old('language', $user->language ?? []))->contains($language->id)) ? 'selected' : '' }}>-->
+                        <!--                        {{ $language->title }}-->
+                        <!--                    </option>-->
+                        <!--                @endforeach-->
+                        <!--            </select>-->
+                        <!--        </div>-->
+                        <!--    </div>-->
 
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <strong class="strng required-label">Product: </strong>
-                                <select name="other" class="form-control required" required>
-                                    <option value="">Select Other</option>
-                                    @foreach($others as $other)
-                                    <option value="{{$other->id}}" {{ old('other', $user->other) == $other->id ? 'selected' : '' }}>{{$other->title}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
+                        <!--<div class="col-md-4">-->
+                        <!--    <div class="form-group">-->
+                        <!--        <strong class="strng required-label">Product: </strong>-->
+                        <!--        <select name="other" class="form-control required" required>-->
+                        <!--            <option value="">Select Other</option>-->
+                        <!--            @foreach($others as $other)-->
+                        <!--            <option value="{{$other->id}}" {{ old('other', $user->other) == $other->id ? 'selected' : '' }}>{{$other->title}}</option>-->
+                        <!--            @endforeach-->
+                        <!--        </select>-->
+                        <!--    </div>-->
+                        <!--</div>-->
 
                         <!-- META INFO -->
-                        <div class="col-md-12"><h6 class="section-title">Meta Info</h6></div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <strong class="strng required-label">Page Title: </strong>
-                                <input type="text" name="page_title" class="form-control required" value="{{ old('page_title', $user->page_title) }}" required>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <strong class="strng required-label">Meta Title: </strong>
-                                <input type="text" name="meta_title" class="form-control required" value="{{ old('meta_title', $user->meta_title) }}" required>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <strong class="strng required-label">Meta Keywords: </strong>
-                                <input type="text" name="meta_keyword" class="form-control required" value="{{ old('meta_keyword', $user->meta_keyword) }}" required>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <strong class="strng required-label">Description: </strong>
-                                <textarea name="description" class="form-control required" rows="3" required>{{ old('description', $user->description) }}</textarea>
-                            </div>
-                            <div class="form-group">
-                                <strong class="strng required-label">Short Description: </strong>
-                                <textarea name="short_description" class="form-control required" rows="3" required>{{ old('short_description', $user->short_description) }}</textarea>
-                            </div>
-                            <div class="form-group">
-                                <strong class="strng required-label">Meta Description: </strong>
-                                <textarea name="meta_description" class="form-control required" rows="3" required>{{ old('meta_description', $user->meta_description) }}</textarea>
-                            </div>
-                        </div>
+                        <!--<div class="col-md-12"><h6 class="section-title">Meta Info</h6></div>-->
+                        <!--<div class="col-md-4">-->
+                        <!--    <div class="form-group">-->
+                        <!--        <strong class="strng required-label">Page Title: </strong>-->
+                        <!--        <input type="text" name="page_title" class="form-control required" value="{{ old('page_title', $user->page_title) }}" required>-->
+                        <!--    </div>-->
+                        <!--</div>-->
+                        <!--<div class="col-md-4">-->
+                        <!--    <div class="form-group">-->
+                        <!--        <strong class="strng required-label">Meta Title: </strong>-->
+                        <!--        <input type="text" name="meta_title" class="form-control required" value="{{ old('meta_title', $user->meta_title) }}" required>-->
+                        <!--    </div>-->
+                        <!--</div>-->
+                        <!--<div class="col-md-4">-->
+                        <!--    <div class="form-group">-->
+                        <!--        <strong class="strng required-label">Meta Keywords: </strong>-->
+                        <!--        <input type="text" name="meta_keyword" class="form-control required" value="{{ old('meta_keyword', $user->meta_keyword) }}" required>-->
+                        <!--    </div>-->
+                        <!--</div>-->
+                        <!--<div class="col-md-12">-->
+                        <!--    <div class="form-group">-->
+                        <!--        <strong class="strng required-label">Description: </strong>-->
+                        <!--        <textarea name="description" class="form-control required" rows="3" required>{{ old('description', $user->description) }}</textarea>-->
+                        <!--    </div>-->
+                        <!--    <div class="form-group">-->
+                        <!--        <strong class="strng required-label">Short Description: </strong>-->
+                        <!--        <textarea name="short_description" class="form-control required" rows="3" required>{{ old('short_description', $user->short_description) }}</textarea>-->
+                        <!--    </div>-->
+                        <!--    <div class="form-group">-->
+                        <!--        <strong class="strng required-label">Meta Description: </strong>-->
+                        <!--        <textarea name="meta_description" class="form-control required" rows="3" required>{{ old('meta_description', $user->meta_description) }}</textarea>-->
+                        <!--    </div>-->
+                        <!--</div>-->
 
                         <!-- PASSWORD -->
-                        <div class="col-md-12"><h6 class="section-title">Security</h6></div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <strong class="strng required-label">Password (leave blank to keep current):</strong>
-                                <input type="password" name="password" id="password" class="form-control" minlength="8">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <strong class="strng required-label">Confirm Password:</strong>
-                                <input type="password" name="confirm-password" class="form-control" minlength="8">
-                            </div>
-                        </div>
+                        <!--<div class="col-md-12"><h6 class="section-title">Security</h6></div>-->
+                        <!--<div class="col-md-6">-->
+                        <!--    <div class="form-group">-->
+                        <!--        <strong class="strng required-label">Password (leave blank to keep current):</strong>-->
+                        <!--        <input type="password" name="password" id="password" class="form-control" minlength="8">-->
+                        <!--    </div>-->
+                        <!--</div>-->
+                        <!--<div class="col-md-6">-->
+                        <!--    <div class="form-group">-->
+                        <!--        <strong class="strng required-label">Confirm Password:</strong>-->
+                        <!--        <input type="password" name="confirm-password" class="form-control" minlength="8">-->
+                        <!--    </div>-->
+                        <!--</div>-->
 
                         <!-- CATEGORY -->
-                        {{-- <div class="col-md-12">
-                            <div class="form-group">
-                                <strong class="strng required-label">Category (Roles): </strong>
-                                <select name="roles[]" class="form-control hg100" multiple required>
-                                    @foreach ($roles as $value => $label)
-                                    <option value="{{ $value }}" {{ in_array($value, old('roles', $user->roles->pluck('id')->toArray())) ? 'selected' : '' }}>{{ $label }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div> --}}
+                        <!--{{-- <div class="col-md-12">-->
+                        <!--    <div class="form-group">-->
+                        <!--        <strong class="strng required-label">Category (Roles): </strong>-->
+                        <!--        <select name="roles[]" class="form-control hg100" multiple required>-->
+                        <!--            @foreach ($roles as $value => $label)-->
+                        <!--            <option value="{{ $value }}" {{ in_array($value, old('roles', $user->roles->pluck('id')->toArray())) ? 'selected' : '' }}>{{ $label }}</option>-->
+                        <!--            @endforeach-->
+                        <!--        </select>-->
+                        <!--    </div>-->
+                        <!--</div> --}}-->
 
                         <!-- STATUS TOGGLES -->
                         <div class="col-md-12"><h6 class="section-title">Status Options</h6></div>

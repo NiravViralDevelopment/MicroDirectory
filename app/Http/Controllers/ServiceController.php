@@ -82,6 +82,7 @@ class ServiceController extends Controller
      */
     public function edit(Service $Service): View
     {
+
         $roles = DB::table('roles')->where('id','!=',1)->get();
         return view('service.edit',compact('Service','roles'));
     }

@@ -236,7 +236,7 @@
                     <tr class="flexTbl">
                         <td><span class="mobileShow">Id :</span> {{ $key + 1 }}</td>
                         <td><span class="mobileShow">Product :</span> {{ $item->title }}</td>
-                        <td><span class="mobileShow">Product :</span> {{ $item->role->name }}</td>
+                        <td><span class="mobileShow">Product :</span>  {{ optional($item->role)->name }}</td>
 
                          <td>
                             @if ($item && $item->is_active)

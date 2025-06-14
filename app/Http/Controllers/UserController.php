@@ -112,8 +112,13 @@ class UserController extends Controller
         $experiences = Experience::where('is_active',1)->get();
         $languages = Language::where('is_active',1)->get();
         $others = Product::where('is_active',1)->get();
+        if($id == 2){
+            return view('users.edit', compact('user', 'roles', 'userRole', 'experiences', 'languages', 'others','countries'));
 
-        return view('users.edit', compact('user', 'roles', 'userRole', 'experiences', 'languages', 'others','countries'));
+        }else{
+            return view('users.formedit', compact('user', 'roles', 'userRole', 'experiences', 'languages', 'others','countries'));
+        }
+
     }
 
     /**
@@ -125,12 +130,12 @@ class UserController extends Controller
      */
     public function update(Request $request, $id): RedirectResponse
     {
-        $this->validate($request, [
-            'name' => 'required',
-            'email' => 'required|email|unique:users,email,'.$id,
-            'password' => 'same:confirm-password',
-            // 'roles' => 'required'
-        ]);
+        // $this->validate($request, [
+        //     'name' => 'required',
+        //     'email' => 'required|email|unique:users,email,'.$id,
+        //     'password' => 'same:confirm-password',
+        //     // 'roles' => 'required'
+        // ]);
 
         $uploaded = '';
         if ($request->hasFile('image'))
@@ -151,10 +156,10 @@ class UserController extends Controller
             $input = Arr::except($input,array('password'));
         }
         // Handle multi-selects (convert arrays to CSV)
-        $input['experience'] = isset($input['experience']) ? implode(',', $input['experience']) : '';
-        $input['language'] = isset($input['language']) ? implode(',', $input['language']) : '';
+        // $input['experience'] = isset($input['experience']) ? implode(',', $input['experience']) : '';
+        // $input['language'] = isset($input['language']) ? implode(',', $input['language']) : '';
         $user = User::find($id);
-        $input['image'] = $uploaded;
+        // $input['image'] = $uploaded;
         $user->update($input);
         // DB::table('model_has_roles')->where('model_id',$id)->delete();
 

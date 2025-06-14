@@ -225,7 +225,7 @@
                 <thead class="mobileHide">
                 <tr>
                     <th>Id</th>
-                    <th>Product</th>
+                    <th>Service</th>
                     <th>Category</th>
 
                     <th>Active</th>
@@ -237,7 +237,15 @@
                     <tr class="flexTbl">
                         <td><span class="mobileShow">Id :</span> {{ $key + 1 }}</td>
                         <td><span class="mobileShow">Service :</span> {{ $item->title }}</td>
-                        <td><span class="mobileShow">Category :</span> {{ $item->role->name }}</td>
+                        <td>
+    <span class="mobileShow">Category :</span>
+    @if($item->role)
+        {{ $item->role->name }}
+    @else
+        -
+    @endif
+</td>
+
 
                          <td>
                             @if ($item && $item->is_active)

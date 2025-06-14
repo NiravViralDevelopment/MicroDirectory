@@ -26,7 +26,70 @@
 
 <body>
 
-<script>
+
+
+
+@include('layouts.admin.header')
+
+
+
+@include('layouts.admin.sidebaar')
+
+
+  <main id="main" class="main">
+
+    <!-- <div class="pagetitle">
+      <h1>Dashboard</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{{route('dashboard')}}">Home</a></li>
+          <li class="breadcrumb-item active">Dashboard</li>
+        </ol>
+      </nav>
+    </div> -->
+    <!-- End Page Title -->
+    @yield('content')
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="{{asset('admin')}}/vendor/apexcharts/apexcharts.min.js"></script>
+  <script src="{{asset('admin')}}/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="{{asset('admin')}}/vendor/chart.js/chart.umd.js"></script>
+  <script src="{{asset('admin')}}/vendor/echarts/echarts.min.js"></script>
+  <script src="{{asset('admin')}}/vendor/quill/quill.min.js"></script>
+  <script src="{{asset('admin')}}/vendor/simple-datatables/simple-datatables.js"></script>
+  <script src="{{asset('admin')}}/vendor/tinymce/tinymce.min.js"></script>
+  <script src="{{asset('admin')}}/vendor/php-email-form/validate.js"></script>
+
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.6/css/buttons.dataTables.min.css">
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.print.min.js"></script>
+
+
+  <!-- Template Main JS File -->
+  <script src="{{asset('admin')}}/js/main.js"></script>
+
+  <!-- Scripts -->
+  <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script> -->
+  <!-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> -->
+  @stack('scripts')
+
+  <script>
   @if(Session::has('message'))
   toastr.options =
   {
@@ -64,67 +127,6 @@
   		toastr.warning("{{ session('warning') }}");
   @endif
 </script>
-
-
-@include('layouts.admin.header')
-
-
-
-@include('layouts.admin.sidebaar')
-
-
-  <main id="main" class="main">
-
-    <!-- <div class="pagetitle">
-      <h1>Dashboard</h1>
-      <nav>
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="{{route('dashboard')}}">Home</a></li>
-          <li class="breadcrumb-item active">Dashboard</li>
-        </ol>
-      </nav>
-    </div> -->
-    <!-- End Page Title -->
-    @yield('content')
-   
-  </main><!-- End #main -->
-
-  <!-- ======= Footer ======= -->
- 
-
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-
-  <!-- Vendor JS Files -->
-  <script src="{{asset('admin')}}/vendor/apexcharts/apexcharts.min.js"></script>
-  <script src="{{asset('admin')}}/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="{{asset('admin')}}/vendor/chart.js/chart.umd.js"></script>
-  <script src="{{asset('admin')}}/vendor/echarts/echarts.min.js"></script>
-  <script src="{{asset('admin')}}/vendor/quill/quill.min.js"></script>
-  <script src="{{asset('admin')}}/vendor/simple-datatables/simple-datatables.js"></script>
-  <script src="{{asset('admin')}}/vendor/tinymce/tinymce.min.js"></script>
-  <script src="{{asset('admin')}}/vendor/php-email-form/validate.js"></script>
-
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.6/css/buttons.dataTables.min.css">
-    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.html5.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.print.min.js"></script>  
-
-
-  <!-- Template Main JS File -->
-  <script src="{{asset('admin')}}/js/main.js"></script>
-
-  <!-- Scripts -->
-  <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-  <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script> -->
-  <!-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> -->
-  @stack('scripts')
 
 </body>
 

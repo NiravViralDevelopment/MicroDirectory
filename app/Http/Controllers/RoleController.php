@@ -34,7 +34,8 @@ class RoleController extends Controller
      */
     public function index(Request $request): View
     {
-        $roles = Role::orderBy('id','DESC')->paginate(5);
+        $roles = Role::orderBy('id','DESC')->get();
+
         return view('roles.index',compact('roles'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
@@ -60,8 +61,14 @@ class RoleController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|unique:roles,name',
-
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|dimensions:width=60,height=60',
+        ], [
+            'image.dimensions' => 'The image must be exactly 60 pixels in width and 60 pixels in height.',
+            'image.required' => 'The image field is required.',
+            'image.image' => 'The uploaded file must be an image.',
+            'image.mimes' => 'The image must be a file of type: jpeg, png, jpg, gif, svg.',
         ]);
+
 
         $permissionsID = ["1"=>1];
 

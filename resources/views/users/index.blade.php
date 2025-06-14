@@ -256,7 +256,7 @@
                             </td>
                             <td>
                             <div class="ThreeBtns">
-                                <a href="{{ route('user-images.create', ['user_id' => $user->id]) }}" class="btn btn-sm btn-info me-1" data-bs-toggle="tooltip" title="Add Image">
+                                {{-- <a href="{{ route('user-images.create', ['user_id' => $user->id]) }}" class="btn btn-sm btn-info me-1" data-bs-toggle="tooltip" title="Add Image">
                                     <i class="bi bi-image"></i>
                                 </a>
 
@@ -266,7 +266,7 @@
 
                                 <a href="{{ route('video-galleries.create', ['user_id' => $user->id]) }}" class="btn btn-sm btn-warning me-1" data-bs-toggle="tooltip" title="Add Video">
                                     <i class="bi bi-camera-video"></i>
-                                </a>
+                                </a> --}}
 
                                 <a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-primary me-1" data-bs-toggle="tooltip" title="Edit">
                                     <i class="bi bi-pencil"></i>

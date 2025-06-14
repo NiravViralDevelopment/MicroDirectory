@@ -21,6 +21,6 @@ class Service extends Model
 
      public function role()
     {
-        return $this->belongsTo(Role::class,'id');
+        return $this->belongsTo(Role::class,'category_id','id');
     }
 }

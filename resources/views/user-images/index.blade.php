@@ -29,7 +29,7 @@
                     <td>{{ $index + 1 }}</td>
                     <td>
                         @if($img->image)
-                            <img src="{{ asset('storage/'.$img->image) }}" alt="User Image" style="width: 100px; height: auto;">
+                          <img src="{{ asset('all_image/' . ($img->image ?? 'default.jpg')) }}" alt="Role Image" height="50" width="50">
                         @endif
                     </td>
                     <td>
