@@ -25,7 +25,7 @@ class UserCreatedMail extends Mailable
     {
         
         $email =  $this->view('emails.user_created')
-                    ->subject('User Created');
+                    ->subject('Welcome to Tattva – Your Journey Begins Here!');
                     return $email;
     }
     

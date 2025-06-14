@@ -35,6 +35,23 @@ class UserController extends Controller
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
+
+        function sendMail($id)
+    {
+        try {
+            $user = User::findOrFail($id);
+                Mail::to($user->email)->send(new UserCreatedMail($user));
+            $user->mail_status = 1;
+            $user->save();
+            return redirect()->back()->with('message', 'Email sent successfully');
+
+        } catch (\Exception $e) {
+            // Log the error if needed: Log::error($e);
+            return redirect()->back()->with('error', 'Something went wrong while sending the email.');
+        }
+    }
+
+
     /**
      * Show the form for creating a new resource.
      *

@@ -153,3 +153,4 @@ Route::middleware(['auth', 'web'])->group(function () {
 
 Route::get('register_form', [FrontController::class, 'register_form'])->name('register_form');
 Route::POST('registrtion_store', [FrontController::class, 'registrtionStore'])->name('registrtion_store');
+Route::get('send-mail/{id}', [UserController::class, 'sendMail'])->name('send.mail');
