@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\RoleInfo;
 use App\Models\Countries;
 use App\Models\User;
+use App\Models\Log;
 use App\Models\Cms;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
@@ -21,6 +22,8 @@ class FrontController extends Controller
             ->where('roles.id', '!=',1)
             ->select('roles.*', 'role_infos.*')
             ->get();
+
+            // return $roles;
         $country = Countries::where('is_active',1)->get();
         return view('welcome',compact('roles','country'));
     }
@@ -98,6 +101,9 @@ class FrontController extends Controller
                 'email' => 'required|email|max:200|min:2|unique:users,email',
                 'whatsapp' => 'required|string|max:12|min:10',
                 'register_as' => 'required|exists:roles,id', // Validate role ID exists
+                'tattve_media_id' => 'required', // Validate role ID exists
+
+
             ]);
 
             // Start a database transaction
@@ -114,6 +120,8 @@ class FrontController extends Controller
                 'phone' => $validated['phone'],
                 'email' => $validated['email'],
                 'whatsup' => $validated['whatsapp'], // Map 'whatsapp' to 'whatsup' column
+                'tattve_media_id' => $validated['tattve_media_id'], // Map 'whatsapp' to 'whatsup' column
+
                 'password' => $hashedPassword,
                 'show_password' => $randomPassword, // Note: Insecure; consider removing
                 'is_active' => true,

@@ -2,235 +2,162 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script src="{{ asset('front/') }}/js/jquery.validate.js"></script>
+    <title>ATOM Directory - Register</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="{{ asset('admin/img/favicon.png') }}" rel="icon">
+    <link href="{{ asset('admin/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="{{ asset('admin/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('admin/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="{{ asset('admin/css/style.css') }}" rel="stylesheet">
+
+    <!-- Custom Styles -->
     <style>
-        body {
-            font-family: 'Roboto', sans-serif;
-            background-color: #f9fafb;
-        }
-        .form-container {
-            background: white;
-            border-radius: 0.5rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            padding: 2rem;
-            margin-top: 2rem;
-            margin-bottom: 2rem;
-        }
-        .form-input {
-            transition: all 0.3s ease;
-            border: 2px solid #e5e7eb;
-            border-radius: 0.375rem;
-            padding: 0.75rem;
-            width: 100%;
-        }
-        .form-input:focus {
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-            outline: none;
-        }
-        .form-label {
-            font-size: 0.875rem;
-            font-weight: 500;
-            color: #374151;
-            margin-bottom: 0.5rem;
-            display: block;
-        }
-        .error-message {
-            color: #dc2626;
+        .error {
+            color: red;
             font-size: 0.875rem;
             margin-top: 0.25rem;
-        }
-        .submit-button {
-            background: linear-gradient(to right, #2563eb, #1e40af);
-            color: white;
-            font-weight: 600;
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.375rem;
-            transition: all 0.3s ease;
-        }
-        .submit-button:hover {
-            background: linear-gradient(to right, #1e40af, #2563eb);
-            transform: translateY(-1px);
-        }
-        .header {
-            background: white;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-            position: sticky;
-            top: 0;
-            z-index: 10;
-        }
-        .header-nav a {
-            color: #4b5563;
-            font-weight: 500;
-            transition: color 0.2s ease;
-        }
-        .header-nav a:hover {
-            color: #2563eb;
-        }
-        .footer {
-            background: #1f2937;
-            color: #d1d5db;
-            padding: 2rem 0;
-        }
-        .footer a {
-            color: #d1d5db;
-            transition: color 0.2s ease;
-        }
-        .footer a:hover {
-            color: #60a5fa;
-        }
-        .social-icon {
-            width: 2rem;
-            height: 2rem;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            background: #4b5563;
-            color: white;
-            transition: background 0.2s ease;
-        }
-        .social-icon:hover {
-            background: #2563eb;
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
-        <div class="container mx-auto px-4 py-4">
-            <div class="flex justify-between items-center">
-                <div class="logo">
-                    <img src="{{ asset('front/') }}/img/pathway.png" alt="Atom Directory Logo" class="h-12" />
-                </div>
-                <nav class="header-nav flex space-x-6">
-                    <a href="tel:+971522656679" class="flex items-center"><span class="mr-1">📞</span> +971 522656679</a>
-                    <a href="https://wa.me/+971522656679" class="flex items-center"><span class="mr-1">💬</span> WhatsApp</a>
-                    <a href="mailto:info@atomdirectory.com" class="flex items-center"><span class="mr-1">✉️</span> Email</a>
-                    <a href="{{ route('register_form') }}" class="text-blue-600 font-semibold">Registration / Log in</a>
-                </nav>
-            </div>
-        </div>
-    </header>
+    <main>
+        <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-6 col-md-8 col-sm-9 mxWD450 d-flex flex-column align-items-center justify-content-center">
+                        <div class="d-flex justify-content-center py-4">
+                            <a href="{{ url('/') }}" class="logo d-flex align-items-center w-auto">
+                                <img src="{{ asset('admin/img/logo.png') }}" alt="ATOM Directory Logo">
+                                <span class="d-none d-lg-block">ATOM Directory</span>
+                            </a>
+                        </div><!-- End Logo -->
 
-    <!-- Registration Form -->
-    <div class="container mx-auto px-4">
-        <div class="form-container max-w-lg mx-auto">
-            <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">Registration</h3>
-            @if ($errors->any())
-                <div class="error-message bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
-                    <ul class="list-disc pl-5">
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-            <form name="registrtion_store" id="registrtion_form" enctype="multipart/form-data" method="POST" action="{{ route('registrtion_store') }}">
-                {{ csrf_field() }}
-                <div class="space-y-4">
-                    <div>
-                        <label for="name" class="form-label">Name *</label>
-                        <input type="text" id="name" placeholder="Enter your name" name="name" maxlength="200" minlength="2" class="form-input required" value="{{ old('name') }}">
-                        <input type="hidden" name="name_V" value="Name">
-                    </div>
-                    <div>
-                        <label for="phone" class="form-label">Mobile No. *</label>
-                        <input type="text" id="phone" placeholder="Enter your mobile number" name="phone" maxlength="13" minlength="10" class="form-input required number" onkeypress="return /[0-9+]/i.test(event.key)" value="{{ old('phone') }}">
-                        <input type="hidden" name="phone_V" value="Mobile No.">
-                    </div>
-                    <div>
-                        <label for="email" class="form-label">Email ID *</label>
-                        <input type="text" id="email" placeholder="Enter your email" name="email" maxlength="200" minlength="2" class="form-input required email" value="{{ old('email') }}">
-                        <input type="hidden" name="email_V" value="Email ID">
-                    </div>
-                    <div>
-                        <label for="whatsapp" class="form-label">WhatsApp *</label>
-                        <input type="text" id="whatsapp" placeholder="Enter your WhatsApp number" name="whatsapp" maxlength="12" minlength="10" class="form-input required" onkeypress="return /[0-9+]/i.test(event.key)" value="{{ old('whatsapp') }}">
-                        <input type="hidden" name="whatsapp_V" value="Whatsapp">
-                    </div>
-                    <div>
-                        <label for="register_as" class="form-label">Intention of Registration *</label>
-                        <select id="register_as" name="register_as" class="form-input required">
-                            <option value="">Select your intention</option>
-                            @foreach($rolesDate as $data)
-                                <option value="{{ $data->id }}">{{ $data->name}}</option>
-                            @endforeach
-                        </select>
-                        <input type="hidden" name="register_as_V" value="Intention of Registration">
-                    </div>
-                    <div class="text-center">
-                        <input type="hidden" name="heading_V" value="Registration Details">
-                        <input type="hidden" name="footer_V" value="Atom Directory. All Rights Reserved.">
-                        <button type="submit" class="submit-button">Register</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <div class="TitleTop">
+                                    <h5 class="card-title text-center pb-0 fs-4">Register a New Account</h5>
+                                </div>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container mx-auto px-4">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-                <div>
-                    <img src="{{ asset('front/') }}/img/atom-logo.png" alt="Atom Directory Logo" class="h-12 mb-4" />
-                </div>
-                <div>
-                    <h4 class="text-lg font-semibold mb-4">About</h4>
-                    <ul class="space-y-2">
-                        <li><a href="{{ route('about') }}" target="_blank">About us</a></li>
-                        <li><a href="{{ route('terms') }}" target="_blank">Terms & Conditions</a></li>
-                        <li><a href="{{ route('privacy') }}" target="_blank">Privacy statement</a></li>
-                        <li><a href="{{ route('registration') }}" target="_blank">Registration Procedures</a></li>
-                        <li><a href="{{ route('feedback') }}" target="_blank">Feedback</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="text-lg font-semibold mb-4">Partners</h4>
-                    <ul class="space-y-2">
-                        <li><a href="https://ifid.in/" target="_blank">Indian Film Industry Directory</a></li>
-                        <li><a href="https://indianfilmdirectory.com/" target="_blank">Film Industry Of India</a></li>
-                        <li><a href="https://dbuguae.com/" target="_blank">DBug Digital Media</a></li>
-                        <li><a href="https://www.filmystoryhub.com/" target="_blank">The Filmy Story Hub</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="text-lg font-semibold mb-4">Connect</h4>
-                    <div class="flex space-x-4">
-                        <a href="https://twitter.com/talentporteadvt" target="_blank" class="social-icon">𝕏</a>
-                        <a href="#" target="_blank" class="social-icon">▶</a>
-                        <a href="https://www.facebook.com/TalentPorteIndia/" target="_blank" class="social-icon">f</a>
+                                <form method="POST" action="{{ route('registrtion_store') }}" id="registration_form" enctype="multipart/form-data" class="row g-3 needs-validation">
+                                    @csrf
+                                    <div class="col-12 col-md-6">
+                                        <label for="name" class="form-label">Name *</label>
+                                        <div class="input-group has-validation">
+                                            <input type="text" id="name" name="name" class="form-control setPd" maxlength="200" minlength="2" value="{{ old('name') }}" required>
+                                        </div>
+                                        @error('name')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+
+                                    <div class="col-12 col-md-6">
+                                        <label for="phone" class="form-label">Mobile No. *</label>
+                                        <div class="input-group has-validation">
+                                            <input type="text" id="phone" name="phone" class="form-control setPd" maxlength="13" minlength="10" value="{{ old('phone') }}" required onkeypress="return /[0-9+]/i.test(event.key)">
+                                        </div>
+                                        @error('phone')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+
+                                    <div class="col-12 col-md-6">
+                                        <label for="email" class="form-label">Email ID *</label>
+                                        <div class="input-group has-validation">
+                                            <input type="email" id="email" name="email" class="form-control setPd" maxlength="200" minlength="2" value="{{ old('email') }}" required>
+                                        </div>
+                                        @error('email')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+
+                                    <div class="col-12 col-md-6">
+                                        <label for="whatsapp" class="form-label">WhatsApp *</label>
+                                        <div class="input-group has-validation">
+                                            <input type="text" id="whatsapp" name="whatsapp" class="form-control setPd" maxlength="12" minlength="10" value="{{ old('whatsapp') }}" required onkeypress="return /[0-9+]/i.test(event.key)">
+                                        </div>
+                                        @error('whatsapp')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+
+                                    <div class="col-12 col-md-12">
+                                        <label for="whatsapp" class="form-label">Tattva Media ID *</label>
+                                        <div class="input-group has-validation">
+                                            <input type="text" id="tattve_media_id" name="tattve_media_id" class="form-control setPd"  value="{{ old('tattve_media_id') }}" required >
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-12">
+                                        <label for="register_as" class="form-label">Intention of Registration *</label>
+                                        <div class="input-group has-validation">
+                                            <select id="register_as" name="register_as" class="form-control setPd" required>
+                                                <option value="">Select your intention</option>
+                                                @foreach($rolesDate as $role)
+                                                    <option value="{{ $role->id }}" {{ old('register_as') == $role->id ? 'selected' : '' }}>{{ $role->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        @error('register_as')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+
+                                    <div class="col-12">
+                                        <button class="btn btn-primary w-100 comnBtn" type="submit">Register</button>
+                                    </div>
+
+                                    <div class="col-12 text-center">
+                                        <a href="{{ route('login') }}" class="small txtBtn">Already have an account? Log in</a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="text-center mt-8 text-sm">
-                <p>&copy; {{ date('Y') }} Atom Directory. All Rights Reserved.</p>
-            </div>
-        </div>
-    </footer>
+        </section>
+    </main>
 
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+    <!-- Vendor JS Files -->
+    <script src="{{ asset('admin/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('admin/js/main.js') }}"></script>
+
+    <!-- jQuery and Validation -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
     <script>
         jQuery.validator.addMethod("lettersonly", function(value, element) {
             return this.optional(element) || /^[a-z ]+$/i.test(value);
         }, "Letters only please");
 
         $(document).ready(function() {
-            $("#registrtion_form").validate({
+            $("#registration_form").validate({
                 rules: {
-                    name: { lettersonly: true },
-                    phone: { number: true },
-                    email: { email: true },
-                    whatsapp: { number: true }
+                    name: { required: true, lettersonly: true, minlength: 2, maxlength: 200 },
+                    phone: { required: true, number: true, minlength: 10, maxlength: 13 },
+                    email: { required: true, email: true, minlength: 2, maxlength: 200 },
+                    whatsapp: { required: true, number: true, minlength: 10, maxlength: 12 },
+                    register_as: { required: true }
                 },
-                errorClass: "error-message",
+                errorClass: "error",
                 errorPlacement: function(error, element) {
-                    error.insertAfter(element);
+                    error.insertAfter(element.parent());
                 }
             });
         });

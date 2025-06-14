@@ -2,99 +2,34 @@
 
 @section('content')
 <style>
-  /* Modal Design */
-  .modal-content {
-    border-radius: 8px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-  }
+    /* Modal Design (for consistency, though not used in this table) */
+    .modal-content {
+        border-radius: 8px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
 
-  .modal-body {
-    font-size: 1rem;
-    line-height: 1.5;
-  }
+    .modal-body {
+        font-size: 1rem;
+        line-height: 1.5;
+    }
 
-  /* Order Details */
-  .order-details p {
-    margin-bottom: 0.5rem;
-  }
-
-  .order-details strong {
-    color: #343a40;
-  }
-
-  /* Order Tracking Timeline */
-  .timeline {
-    list-style-type: none;
-    position: relative;
-    padding-left: 0;
-  }
-
-  .timeline:before {
-    content: '';
-    background: #28a745;
-    position: absolute;
-    top: 0;
-    left: 24px;
-    width: 3px;
-    height: 100%;
-  }
-
-  .timeline-item {
-    position: relative;
-    margin: 20px 0;
-    padding-left: 60px;
-  }
-
-  .timeline-item:before {
-    content: '';
-    background: #fff;
-    border: 3px solid #28a745;
-    position: absolute;
-    top: 0;
-    left: 15px;
-    width: 20px; /* Smaller width */
-    height: 20px; /* Smaller height */
-    border-radius: 50%;
-  }
-
-  .timeline-item .badge {
-    font-size: 0.875rem;
-  }
-
-  /* POD Image */
-  .pod-image {
-    border-radius: 4px;
-    border: 1px solid #dee2e6;
-    transition: transform 0.3s ease;
-  }
-
-  .pod-image:hover {
-    transform: scale(1.1);
-  }
-
-  .modal-footer {
-    background-color: #f8f9fa;
-    border-top: 1px solid #dee2e6;
-  }
-
-  /* Badge Icons */
-  .badge-icon {
-    margin-right: 8px;
-  }
+    /* Badge Icons */
+    .badge-icon {
+        margin-right: 8px;
+    }
 
     /* Custom styling for the search box */
     .dataTables_filter {
         text-align: left !important; /* Align search box to the left */
     }
 
-    /* Styling the input box inside the search filter */
     .dataTables_filter input {
-        background-color: red;  /* Red background color */
-        color: black;           /* Text color */
+        background-color: red; /* Red background color */
+        color: black; /* Text color */
         border: none;
         padding: 5px;
         border-radius: 4px;
-        padding-left: 30px;     /* Space for the magnifier icon */
+        padding-left: 30px; /* Space for the magnifier icon */
         background-image: url('https://cdn-icons-png.flaticon.com/512/622/622669.png'); /* Magnifier icon */
         background-size: 20px;
         background-position: 5px center;
@@ -102,115 +37,78 @@
         float: left;
     }
 
-    /* Optional: Hover effect */
     .dataTables_filter input:focus {
         outline: none;
         background-color: darkred;
     }
-</style>
-<style>
+
     /* Align the export button to the right */
     .dt-buttons {
-        float: right;  /* Align the buttons to the right */
+        float: right; /* Align the buttons to the right */
     }
 
     /* Custom styles for the export button */
     .btn-export {
-        background-color: #007bff;  /* Bootstrap primary blue color */
+        background-color: #007bff; /* Bootstrap primary blue color */
         color: white;
         border-radius: 4px;
         padding: 5px 10px;
         border: none;
         font-size: 14px;
-        float: right;
+        margin-left: 5px;
     }
 
     .btn-export i {
-        margin-right: 5px;  /* Space between icon and text */
+        margin-right: 5px; /* Space between icon and text */
     }
 
-    /* Change button color on hover */
     .btn-export:hover {
-        background-color: #0056b3;  /* Darker blue */
+        background-color: #0056b3; /* Darker blue */
         color: white;
     }
 
-    /* Ensure the search box aligns to the left */
-    .dataTables_filter {
-        text-align: left !important;
+    /* Custom styling for the add button */
+    .btn-add-video {
+        background-color: #28a745; /* Bootstrap success green color */
+        color: white;
+        border-radius: 4px;
+        padding: 5px 10px;
+        border: none;
+        font-size: 14px;
+        margin-left: 5px;
     }
-    #datatable_filter{
+
+    .btn-add-video i {
+        margin-right: 5px; /* Space between icon and text */
+    }
+
+    .btn-add-video:hover {
+        background-color: #218838; /* Darker green */
+        color: white;
+    }
+
+    /* Ensure search box aligns to the left */
+    #datatable_filter {
         float: left;
     }
-    #datatable_wrapper > div.dt-buttons{
+
+    #datatable_wrapper > div.dt-buttons {
         float: right;
     }
 
-    /* Custom styling for the search input box */
-
-</style>
-<style>
-    /* Custom styling for the sort button */
-    .btn-sort {
-        background-color: #28a745;  /* Bootstrap success green color */
-        color: white;
+    /* Video player styling */
+    .video-player {
+        width: 320px;
+        height: 180px;
         border-radius: 4px;
-        padding: 5px 10px;
-        border: none;
-        font-size: 14px;
-        margin-left: 5px;  /* Add space between export and sort buttons */
+        display: block;
     }
 
-    .btn-sort i {
-        margin-right: 5px;  /* Space between icon and text */
-    }
-
-    /* Change button color on hover */
-    .btn-sort:hover {
-        background-color: #218838;  /* Darker green */
-        color: white;
-    }
-
-    /* Existing styles for the export button */
-    .btn-export {
-        background-color: #007bff;
-        color: white;
-        border-radius: 4px;
-        padding: 5px 10px;
-        border: none;
-        font-size: 14px;
-    }
-
-    .btn-export i {
-        margin-right: 5px;
-    }
-
-    .btn-export:hover {
-        background-color: #0056b3;
-        color: white;
-    }
-
-    /* Align buttons to the right */
-    .dt-buttons {
-        float: right;
-    }
-
-    /* Custom styling for the search input box */
-    .dataTables_filter input {
-        background-color: red;
-        color: white;
-        border: none;
-        padding: 5px;
-        border-radius: 4px;
-        padding-left: 30px;
-        background-image: url('https://cdn-icons-png.flaticon.com/512/622/622669.png');
-        background-size: 20px;
-        background-position: 5px center;
-        background-repeat: no-repeat;
-    }
-
-    .dataTables_filter {
-        text-align: left !important;
+    @media (max-width: 576px) {
+        .video-player {
+            width: 100%;
+            height: auto;
+        }
     }
 </style>
 
@@ -230,19 +128,56 @@
                         <thead class="mobileHide">
                             <tr>
                                 <th width="100px">#</th>
-                                <th>Video Link</th>
+                                <th>Video</th>
                                 <th>Status</th>
                                 <th width="280px">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             @php $i = 0; @endphp
-                            @forelse($videos as $video)
+                            @foreach($videos as $video)
                                 <tr class="flexTbl">
                                     <td><span class="mobileShow">No. :</span> {{ ++$i }}</td>
                                     <td>
-                                        <span class="mobileShow">Video Link :</span>
-                                        <a href="{{ $video->link }}" target="_blank">{{ \Illuminate\Support\Str::limit($video->link, 50) }}</a>
+                                        <span class="mobileShow">Video :</span>
+                                        @php
+                                            $isYouTube = preg_match('/(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([\w-]+)/', $video->link, $ytMatches);
+                                            $isVimeo = preg_match('/vimeo\.com\/(\d+)/', $video->link, $vimeoMatches);
+                                            $isDirectVideo = preg_match('/\.(mp4|ogg|webm)$/i', $video->link);
+                                            $extension = $isDirectVideo ? strtolower(pathinfo($video->link, PATHINFO_EXTENSION)) : '';
+                                            $videoType = $extension === 'mp4' ? 'video/mp4' : ($extension === 'ogg' ? 'video/ogg' : 'video/webm');
+                                        @endphp
+
+                                        @if($isYouTube)
+                                            <iframe
+                                                class="video-player"
+                                                src="https://www.youtube.com/embed/{{ $ytMatches[1] }}?autoplay=1&mute=1&controls=1"
+                                                frameborder="0"
+                                                allow="autoplay; encrypted-media"
+                                                allowfullscreen
+                                            ></iframe>
+                                        @elseif($isVimeo)
+                                            <iframe
+                                                class="video-player"
+                                                src="https://player.vimeo.com/video/{{ $vimeoMatches[1] }}?autoplay=1&muted=1"
+                                                frameborder="0"
+                                                allow="autoplay; fullscreen"
+                                                allowfullscreen
+                                            ></iframe>
+                                        @elseif($isDirectVideo)
+                                            <video
+                                                class="video-player"
+                                                width="320"
+                                                controls
+                                                autoplay
+                                                muted
+                                            >
+                                                <source src="{{ $video->link }}" type="{{ $videoType }}">
+                                                Your browser does not support HTML video.
+                                            </video>
+                                        @else
+                                            <a href="{{ $video->link }}" target="_blank">{{ \Illuminate\Support\Str::limit($video->link, 50) }}</a>
+                                        @endif
                                     </td>
                                     <td>
                                         <span class="mobileShow">Status :</span>
@@ -256,19 +191,17 @@
                                             <a href="{{ route('video-galleries.edit', $video->id) }}" class="btn btn-outline-warning btn-sm">
                                                 <i class="bi bi-pencil-square"></i>
                                             </a>
-
                                             <form action="{{ route('video-galleries.destroy', $video->id) }}" method="POST" style="display:inline;">
                                                 @csrf
                                                 @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></button>
-
+                                                <button type="submit" class="btn btn-outline-danger btn-sm" onclick="return confirm('Delete this video?')">
+                                                    <i class="fa-solid fa-trash"></i>
+                                                </button>
                                             </form>
                                         </div>
                                     </td>
                                 </tr>
-                            @empty
-                                <tr><td colspan="4" class="text-center">No videos found.</td></tr>
-                            @endforelse
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -283,17 +216,19 @@ $(document).ready(function() {
         dom: 'Bfrtip',
         pageLength: 5,
         buttons: [
+
             {
-                text: '<img src="{{asset('admin')}}/img/plus-icon.png" class="iconbt img-fluid" alt="plus icon"> Add New',  // Adding a plus icon with "Add Order" text
-                className: 'btn-add-order greenBtn',  // Custom class for the button
+                text: '<img src="{{ asset('admin/img/plus-icon.png') }}" class="iconbt img-fluid" alt="plus icon"> Add New Video',
+                className: 'btn-add-video',
                 action: function(e, dt, node, config) {
-                    window.location.href = "{{ route('video-galleries.create', ['user_id' => request('user_id', Auth::id())]) }}";  // Redirect to the order creation route
+                    window.location.href = "{{ route('video-galleries.create', ['user_id' => request('user_id', Auth::id())]) }}";
                 }
             }
         ],
         language: {
             search: " ",
-            searchPlaceholder: "Search"
+            searchPlaceholder: "Search",
+            emptyTable: "No videos found."
         }
     });
 });

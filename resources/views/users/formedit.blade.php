@@ -42,11 +42,7 @@
                             <?php $role = $user->getRoleNames()->first(); ?>
                             <h5 class="card-title">Edit {{$role}}</h5>
                         </div>
-                        <div class="pull-right">
-                            <a class="btn btn-sm mb-2 comnBtn whtTxt borderBtn" href="{{ route('users.index') }}">
-                                <i class="fa fa-arrow-left"></i> Back
-                            </a>
-                        </div>
+
                     </div>
                 </div>
             </div>

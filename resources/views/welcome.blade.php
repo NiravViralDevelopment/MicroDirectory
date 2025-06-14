@@ -37,8 +37,8 @@
                   <li><a href="#"><span class="glyphicon glyphicon-earphone"></span> &nbsp; Call Us : +971 522656679</a></li>
                   <li><a href="mailto:sales@dbuguae.com"><span class="glyphicon glyphicon-envelope"></span>&nbsp; Email: info@atomdirectory.com</a></li>
                   <li class="green">
-                     <!--<a href="{{asset('front/')}}" class="reg">Registration</a> <span>/</span> -->
-                     <a href="{{ route('register_form')}}">Registration <span>/</span> Log in</a>
+                     <a href="{{ route('register_form')}}" class="reg">Registration</a> <span>/</span>
+                     <a href="{{ route('login')}}">Log in</a>
                   </li>
                </ul>
                <div class="clear"></div>
@@ -53,7 +53,13 @@
          </div>
          <div class="row search-section">
             <div class="col-xs-12 col-sm-12 col-md-12 text-center block-1">
-               <div class="bannerBtn"><a href="#" data-toggle="modal" data-target="#myModal" class="log btn_login" onclick="hideregisterdiv();">Registration <span>/</span> Log in</a> </div>
+               <div class="bannerBtn" style="display: flex; align-items: center; gap: 5px;">
+                <a href="{{ route('register_form') }}" class="log btn_login">Registration</a>
+
+                <a href="{{ route('login') }}" class="log btn_login">Log in</a>
+            </div>
+
+
                <form action="{{route('search.directory')}}" method="get" name="frmsearch" id="frmsearch" enctype="multipart/form-data" class="form-inline" method="post" accept-charset="utf-8">
                   <div class="form-group">
                      <select id="search_name" name="role_name" class="form-control myval required">
@@ -88,7 +94,7 @@
                @foreach($roles as $role)
                <div class="rsThumb">
                   <div class="icon-container">
-                     {{-- <a href = "{{route('directory.list',$role->slug)}}"> --}}
+                     <a href = "{{route('directory.list',$role->slug)}}">
                      <img src="{{asset('all_image/'.$role->image)}}">
                      </a>
                      <p class="icon-title">{{$role->name}}</p>
@@ -143,147 +149,7 @@
                </div>
             </div>
          </div>
-         <div class="modal fade popup_modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" data-keyboard="false">
-            <div class="modal-dialog">
-               <div class="modal-content">
-                  <button type="button" class="close popup_colse" data-dismiss="modal" onclick="login_restform(); "><span>&times;</span></button>
-                  <div class="" id="hideshowsignindiv">
-                     <div class="head">
-                        <h3>Log In</h3>
-                     </div>
-                     <div class="form_area">
-                        <div class="success2" id="successlogin" style="display:none;">Log In Successfully.</div>
-                        <div class="failure" id="errorlogin" style="display:none;">User Name/Password Incorrect.</div>
-                        <div class="success2" id="successregister_notapprove" style="display:none;">Please wait for approval, After that you can log in.</div>
-                        <div class="success2" id="successregister" style="display:none;">Thank You for a registration on our website, So now you can Sign In.</div>
-                        <div class="failure" id="error" style="display:none;">Facility available only for registered members of IMPPA.</div>
-                        <form name="login_form" id="login_form" enctype="multipart/form-data" method="POST" >
-                           <div class="row">
-                              <div class="col-md-12">
-                                 <div class="form-group">
-                                    <input type="text" placeholder="Username" name="username" maxlength="200" minlength="2" class="form-control required email">
-                                 </div>
-                              </div>
-                              <div class="col-md-12">
-                                 <div class="form-group">
-                                    <input type="password" placeholder="Password" name="password" maxlength="20" minlength="8" class="form-control required">
-                                 </div>
-                              </div>
-                              <div class="col-md-6 col-md-push-6 col-xs-7 col-xs-push-5">
-                                 <div class="forgot_link">
-                                    <a href="javascript:void(0);" onclick="hideshowforgotdiv(); forgot_restform();" class="forgotpswd">Forgot Password ?</a>
-                                 </div>
-                              </div>
-                              <div class="col-md-6 col-md-pull-6 col-xs-5 col-xs-pull-7">
-                                 <div class="mobile_text_left"><button type="button" onclick="submitSignInForm()" class="greenbtn btn btn_bule">Log In</button> </div>
-                              </div>
-                           </div>
-                        </form>
-                        <div class="register_area">
-                           <a href="javascript:void(0);" onclick="hideshowsignupdiv(); regi_restform();" class="greenbtn greenbtn_outer btn btn_red1">Can't Log In?..Register Now</a>
-                        </div>
-                     </div>
-                  </div>
-                  <div class="" id="hideshowsignupdiv" style="display:none;">
-                     <div class="head">
-                        <h3>Registration</h3>
-                     </div>
-                     <div class="paddlr20 form_area">
-                        <div class="failure" id="errorregister" style="display:none;">Something went Wrong. Please try again later!</div>
-                        <div class="failure" id="errorregister1" style="display:none;">This Email is already exists. You can not duplicate this email!</div>
-                        <div class="failure" id="errorregisterphone" style="display:none;">This Phone no is already exists.</div>
-                        <form name="registrtion_store" id="registrtion_form" enctype="multipart/form-data" method="POST">
-                           <div class="row">
-                              <div class="col-md-12">
-                                 <div class="form-group">
-                                    <input type="text" placeholder="Name *" name="name" maxlength="200" minlength="2" class="form-control required">
-                                    <input type="hidden" name="name_V" value="Name">
-                                 </div>
-                              </div>
-                              <div class="col-md-12">
-                                 <div class="form-group">
-                                    <input type="text" placeholder="Mobile No. *" name="phone" maxlength="13" minlength="10" class="form-control required number" onkeypress="return /[0-9+]/i.test(event.key)" id="phone" onblur="checkphone()">
-                                    <span id="phoneerror" style="display:none; color:#ff0000">This Mobile No. already exists</span>
-                                    <input type="hidden" name="phone_V" value="Mobile No.">
-                                 </div>
-                              </div>
-                              <div class="col-md-12">
-                                 <div class="form-group">
-                                    <input type="text" placeholder="Enter Your Email ID *" name="email" id="email1" maxlength="200" minlength="2" class="form-control required email" onblur="checkemail1()">
-                                    <span id="emailerror" style="display:none; color:#ff0000">This Email already exists</span>
-                                    <input type="hidden" name="email_V" value="Email ID">
-                                 </div>
-                              </div>
-                              <!-- <div class="col-md-12">
-                                 <div class="form-group">
-                                 	<input type="password" name="password" class="form-control required" maxlength="20" minlength="8"  placeholder="Enter Your Password *">
-                                 	<input type="hidden" name="password_V" value="Password">
-                                  </div>
-                                 </div> -->
-                              <div class="col-md-12">
-                                 <div class="form-group">
-                                    <input type="text" name="whatsapp" class="form-control required" maxlength="12" minlength="10"  placeholder="Whatsapp *" onkeypress="return /[0-9+]/i.test(event.key)">
-                                    <input type="hidden" name="whatsapp_V" value="Whatsapp">
-                                 </div>
-                              </div>
-                              <div class="col-md-12">
-                                 <div class="form-group">
-                                    <select id="register_as" name="register_as" class="form-control myval searchselect required quesselect" >
-                                       <option value="">What is your intention of Registration?</option>
-                                       <option value="1">Register as an actor/Model</option>
-                                       <!-- <option value="Register a Service Provider?">Register a Service Provider?</option> -->
-                                       <option value="2">Register to acquire talent</option>
-                                    </select>
-                                    <input type="hidden" name="register_as_V" value="Intention of Registration">
-                                 </div>
-                              </div>
-                              <div class="col-md-12 form-group">
-                                 <input type="hidden" name="heading_V" value="Registration Details">
-                                 <input type="hidden" name="footer_V" value="Atom Directory. All Rights Reserved.">
-                                 <button type="button" onclick="submitSignUpForm()" class="greenbtn signup btn_bule">Register</button>
-                              </div>
-                              <!--<div class="col-md-12">
-                                 <a href="javascript:void(0);" onclick="hideshowsignindiv()" class="greenbtn greenbtn_outer">SIGN IN</a>
-                                 </div>-->
-                           </div>
-                        </form>
-                        <div class="register_area">
-                           <a href="javascript:void(0);" onclick="hideshowsignindiv()" class="greenbtn greenbtn_outer btn btn_red1">Already registered... Log In here</a>
-                        </div>
-                     </div>
-                  </div>
-                  <div class="signin_upform" id="hideshowforgotdiv" style="display:none;">
-                     <div class="head">
-                        <h3>Forgot Password</h3>
-                     </div>
-                     <div class="paddlr20 form_area">
-                        <div class="success2" id="successforgot" style="display:none;">Your reset password link has been sent to your email address.</div>
-                        <div class="failure" id="errorforgot" style="display:none;">User Name Incorrect.</div>
-                        <form name="forgot_password_form" id="forgot_password_form" enctype="multipart/form-data" method="POST">
-                           <div class="row">
-                              <div class="col-md-12">
-                                 <div class="form-group">
-                                    <input type="text" placeholder="Username" name="username" id="username" maxlength="200" minlength="2" class="form-control required email" onblur="checkusername()">
-                                    <span id="usernameerror" style="display:none; color:#ff0000">This Username is not exists</span>
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="row">
-                              <div class="col-md-12 btn_two">
-                                 <span>
-                                 <button type="button" onclick="submitForgotPasswordForm()" class="greenbtn btn_bule">submit</button> </span>
-                                 <span><a href="javascript:void(0);" onclick="hideshowsignindiv()" class="greenbtn greenbtn_oute btn_red1">cancel</a></span>
-                                 <div class="clear"></div>
-                              </div>
-                           </div>
-                        </form>
-                        <div class="center">
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div>
+
          <script>
             jQuery.validator.addMethod("lettersonly", function(value, element)
             {

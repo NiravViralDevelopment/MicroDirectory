@@ -46,6 +46,7 @@ class User extends Authenticatable
         'is_featured',
         'is_locked',
         'is_block',
+        'tattve_media_id',
         'slug',
     ];
 

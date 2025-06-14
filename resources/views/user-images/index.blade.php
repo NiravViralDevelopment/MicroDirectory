@@ -126,7 +126,7 @@
                                     <td>
                                         <span class="mobileShow">Image :</span>
                                         @if($img->image)
-                                            <img src="{{ asset('all_user_image/' . ($img->image ?? 'default.jpg')) }}" alt="User Image" height="50" width="50">
+                                            <img src="{{ asset('all_user_image/' . $img->image) }}" alt="User Image" height="50" width="50">
                                         @else
                                             <img src="{{ asset('all_user_image/default.jpg') }}" alt="Default Image" height="50" width="50">
                                         @endif
@@ -154,9 +154,6 @@
                                     </td>
                                 </tr>
                             @endforeach
-                            @if($userImages->isEmpty())
-                                <tr><td colspan="4" class="text-center">No images found.</td></tr>
-                            @endif
                         </tbody>
                     </table>
                 </div>
@@ -171,22 +168,7 @@ $(document).ready(function() {
         dom: 'Bfrtip',
         pageLength: 5,
         buttons: [
-            {
-                extend: 'excelHtml5',
-                text: '<img src="{{ asset('admin/img/export.png') }}" class="iconbt img-fluid" alt="export icon"> Export',
-                className: 'btn-export',
-                exportOptions: {
-                    columns: ':visible',
-                    format: {
-                        body: function (data, row, column, node) {
-                            // Remove mobileShow spans
-                            var strippedData = $('<div>').html(data).find('.mobileShow').remove().end().text();
-                            return strippedData.trim();
-                        }
-                    },
-                    columns: ':not(:last-child)' // Exclude Action column
-                }
-            },
+
             {
                 text: '<img src="{{ asset('admin/img/plus-icon.png') }}" class="iconbt img-fluid" alt="plus icon"> Add New Image',
                 className: 'btn-add-image',
@@ -197,7 +179,8 @@ $(document).ready(function() {
         ],
         language: {
             search: " ",
-            searchPlaceholder: "Search"
+            searchPlaceholder: "Search",
+            emptyTable: "No images found."
         }
     });
 });

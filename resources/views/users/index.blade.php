@@ -237,9 +237,10 @@
                     <th>No</th>
                     <th>Name</th>
                     <th>Email</th>
+                    <th>Tattva Media ID</th>
                     <th>Status</th>
                     <th>Category</th>
-                    <th>Email</th>
+                    <th>Send-Email</th>
                     <th width="280px">Action</th>
                 </tr>
                 </thead>
@@ -249,6 +250,7 @@
                             <td><span class="mobileShow">No. :</span> {{ ++$i }}</td>
                             <td><span class="mobileShow">Name :</span> {{ $user->name }}</td>
                             <td><span class="mobileShow">Email :</span> {{ $user->email }}</td>
+                             <td><span class="mobileShow">Email :</span> {{ $user->tattve_media_id }}</td>
                             <td>
                                 <span class="mobileShow">Status :</span>
                                 @if($user->is_active)

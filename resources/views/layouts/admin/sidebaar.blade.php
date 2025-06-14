@@ -109,7 +109,13 @@
 
             @else
 
-
+                <li class="nav-item {{ Route::currentRouteName() == 'dashboard' ? 'active' : '' }}">
+                    <a class="nav-link" href="{{route('dashboard')}}">
+                        <img src="{{asset('admin')}}/img/dashboard.png" class="img-fluid iconNav hide" alt="dashboard icon">
+                        <img src="{{asset('admin')}}/img/dashboard-white.png" class="img-fluid iconNav show" alt="dashboard icon"> <!-- Dashboard icon -->
+                        <span>Dashboard</span>
+                    </a>
+                </li>
                 <li class="nav-item {{ Route::currentRouteName() === 'users.edit' && request()->route('user') == Auth::id() ? 'active' : '' }}">
                     <a class="nav-link" href="{{ route('users.edit', Auth::id()) }}">
                         <img src="{{asset('admin')}}/img/order-items.png" class="img-fluid iconNav hide" alt="order items icon">
@@ -118,16 +124,24 @@
                     </a>
                 </li>
 
-                <li class="nav-item">
-            <a href="{{ route('user-images.index') }}?user_id={{ Auth::id() }}" class="nav-link">
-                <i class="fa fa-image"></i> My Images
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{{ route('video-galleries.index') }}?user_id={{ Auth::id() }}" class="nav-link">
-                <i class="fa fa-video"></i> My Videos
-            </a>
-        </li>
+
+
+                <li class="nav-item {{ Route::currentRouteName() == 'user-images.index' ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('user-images.index') }}?user_id={{ Auth::id() }}">
+                        <img src="{{asset('admin')}}/img/dashboard.png" class="img-fluid iconNav hide" alt="dashboard icon">
+                                <img src="{{asset('admin')}}/img/dashboard-white.png" class="img-fluid iconNav show" alt="dashboard icon"> <!-- Dashboard icon -->
+                        <span>My Images</span>
+                    </a>
+                </li>
+                <li class="nav-item {{ Route::currentRouteName() == 'video-galleries.index' ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('video-galleries.index') }}?user_id={{ Auth::id() }}">
+                        <img src="{{asset('admin')}}/img/dashboard.png" class="img-fluid iconNav hide" alt="dashboard icon">
+                                <img src="{{asset('admin')}}/img/dashboard-white.png" class="img-fluid iconNav show" alt="dashboard icon"> <!-- Dashboard icon -->
+                        <span>My Videos</span>
+                    </a>
+                </li>
+
+
 
         @endif
 

@@ -24,12 +24,7 @@ class LanguageController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
         ]);
-
-        Language::create([
-            'title' => $request->title,
-            'is_active' => $request->has('is_active'),
-        ]);
-
+        Language::create($request->all());
         return redirect()->route('languages.index')->with('message', 'Language created successfully.');
     }
 
@@ -43,12 +38,7 @@ class LanguageController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
         ]);
-
-        $language->update([
-            'title' => $request->title,
-            'is_active' => $request->has('is_active'),
-        ]);
-
+        $language->update($request->all());
         return redirect()->route('languages.index')->with('message', 'Language updated successfully.');
     }
 

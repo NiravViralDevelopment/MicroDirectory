@@ -37,11 +37,11 @@ class UserController extends Controller
     }
 
 
-        function sendMail($id)
+    function sendMail($id)
     {
         try {
             $user = User::findOrFail($id);
-                Mail::to($user->email)->send(new UserCreatedMail($user));
+            Mail::to($user->email)->send(new UserCreatedMail($user));
             $user->mail_status = 1;
             $user->save();
             return redirect()->back()->with('message', 'Email sent successfully');
@@ -176,17 +176,30 @@ class UserController extends Controller
             $input = Arr::except($input,array('password'));
         }
         // Handle multi-selects (convert arrays to CSV)
-        // $input['experience'] = isset($input['experience']) ? implode(',', $input['experience']) : '';
-        // $input['language'] = isset($input['language']) ? implode(',', $input['language']) : '';
+
         $user = User::find($id);
-        // $input['image'] = $uploaded;
+            if(Auth::id() != 2){
+                $input['experience'] = isset($input['experience']) ? implode(',', $input['experience']) : '';
+                $input['language'] = isset($input['language']) ? implode(',', $input['language']) : '';
+                $input['image'] = $uploaded;
+
+            }
+
         $user->update($input);
         // DB::table('model_has_roles')->where('model_id',$id)->delete();
 
         // $user->assignRole($request->input('roles'));
 
-        return redirect()->route('users.index')
-                        ->with('message','User updated successfully');
+        if(Auth::id() == 2 ){
+
+            return redirect()->route('users.index')
+                            ->with('message','User updated successfully');
+        }else{
+
+           return redirect()->back()
+                            ->with('message','User updated successfully');
+        }
+
     }
 
     /**
