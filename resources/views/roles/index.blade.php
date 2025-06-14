@@ -265,7 +265,7 @@
                            <div class="ThreeBtns">
                             <a  href="{{ route('roles.show',$role->id) }}"><i class="btn btn-outline-success btn-sm bi bi-eye-fill"></i> </a>
 
-                                <a  href="{{ route('roles.edit',$role->id) }}"><i class="bi bi-pencil-square btn btn-outline-primary btn-sm"></i></a>
+                            <a  href="{{ route('roles.edit',$role->id) }}"><i class="bi bi-pencil-square btn btn-outline-primary btn-sm"></i></a>
 
 
                             {{-- @can('role-delete')

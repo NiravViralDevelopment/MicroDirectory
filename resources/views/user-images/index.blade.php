@@ -1,58 +1,205 @@
 @extends('layouts.admin.app')
 
 @section('content')
-<div class="container">
-    <h3>User Images</h3>
-    <a href="{{ route('users.index') }}" class="btn btn-secondary mb-3">
-    <i class="fa fa-arrow-left"></i> Back to Users
-</a>
+<style>
+    /* Modal Design (for consistency, though not used in this table) */
+    .modal-content {
+        border-radius: 8px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
 
-    <a href="{{ route('user-images.create', ['user_id' => request('user_id')]) }}" class="btn btn-primary mb-3">Add New Image</a>
+    .modal-body {
+        font-size: 1rem;
+        line-height: 1.5;
+    }
 
-    @if(session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
-    @endif
+    /* Badge Icons */
+    .badge-icon {
+        margin-right: 8px;
+    }
 
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>No</th>
-                <th>Image</th>
-                <th>Status</th>
-                <th>Created At</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($userImages as $index => $img)
-                <tr>
-                    <td>{{ $index + 1 }}</td>
-                    <td>
-                        @if($img->image)
-                          <img src="{{ asset('all_image/' . ($img->image ?? 'default.jpg')) }}" alt="Role Image" height="50" width="50">
-                        @endif
-                    </td>
-                    <td>
-                        <span class="badge {{ $img->status ? 'bg-success' : 'bg-danger' }}">
-                            {{ $img->status ? 'Active' : 'Inactive' }}
-                        </span>
-                    </td>
-                    <td>{{ $img->created_at->format('Y-m-d') }}</td>
-                    <td>
-                        <a href="{{ route('user-images.edit', $img->id) }}" class="btn btn-sm btn-primary">Edit</a>
-                        <form action="{{ route('user-images.destroy', $img->id) }}" method="POST" style="display:inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button onclick="return confirm('Are you sure?')" class="btn btn-sm btn-danger">Delete</button>
-                        </form>
-                    </td>
-                </tr>
-            @endforeach
+    /* Custom styling for the search box */
+    .dataTables_filter {
+        text-align: left !important; /* Align search box to the left */
+    }
 
-            @if($userImages->isEmpty())
-                <tr><td colspan="5" class="text-center">No images found.</td></tr>
-            @endif
-        </tbody>
-    </table>
-</div>
+    .dataTables_filter input {
+        background-color: red; /* Red background color */
+        color: black; /* Text color */
+        border: none;
+        padding: 5px;
+        border-radius: 4px;
+        padding-left: 30px; /* Space for the magnifier icon */
+        background-image: url('https://cdn-icons-png.flaticon.com/512/622/622669.png'); /* Magnifier icon */
+        background-size: 20px;
+        background-position: 5px center;
+        background-repeat: no-repeat;
+        float: left;
+    }
+
+    .dataTables_filter input:focus {
+        outline: none;
+        background-color: darkred;
+    }
+
+    /* Align the export button to the right */
+    .dt-buttons {
+        float: right; /* Align the buttons to the right */
+    }
+
+    /* Custom styles for the export button */
+    .btn-export {
+        background-color: #007bff; /* Bootstrap primary blue color */
+        color: white;
+        border-radius: 4px;
+        padding: 5px 10px;
+        border: none;
+        font-size: 14px;
+        margin-left: 5px;
+    }
+
+    .btn-export i {
+        margin-right: 5px; /* Space between icon and text */
+    }
+
+    .btn-export:hover {
+        background-color: #0056b3; /* Darker blue */
+        color: white;
+    }
+
+    /* Custom styling for the add button */
+    .btn-add-image {
+        background-color: #28a745; /* Bootstrap success green color */
+        color: white;
+        border-radius: 4px;
+        padding: 5px 10px;
+        border: none;
+        font-size: 14px;
+        margin-left: 5px;
+    }
+
+    .btn-add-image i {
+        margin-right: 5px; /* Space between icon and text */
+    }
+
+    .btn-add-image:hover {
+        background-color: #218838; /* Darker green */
+        color: white;
+    }
+
+    /* Ensure search box aligns to the left */
+    #datatable_filter {
+        float: left;
+    }
+
+    #datatable_wrapper > div.dt-buttons {
+        float: right;
+    }
+</style>
+
+<section class="section">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">User Images</h5>
+
+                    @if(session('success'))
+                        <div class="alert alert-success">{{ session('success') }}</div>
+                    @endif
+
+                    <!-- Table with DataTables -->
+                    <table id="datatable" class="table">
+                        <thead class="mobileHide">
+                            <tr>
+                                <th width="100px">No.</th>
+                                <th>Image</th>
+                                <th>Status</th>
+                                <th width="280px">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @php $i = 0; @endphp
+                            @foreach ($userImages as $img)
+                                <tr class="flexTbl">
+                                    <td><span class="mobileShow">No. :</span> {{ ++$i }}</td>
+                                    <td>
+                                        <span class="mobileShow">Image :</span>
+                                        @if($img->image)
+                                            <img src="{{ asset('all_user_image/' . ($img->image ?? 'default.jpg')) }}" alt="User Image" height="50" width="50">
+                                        @else
+                                            <img src="{{ asset('all_user_image/default.jpg') }}" alt="Default Image" height="50" width="50">
+                                        @endif
+                                    </td>
+                                    <td>
+                                        <span class="mobileShow">Status :</span>
+                                        <span class="badge {{ $img->status ? 'bg-success' : 'bg-danger' }}">
+                                            {{ $img->status ? 'Active' : 'Inactive' }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span class="mobileShow">Actions :</span>
+                                        <div class="ThreeBtns">
+                                            <a href="{{ route('user-images.edit', $img->id) }}" class="btn btn-outline-primary btn-sm">
+                                                <i class="bi bi-pencil-square"></i>
+                                            </a>
+                                            <form action="{{ route('user-images.destroy', $img->id) }}" method="POST" style="display:inline;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-outline-danger btn-sm" onclick="return confirm('Are you sure?')">
+                                                    <i class="fa-solid fa-trash"></i>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
+                            @if($userImages->isEmpty())
+                                <tr><td colspan="4" class="text-center">No images found.</td></tr>
+                            @endif
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+$(document).ready(function() {
+    var table = $('#datatable').DataTable({
+        dom: 'Bfrtip',
+        pageLength: 5,
+        buttons: [
+            {
+                extend: 'excelHtml5',
+                text: '<img src="{{ asset('admin/img/export.png') }}" class="iconbt img-fluid" alt="export icon"> Export',
+                className: 'btn-export',
+                exportOptions: {
+                    columns: ':visible',
+                    format: {
+                        body: function (data, row, column, node) {
+                            // Remove mobileShow spans
+                            var strippedData = $('<div>').html(data).find('.mobileShow').remove().end().text();
+                            return strippedData.trim();
+                        }
+                    },
+                    columns: ':not(:last-child)' // Exclude Action column
+                }
+            },
+            {
+                text: '<img src="{{ asset('admin/img/plus-icon.png') }}" class="iconbt img-fluid" alt="plus icon"> Add New Image',
+                className: 'btn-add-image',
+                action: function(e, dt, node, config) {
+                    window.location.href = "{{ route('user-images.create', ['user_id' => request('user_id', Auth::id())]) }}";
+                }
+            }
+        ],
+        language: {
+            search: " ",
+            searchPlaceholder: "Search"
+        }
+    });
+});
+</script>
 @endsection

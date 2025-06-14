@@ -79,7 +79,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <strong class="strng required-label">Mobile No:</strong>
-                                <input type="tel" name="phone" placeholder="Enter Mobile No." class="form-control required" value="{{ old('phone', $user->phone) }}" pattern="[0-9]{10}" title="Please enter a valid 10-digit mobile number" readonly>
+                                <input type="tel" name="phone" placeholder="Enter Mobile No." class="form-control required" value="{{ old('phone', $user->phone) }}" pattern="[0-9]{10}" title="Please enter a valid 10-digit mobile number">
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -261,7 +261,7 @@
                         </div>
 
                         <!-- PASSWORD -->
-                        <div class="col-md-12"><h6 class="section-title">Security</h6></div>
+                        {{-- <div class="col-md-12"><h6 class="section-title">Security</h6></div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <strong class="strng">Password (leave blank to keep current):</strong>
@@ -273,10 +273,10 @@
                                 <strong class="strng">Confirm Password:</strong>
                                 <input type="password" name="confirm-password" class="form-control" minlength="8">
                             </div>
-                        </div>
+                        </div> --}}
 
                         <!-- CATEGORY -->
-                        <div class="col-md-12">
+                        {{-- <div class="col-md-12">
                             <div class="form-group">
                                 <strong class="strng required-label">Category (Roles): </strong>
                                 <select name="roles[]" class="form-control hg100 required" multiple required>
@@ -285,19 +285,19 @@
                                     @endforeach
                                 </select>
                             </div>
-                        </div>
+                        </div> --}}
 
                         <!-- STATUS TOGGLES -->
-                        <div class="col-md-12"><h6 class="section-title">Status Options</h6></div>
-                        @foreach(['is_active' => 'Is Active?', 'is_featured' => 'Is Featured?', 'is_block' => 'Is Blocked?', 'is_locked' => 'Is Locked?'] as $name => $label)
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <strong class="strng">{{ $label }}</strong><br>
-                                    <input type="hidden" name="{{ $name }}" value="0">
-                                    <input type="checkbox" name="{{ $name }}" value="1" {{ old($name, $user->$name) ? 'checked' : '' }}> Yes
+                        {{-- <div class="col-md-12"><h6 class="section-title">Status Options</h6></div> --}}
+                            {{-- @foreach(['is_active' => 'Is Active?', 'is_featured' => 'Is Featured?', 'is_block' => 'Is Blocked?', 'is_locked' => 'Is Locked?'] as $name => $label)
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <strong class="strng">{{ $label }}</strong><br>
+                                        <input type="hidden" name="{{ $name }}" value="0">
+                                        <input type="checkbox" name="{{ $name }}" value="1" {{ old($name, $user->$name) ? 'checked' : '' }}> Yes
+                                    </div>
                                 </div>
-                            </div>
-                        @endforeach
+                            @endforeach --}}
 
                         <div class="col-md-12 mt-4">
                             <button type="submit" class="btn btn-sm comnBtn">

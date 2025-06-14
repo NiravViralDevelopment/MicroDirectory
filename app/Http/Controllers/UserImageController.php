@@ -4,7 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\UserImage;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 use Illuminate\Support\Facades\Storage;
 
 class UserImageController extends Controller
@@ -84,34 +88,28 @@ class UserImageController extends Controller
 
     public function update(Request $request, UserImage $userImage)
     {
-        $request->validate([
-            'image' => 'nullable|image|max:2048',
-            'status' => 'sometimes|boolean',
-        ]);
 
-        // if ($request->hasFile('image')) {
-        //     // Delete old image if exists
-        //     if ($userImage->image && \Storage::disk('public')->exists($userImage->image)) {
-        //         \Storage::disk('public')->delete($userImage->image);
-        //     }
-        //     $imagePath = $request->file('image')->store('user_images', 'public');
-        //     $userImage->image = $imagePath;
-        // }
+        // Validate the incoming request
+            $validated = $request->validate([
+                'image' => 'nullable|image|max:2048', // max 2MB
+                'status' => 'sometimes|boolean',
+            ]);
+            // Handle image upload
+            if ($request->hasFile('image')) {
+                // Store new image
+                $image = $request->file('image');
+                $uploaded = time() . '.' . $image->getClientOriginalExtension();
+                $destinationPath = public_path('/all_user_image');
+                $image->move($destinationPath, $uploaded);
+                $userImage->image = $uploaded;
+            }
+            // Update status
+            $userImage->status = $request->has('status') ? $request->status : $userImage->status;
+            $userImage->save();
+            // Redirect to the index with user_id filter
+            return redirect()->route('user-images.index', ['user_id' => $userImage->user_id])
+                ->with('success', 'Image updated successfully.');
 
-        $uploaded = '';
-        if ($request->hasFile('image'))
-        {
-            $image = $request->file('image');
-            $uploaded = time() . '.' . $image->getClientOriginalExtension();
-            $destinationPath = public_path('/all_user_image');
-            $image->move($destinationPath, $uploaded);
-        }
-
-        $userImage->status = $request->has('status') ? $request->status : $userImage->status;
-        $userImage->save();
-
-        return redirect()->route('user-images.index', ['user_id' => $userImage->user_id])
-            ->with('success', 'Image updated successfully.');
     }
 
     public function destroy(UserImage $userImage)
