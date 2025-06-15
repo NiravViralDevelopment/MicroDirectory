@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 class ManageDocument extends Model
 {
     use HasFactory;
-protected $table = 'user_documents';
+    protected $table = 'user_documents';
 
     protected $fillable = ['user_id', 'document', 'status'];
 

@@ -141,6 +141,16 @@
                     </a>
                 </li>
 
+                <li class="nav-item {{ Route::currentRouteName() == 'manage-documents.index' ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('manage-documents.index') }}?user_id={{ Auth::id() }}">
+                        <img src="{{asset('admin')}}/img/dashboard.png" class="img-fluid iconNav hide" alt="dashboard icon">
+                                <img src="{{asset('admin')}}/img/dashboard-white.png" class="img-fluid iconNav show" alt="dashboard icon"> <!-- Dashboard icon -->
+                        <span>My Documents</span>
+                    </a>
+                </li>
+
+
+
                 <li class="nav-item {{ Route::currentRouteName() == 'wishlistList' ? 'active' : '' }}">
                     <a class="nav-link" href="{{ route('wishlistList') }}">
                         <img src="{{asset('admin')}}/img/dashboard.png" class="img-fluid iconNav hide" alt="dashboard icon">
