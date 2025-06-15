@@ -49,7 +49,11 @@ Route::group(['middleware' => ['auth']], function() {
 
 
     //whislist store
-    Route::get('/wishlist-store', [HomeController::class, 'wishlistStore'])->name('wishlistStore');
+    Route::get('/wishlist-store/{id}', [HomeController::class, 'wishlistStore'])->name('wishlistStore');
+    Route::delete('/wishlist/{id}', [HomeController::class, 'wishlistDestroy'])->name('wishlist.destroy');
+
+    Route::get('/wishlist-list', [HomeController::class, 'wishlistList'])->name('wishlistList');
+
 
     Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
 

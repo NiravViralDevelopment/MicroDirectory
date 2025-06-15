@@ -116,5 +116,10 @@ class User extends Authenticatable
         $this->attributes['language'] = is_array($value) ? implode(',', $value) : $value;
     }
 
+    public function wishlist()
+{
+    return $this->hasOne(Wishlist::class, 'member_id')->where('user_id', Auth::id());
+}
+
 
 }

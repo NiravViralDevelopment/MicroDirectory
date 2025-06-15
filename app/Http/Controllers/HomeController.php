@@ -6,6 +6,8 @@ use App\Models\ManageOrder;
 use App\Models\UserImage;
 use App\Models\VideoGallery;
 use Illuminate\Http\Request;
+use App\Models\Wishlist;
+
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
@@ -25,9 +27,39 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function wishlistStore(){
-        dd("well");
+    public function wishlistStore($id){
+
+        $exists = Wishlist::where('user_id', Auth::id())
+                      ->where('member_id', $id)
+                      ->exists();
+
+        if ($exists) {
+            return redirect()->back()->with('message', 'This item is already in your wishlist.');
+        }
+
+        Wishlist::create([
+            'user_id' => Auth::id(),
+            'member_id' => $id,
+        ]);
+        return redirect()->back()->with('message', 'Added to wishlist!');
     }
+
+    public function wishlistDestroy($id)
+    {
+        $wishlist = Wishlist::findOrFail($id);
+        $wishlist->delete();
+        return redirect()->back()->with('message', 'Removed from wishlist.');
+    }
+
+    public function wishlistList(){
+        $data = Wishlist::where('user_id',Auth::id())->with('member')->get();
+        // return $data;
+        return view('wishlistList.index',compact('data'));
+    }
+
+
+
+
 
     public function index()
     {
