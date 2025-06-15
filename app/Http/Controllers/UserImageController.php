@@ -38,7 +38,7 @@ class UserImageController extends Controller
         try {
             // Validate the incoming request
             $validated = $request->validate([
-                'image' => 'required|image|max:2048', // max 2MB
+                'image' => 'required|image|dimensions:width=400,height=400|max:20', // 20KB max, 400x400 px
                 'status' => 'sometimes|boolean',
             ]);
 
@@ -91,7 +91,9 @@ class UserImageController extends Controller
 
         // Validate the incoming request
             $validated = $request->validate([
-                'image' => 'nullable|image|max:2048', // max 2MB
+                'image' => 'nullable|image|dimensions:width=400,height=400|max:20', // 20KB max, 400x400 px
+
+
                 'status' => 'sometimes|boolean',
             ]);
             // Handle image upload
