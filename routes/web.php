@@ -46,6 +46,11 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::post('front-register', [FrontController::class, 'register'])->name('front.add');
 
 Route::group(['middleware' => ['auth']], function() {
+
+
+    //whislist store
+    Route::get('/wishlist-store', [HomeController::class, 'wishlistStore'])->name('wishlistStore');
+
     Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
 
     // Country Routes

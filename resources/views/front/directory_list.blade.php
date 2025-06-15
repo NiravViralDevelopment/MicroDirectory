@@ -252,7 +252,7 @@
                                                     </div>
                                                 </div>
                                                 @endif
-                                                <a href="javascript:void(0);" data-toggle="modal" data-target="#myModal" class="whislistbtn" onclick="hideregisterdiv();">Add to Wish List</a>
+                                                <a href="{{ route('wishlistStore') }}" class="whislistbtn" >Add to Wish List</a>
                                                 <!-- <a href=""><span class="glyph icon-youtube border border-dark-blue with-text"></span> Youtube</a> -->
                                                 </ul>
                                                 <div class="clear"></div>
@@ -312,8 +312,8 @@
                                                     <li>
                                                         <a href="https://www.facebook.com/beant.buttar.75" target="_blank"> <span class="glyphicon glyphicon-user icon-circle border border-dark-blue with-text"></span>Facebook/Instagram</a>
                                                     </li>
-                                                    <a href="javascript:void(0);" data-toggle="modal" data-target="#myModal" class="whislistbtn" onclick="hideregisterdiv();">Add to Wish List</a>
-                                                    <!-- <a href=""><span class="glyph icon-youtube border border-dark-blue with-text"></span> Youtube</a> -->
+                                                    <a href="{{ route('wishlistStore')}}"  class="whislistbtn" >Add to Wish List</a>
+
                                                 </ul>
                                                 <div class="clear"></div>
                                                 </div>

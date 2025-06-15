@@ -37,7 +37,6 @@ class FrontController extends Controller
     }
 
     function directoryDetails($slug){
-        dd('comming soon...');
         $user = User::where('slug',$slug)->first();
         return view('front.directory_details',compact('user'));
     }
