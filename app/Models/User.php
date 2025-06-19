@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
-
+use Spatie\Permission\Models\Role;
 class User extends Authenticatable
 {
     use HasFactory, Notifiable, HasRoles;
@@ -80,11 +80,22 @@ class User extends Authenticatable
     {
         return $this->hasMany(UserImage::class);
     }
+     public function document_list()
+    {
+        return $this->hasMany(ManageDocument::class);
+    }
+
 
      public function video_list()
     {
         return $this->hasMany(VideoGallery::class);
     }
+
+      public function state_list()
+    {
+        return $this->belongsTo(State::class,'state_id');
+    }
+
 
     /**
      * Get the user's profile image.

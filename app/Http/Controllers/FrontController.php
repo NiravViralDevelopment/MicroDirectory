@@ -11,8 +11,8 @@ use App\Models\Log;
 use App\Models\Cms;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
-
 use Spatie\Permission\Models\Role;
+
 class FrontController extends Controller
 {
     function frontHome(){
@@ -36,9 +36,14 @@ class FrontController extends Controller
         return view('front.directory_list',compact('users','feacherdUsers'));
     }
 
-    function directoryDetails($slug){
-        $user = User::where('slug',$slug)->first();
-        return view('front.directory_details',compact('user'));
+      function directoryDetails($slug){
+        $user = User::where('slug',$slug)->with('video_list','images','document_list','state_list')->first();
+        
+        $roles = $user?->roles;
+        $role = $roles?->first();
+        $RoleInfo = RoleInfo::where('role_id',$role->id)->first();
+        // return $RoleInfo;
+        return view('front.directory_details',compact('user','role','RoleInfo'));
     }
     function directoryDirectory(){
         return "comming soon...";
