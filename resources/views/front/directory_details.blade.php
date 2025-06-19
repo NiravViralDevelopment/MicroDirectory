@@ -49,7 +49,7 @@
                            <li><a href="mailto:sales@dbuguae"><span class="glyphicon glyphicon-envelope"></span>&nbsp; Email : info@atomdirectory.com</a></li>
                            <li class="green">
                               <!--<a href="https://atomdirectory.com/Registration" class="reg">Registration</a> <span>/</span> -->
-                              <a href="#" data-toggle="modal" data-target="#myModal" class="log btn_login" onclick="hideregisterdiv();">Registration <span>/</span> Log in</a>
+                              <a href="#" data-toggle="modal" data-target="#myModal" class="log btn_login" >Registration <span>/</span> Log in</a>
                            </li>
                         </ul>
                         <div class="clear"></div>
@@ -59,7 +59,7 @@
                   <div class="clear"></div>
                </div>
                <div class="col-xs-12 col-sm-12 col-md-3">
-                  <div class="logo"><a href="https://atomdirectory.com/"><img src="{{asset('front')}}/img/atom-header-logo.png" alt="" class="img-responsive dib" /></a></div>
+                  <div class="logo"><a href="{{route('front.home')}}"><img src="{{asset('front')}}/img/atom-header-logo.png" alt="" class="img-responsive dib" /></a></div>
                </div>
                <div class="col-xs-12 col-sm-12 col-md-9 text-right">
                   <div class="listing-block topright inner_number hide768">
@@ -95,7 +95,7 @@
                         </div>
                         <div class="btnBlock">
                            <a href="javascript:void(0);" data-toggle="modal" data-target="#myModal" class="whislistbtn" onclick="hideregisterdiv();">Add to List</a>
-                           <a href="https://atomdirectory.com/directorylist/actor"  class="backBtn"> Back to Listing Page </a>
+                           <a href="{{route('directory.list',$RoleInfo->slug)}}"  class="backBtn"> Back to Listing Page </a>
                         </div>
                      </div>
                      <div class="col-xs-12 col-sm-12 col-md-8 col-md-pull-4">
@@ -105,11 +105,10 @@
                                  <div class="col-xs-12 col-sm-12 col-md-7">
                                     <a href="">
                                        <div>
-                                          <h1 class="title">Abhishek Arya</h1>
+                                          <h1 class="title">{{$user->name}}</h1>
                                           <br>
-                                          <!-- Maharashtra, -->
-                                          Actor,
-                                          Mumbai
+                                          {{$role->name}},
+                                          @if($user->state_list){{$user->state_list->name}} @endif
                                        </div>
                                     </a>
                                  </div>
@@ -120,13 +119,8 @@
                                  <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="company-content paddleftrightnone paddbtn0">
                                        <div class="min_height1 paddleftright15">
-                                          <p>Abhishek has a masters in Theatre and has been doing theatre for the last 12 years. He has done a feature film as a protagonist and also doing a web series. He has done a few episodes in. Crime Patrol, and also some cameos in regional films. He is passionate about theatre and keeps doing plays. He is a poet and a very good singer. </p>
+                                          <p>{{$user->description}}</p>
                                        </div>
-                                       <!--<div class="cell last-cell">
-                                          <div class="contact-legal-id contact-legal-id-search">
-
-                                          </div>
-                                          </div>-->
                                        <div class="row no-left-right-margin poi-and-body paddbtm_detail divflex">
                                           <ul class="list_btm_area">
                                              <li>
@@ -134,7 +128,7 @@
                                                 <span class="glyphicon glyphicon-earphone icon-circle border border-dark-blue with-text"></span>Mobile</a>
                                              </li>
                                              <li>
-                                                <a href="mailto:abhishekaryagkl@yahoo.com">
+                                                <a href="mailto:{{$user->email}}">
                                                 <span class="glyphicon glyphicon-envelope icon-circle border border-dark-blue with-text"></span>Email</a>
                                              </li>
                                              <li>
@@ -142,7 +136,7 @@
                                                 <span class="	glyphicon glyphicon-phone icon-circle border border-dark-blue with-text"></span>Whatsapp</a>
                                              </li>
                                              <li>
-                                                <a href="http://instagram.com/Kabhiabhishek" target="_blank"><span class="glyphicon glyphicon-user icon-circle border border-dark-blue with-text"></span>Facebook/Instagram</a>
+                                                <a href="{{$user->facebook}}" target="_blank"><span class="glyphicon glyphicon-user icon-circle border border-dark-blue with-text"></span>Facebook/Instagram</a>
                                              </li>
                                           </ul>
                                           <div class="introvideo">
@@ -156,9 +150,13 @@
                                                             <h4 class="modal-title" id="myModalLabel">Introduction Video</h4>
                                                          </center>
                                                       </div>
+													@if($user->video_list)
+													@foreach($user->video_list as $video)
                                                       <div class="modal-body">
-                                                         <iframe type="text/html" height="380" src="https://www.youtube.com/embed/ifA-12VXGcg?si=xaQ1Pv1Gz_PznsWG" frameborder="0" allowfullscreen="" style="width:100% !important"></iframe>
+                                                         <iframe type="text/html" height="380" src="{{$video->link}}" frameborder="0" allowfullscreen="" style="width:100% !important"></iframe>
                                                       </div>
+													  @endforeach
+													@endif
                                                       <div class="modal-footer">
                                                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                                       </div>
@@ -195,7 +193,7 @@
                                  <li><a href="#videogallery" aria-controls="videogallery" data-toggle="tab">Video Gallery</a></li>
                                  <li><a href="#download" aria-controls="download" data-toggle="tab">Downloads</a></li>
                               </ul>
-                              <a href="javascript:void(0);" data-toggle="modal" data-target="#myModal" class="whislistbtn" onclick="hideregisterdiv();">Add to List</a>
+                              <a href="javascript:void(0);" data-toggle="modal" data-target="#myModal" class="whislistbtn">Add to List</a>
                            </div>
                            <div class="tab-content">
                               <div class="tab-pane active" id="aboutus">
@@ -645,14 +643,7 @@
             	$("#hideshowsignindiv").show();
             }
 
-            function hideregisterdiv()
-            {
-            	$('#login_form')[0].reset();
-            	$("#hideshowforgotdiv").hide();
-            	$("#hideshowsignupdiv").hide();
-            	$("#hideshowsignindiv").show();
-
-            }
+         
             function login_restform()
             {
             	$('#login_form')[0].reset();
@@ -989,10 +980,19 @@
                <div class="modal-content">
                   <button type="button" class="close popup_colse" data-dismiss="modal" onclick="login_restform();"><span>&times;</span></button>
                   <div class="head">
-                     <h3>SORRY!!!</h3>
+                     <h3>Hello !!</h3>
                   </div>
                   <div class="form_area">
-                     <div>This Facility is available only for Film Makers, Advertising Agencies, Production Houses and Casting Agencies.If you are one of the afore mentioned organization please connect with us to register and get your login details free of cost.</div>
+                     <div>
+						@auth
+							<p> Phone No : {{$user->phone}} </p>
+							<p> whatsapp No : {{$user->whatsup}}</p>
+						@else
+							This Facility is available only for Film Makers, Advertising Agencies, Production Houses and Casting Agencies.If you are one of the afore mentioned organization please connect with us to register and get your login details free of cost.
+						@endauth
+
+			
+					</div>
                   </div>
                </div>
             </div>
