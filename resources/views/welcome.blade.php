@@ -59,13 +59,23 @@
                 <a href="{{ route('login') }}" class="log btn_login">Log in</a>
             </div>
 
+			@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
 
                <form action="{{route('search.directory')}}" method="get" name="frmsearch" id="frmsearch" enctype="multipart/form-data" class="form-inline" method="post" accept-charset="utf-8">
                   <div class="form-group">
                      <select id="search_name" name="role_name" class="form-control myval required">
                         <option value="">You are searching for...</option>
                         @foreach($roles as $role)
-                        <option value="{{$role->id}}">{{$role->name}}</option>
+                        <option value="{{$role->name}}">{{$role->name}}</option>
                         @endforeach
                      </select>
                      <!-- <input type="text" id="search_name" name="search_name" list="searchcategory" class="form-control" placeholder="You are searching for..." autocomplete="off"> -->
@@ -73,8 +83,8 @@
                   <div class="form-group has-success has-feedback">
                      <select id="search_location" name="search_location" class="form-control myval">
                         <option value="">Locations</option>
-                        @foreach($country as $count)
-                        <option value="{{$count->id}}">{{$count->country_name}}</option>
+                        @foreach($state as $row)
+                        <option value="{{$row->id}}">{{$row->name}}</option>
                         @endforeach
                      </select>
                      <!-- <input type="text" id="search_location" name="search_location" list="searchlocation" class="form-control" placeholder="Locations" autocomplete="off"> -->

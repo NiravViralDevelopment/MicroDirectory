@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\RoleInfo;
 use App\Models\Countries;
+use App\Models\State;
 use App\Models\User;
 use App\Models\Log;
 use App\Models\Cms;
@@ -24,8 +25,9 @@ class FrontController extends Controller
             ->get();
 
             // return $roles;
-        $country = Countries::where('is_active',1)->get();
-        return view('welcome',compact('roles','country'));
+        $state = State::where('is_active',1)->get();
+        
+        return view('welcome',compact('roles','state'));
     }
     function directoryList($slug){
         $roleInfo = RoleInfo::where('slug',$slug)->first();
@@ -45,9 +47,40 @@ class FrontController extends Controller
         // return $RoleInfo;
         return view('front.directory_details',compact('user','role','RoleInfo'));
     }
-    function directoryDirectory(){
-        return "comming soon...";
-    }
+    public function directoryDirectory(Request $request)
+        {
+            // 1. Validate request (optional fields, but must exist if passed)
+            $validated = $request->validate([
+                'role_name' => 'nullable|string|exists:roles,name',
+                // 'search_location' => 'nullable|integer|exists:states,id', // adjust table if needed
+            ]);
+
+            $roleName = $validated['role_name'] ?? null;
+            $stateId = $validated['search_location'] ?? null;
+
+            // 2. Build base query
+            $userQuery = User::query()
+                ->with('video_list')
+                ->where('is_active', 1)
+                ->where('is_block', 0);
+
+            // 3. Apply filters if they exist
+            if ($roleName) {
+                $userQuery->role($roleName);
+            }
+
+            if ($stateId) {
+                $userQuery->where('state_id', $stateId);
+            }
+
+            // 4. Get filtered users
+            $users = (clone $userQuery)->where('is_featured', 0)->get();
+            $feacherdUsers = (clone $userQuery)->where('is_featured', 1)->get();
+
+            // 5. Return view
+            return view('front.directory_list', compact('users', 'feacherdUsers'));
+        }
+
 
 
     function about(){
