@@ -17,6 +17,8 @@
          <link href="{{asset('front')}}/css/bootstrap.min.css" rel="stylesheet">
          <link href="{{asset('front')}}/css/style.css" rel="stylesheet">
          <link rel="stylesheet" href="{{asset('frot')}}/vendor/pnotify/pnotify.custom.css" />
+         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
          <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
          <!--[if lt IE 9]>
          <script src="js/html5shiv.js"></script>
@@ -100,6 +102,12 @@
          </style>
          <div class="bg_serch_fitter">
             <div class="container">
+                @if(session('message'))
+                    <div class="alert alert-success" role="alert">
+                        {{ session('message') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">X</button>
+                    </div>
+                @endif
                <ul>
                   <li><strong>Filter :</strong></li>
                   <li>
@@ -183,6 +191,7 @@
          <div class="padd_main">
             <div class="container">
                <div class="row">
+
                   <div class="col-xs-12 col-sm-12 col-md-9">
                         @if(count($users)>0)
                             @foreach($users as $user)
@@ -208,6 +217,7 @@
                                     </div>
                                     </div>
                                     <div class="company-description">
+
                                     <div class="row">
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="company-contact-details">
@@ -252,7 +262,39 @@
                                                     </div>
                                                 </div>
                                                 @endif
-                                                <a href="{{ route('wishlistStore') }}" class="whislistbtn" >Add to Wish List</a>
+
+
+
+                                @php
+                                    $wishlisted = \App\Models\Wishlist::where('user_id', \Illuminate\Support\Facades\Auth::id())
+                                        ->where('member_id', $user->id)
+                                        ->first();
+                                @endphp
+
+                                @if ($wishlisted)
+                                    <!-- Button: Already in wishlist -->
+                                    <form action="{{ route('wishlist.destroy', $wishlisted->id) }}" method="POST" style="display:inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit"
+                                            style="background-color: #f8d7da; color: #dc3545; border: none; padding: 6px 12px; border-radius: 4px; font-size: 14px; cursor: pointer;"
+                                            onclick="return confirm('Remove from wishlist?')">
+                                            In Wishlist (Remove)
+                                        </button>
+
+
+                                    </form>
+                                @else
+                                    <!-- Button: Add to wishlist -->
+                                    <a href="{{ route('wishlistStore', $user->id) }}" class="whislistbtn">
+                                        Add to Wish List
+                                    </a>
+                                @endif
+
+
+
+
+                                                    {{-- <a href="{{ route('wishlistStore',$user->id) }}" class="whislistbtn" >Add to Wish List</a> --}}
                                                 <!-- <a href=""><span class="glyph icon-youtube border border-dark-blue with-text"></span> Youtube</a> -->
                                                 </ul>
                                                 <div class="clear"></div>
@@ -986,5 +1028,7 @@
             	$('.failure').delay(8000).fadeOut();
             });
          </script>
+
+
       </body>
    </html>

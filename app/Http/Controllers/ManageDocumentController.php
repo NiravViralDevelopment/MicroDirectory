@@ -26,53 +26,71 @@ class ManageDocumentController extends Controller
     }
 
     public function store(Request $request)
-    {
-        $request->validate([
-            'user_id' => 'required|exists:users,id',
-            'document' => 'required|file|mimes:pdf,doc,docx,xls,xlsx,ppt,pptx,txt',
-            'status' => 'sometimes|boolean',
-        ]);
+{
+    $request->validate([
+        'user_id' => 'required|exists:users,id',
+        'document' => 'required|file|mimes:pdf,doc,docx,xls,xlsx,ppt,pptx,txt',
+        // 'status' => 'sometimes|boolean',
+    ]);
 
-        $filePath = $request->file('document')->store('documents', 'public');
+    $uploaded = null;
 
-        ManageDocument::create([
-            'user_id' => $request->user_id,
-            'document' => $filePath,
-            'status' => $request->has('status'),
-        ]);
-
-        return redirect()->route('manage-documents.index', ['user_id' => $request->user_id])
-                         ->with('success', 'Document added successfully.');
+    if ($request->hasFile('document')) {
+        $file = $request->file('document');
+        $uploaded = time() . '.' . $file->getClientOriginalExtension();
+        $destinationPath = public_path('/all_user_documents');
+        $file->move($destinationPath, $uploaded);
     }
+
+    ManageDocument::create([
+        'user_id' => $request->user_id,
+        'document' => $uploaded, // ✅ Save filename
+        'status' => $request->has('status') ? 1 : 0, // ✅ Save boolean value (0 or 1)
+    ]);
+
+    return redirect()->route('manage-documents.index', ['user_id' => $request->user_id])
+                     ->with('success', 'Document added successfully.');
+}
+
 
     public function edit(ManageDocument $manageDocument)
     {
         return view('manage-documents.edit', compact('manageDocument'));
     }
 
-    public function update(Request $request, ManageDocument $manageDocument)
-    {
-        $request->validate([
-            'document' => 'nullable|file|mimes:pdf,doc,docx,xls,xlsx,ppt,pptx,txt',
-            'status' => 'sometimes|boolean',
-        ]);
+   public function update(Request $request, ManageDocument $manageDocument)
+{
+    $request->validate([
+        'document' => 'nullable|file|mimes:pdf,doc,docx,xls,xlsx,ppt,pptx,txt',
+        // 'status' => 'sometimes|boolean',
+    ]);
 
-        if ($request->hasFile('document')) {
-            // Delete old file
-            if ($manageDocument->document && Storage::disk('public')->exists($manageDocument->document)) {
-                Storage::disk('public')->delete($manageDocument->document);
-            }
-
-            $filePath = $request->file('document')->store('documents', 'public');
-            $manageDocument->document = $filePath;
+    // Handle file upload if new document is provided
+    if ($request->hasFile('document')) {
+        // Delete old file
+        $oldPath = public_path('/all_user_documents/' . $manageDocument->document);
+        if (file_exists($oldPath)) {
+            unlink($oldPath);
         }
 
-        $manageDocument->status = $request->has('status');
-        $manageDocument->save();
+        // Upload new file
+        $file = $request->file('document');
+        $uploaded = time() . '.' . $file->getClientOriginalExtension();
+        $destinationPath = public_path('/all_user_documents');
+        $file->move($destinationPath, $uploaded);
 
-        return redirect()->route('manage-documents.index', ['user_id' => $manageDocument->user_id])
-                         ->with('success', 'Document updated successfully.');
+        $manageDocument->document = $uploaded;
     }
+
+    // Update status
+    $manageDocument->status = $request->has('status') ? 1 : 0;
+
+    $manageDocument->save();
+
+    return redirect()->route('manage-documents.index', ['user_id' => $manageDocument->user_id])
+                     ->with('success', 'Document updated successfully.');
+}
+
 
     public function destroy(ManageDocument $manageDocument)
     {
